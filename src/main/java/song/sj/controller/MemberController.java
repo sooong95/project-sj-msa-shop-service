@@ -25,7 +25,6 @@ public class MemberController {
     public ResponseEntity<String> save(@Valid @RequestBody Member member) {
         memberService.save(member);
 
-        if ()
         return new ResponseEntity<>("회원 가입 성공!", CREATED);
     }
 }
