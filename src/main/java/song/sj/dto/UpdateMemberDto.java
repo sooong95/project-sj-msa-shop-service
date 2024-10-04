@@ -1,9 +1,15 @@
 package song.sj.dto;
 
-import lombok.Data;
+import jakarta.persistence.Embedded;
+import song.sj.TimeStamp;
+import song.sj.entity.Address;
 
-@Data
-public class UpdateMemberDto {
+public class UpdateMemberDto extends TimeStamp {
 
     private String username;
+
+    private String password;
+
+    @Embedded
+    private Address address;
 }

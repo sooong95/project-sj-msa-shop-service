@@ -17,6 +17,14 @@ public class MemberService {
 
     @Transactional
     public void save(Member member) {
+
+        if (checkEmailDuplicate(member.getEmail())) {
+            throw new IllegalArgumentException("중복된 email 입니다.");
+        }
         memberRepository.save(member);
+    }
+
+    public boolean checkEmailDuplicate(String email) {
+        return memberRepository.existsByEmail(email);
     }
 }

@@ -1,4 +1,6 @@
 package song.sj.entity;
 
-public class Like {
+import song.sj.TimeStamp;
+
+public class Like extends TimeStamp {
 }

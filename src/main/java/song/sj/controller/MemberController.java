@@ -15,14 +15,17 @@ import static org.springframework.http.HttpStatus.CREATED;
 
 @Slf4j
 @RestController
+@RequestMapping("/member")
 @RequiredArgsConstructor
 public class MemberController {
 
     private final MemberService memberService;
 
-    @PostMapping("/join")
+    @PostMapping
     public ResponseEntity<String> save(@Valid @RequestBody Member member) {
         memberService.save(member);
-        return new ResponseEntity<>("Sign up successful", CREATED);
+
+        if ()
+        return new ResponseEntity<>("회원 가입 성공!", CREATED);
     }
 }
