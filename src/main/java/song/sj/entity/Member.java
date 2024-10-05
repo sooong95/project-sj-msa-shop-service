@@ -1,6 +1,7 @@
 package song.sj.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import song.sj.TimeStamp;
@@ -26,9 +27,13 @@ public class Member extends TimeStamp {
     private String email;
 
     @NotEmpty(message = "비밀번호를 입력해 주세요.")
-    @Size(min = 4, max = 14)
     private String password;
 
     @Embedded
+    @Valid
     private Address address;
+
+    public void transPassword(String hashPassword) {
+        this.password = hashPassword;
+    }
 }
