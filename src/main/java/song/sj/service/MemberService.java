@@ -15,6 +15,7 @@ import song.sj.repository.MemberRepository;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Transactional
     public void save(Member member) {
@@ -23,25 +24,11 @@ public class MemberService {
             throw new IllegalArgumentException("중복된 email 입니다.");
         }
 
-        if (checkPassword(member.getPassword())) {
-            throw new IllegalArgumentException("비밀번호는 4~12 자를 입력해주세요.");
-        }
-        String hashPassword = encodeBcrypt(member.getPassword());
-        log.info("비밀번호 해시화={}", hashPassword);
-        member.transPassword(hashPassword);
+        member.transPassword(bCryptPasswordEncoder.encode(member.getPassword()));
         memberRepository.save(member);
     }
 
     public boolean checkEmailDuplicate(String email) {
         return memberRepository.existsByEmail(email);
-    }
-
-    public boolean checkPassword(String password) {
-        return memberRepository.existsByPassword(password);
-    }
-
-    public String encodeBcrypt(String password) {
-        int strength = 10;
-        return new BCryptPasswordEncoder(strength).encode(password);
     }
 }

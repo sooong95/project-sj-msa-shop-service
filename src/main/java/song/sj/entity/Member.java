@@ -5,6 +5,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import song.sj.TimeStamp;
+import song.sj.enums.Role;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
@@ -28,6 +29,9 @@ public class Member extends TimeStamp {
 
     @NotEmpty(message = "비밀번호를 입력해 주세요.")
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role = Role.MEMBER; // member, admin
 
     @Embedded
     @Valid

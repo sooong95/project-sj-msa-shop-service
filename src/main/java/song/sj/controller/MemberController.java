@@ -15,13 +15,12 @@ import static org.springframework.http.HttpStatus.CREATED;
 
 @Slf4j
 @RestController
-@RequestMapping("/member")
 @RequiredArgsConstructor
 public class MemberController {
 
     private final MemberService memberService;
 
-    @PostMapping
+    @PostMapping("/join")
     public ResponseEntity<String> save(@Valid @RequestBody Member member) {
         memberService.save(member);
 
