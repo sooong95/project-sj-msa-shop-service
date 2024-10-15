@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -17,28 +18,51 @@ public class QShop extends EntityPathBase<Shop> {
 
     private static final long serialVersionUID = 324487971L;
 
+    private static final PathInits INITS = PathInits.DIRECT2;
+
     public static final QShop shop = new QShop("shop");
 
     public final song.sj.QTimeStamp _super = new song.sj.QTimeStamp(this);
 
+    public final QAddress address;
+
+    public final NumberPath<Long> businessRegistrationNumber = createNumber("businessRegistrationNumber", Long.class);
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdDate = _super.createdDate;
+
+    public final StringPath email = createString("email");
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> lastModifiedDate = _super.lastModifiedDate;
 
+    public final StringPath password = createString("password");
+
+    public final EnumPath<song.sj.enums.Role> role = createEnum("role", song.sj.enums.Role.class);
+
+    public final StringPath shopName = createString("shopName");
+
     public QShop(String variable) {
-        super(Shop.class, forVariable(variable));
+        this(Shop.class, forVariable(variable), INITS);
     }
 
     public QShop(Path<? extends Shop> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QShop(PathMetadata metadata) {
-        super(Shop.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QShop(PathMetadata metadata, PathInits inits) {
+        this(Shop.class, metadata, inits);
+    }
+
+    public QShop(Class<? extends Shop> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.address = inits.isInitialized("address") ? new QAddress(forProperty("address")) : null;
     }
 
 }

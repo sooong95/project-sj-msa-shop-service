@@ -11,7 +11,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Getter
-public class Member extends TimeStamp {
+public class Member extends TimeStamp /*implements UserInfo*/ {
 
     @Id @GeneratedValue(strategy = IDENTITY)
     @Column(name = "member_id")
@@ -37,6 +37,7 @@ public class Member extends TimeStamp {
     @Valid
     private Address address;
 
+    //@Override
     public void transPassword(String hashPassword) {
         this.password = hashPassword;
     }

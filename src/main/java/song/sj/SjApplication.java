@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import java.time.LocalDateTime;
 
-@EnableJpaAuditing // Auditing 활성화
-@SpringBootApplication(exclude = SecurityAutoConfiguration.class)
+//@EnableJpaAuditing // Auditing 활성화
+@SpringBootApplication(/*exclude = SecurityAutoConfiguration.class*/)
 public class SjApplication {
 
 	public static void main(String[] args) {

@@ -7,15 +7,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import song.sj.entity.Member;
 import song.sj.repository.MemberRepository;
+import song.sj.repository.SaveRepository;
 
 @Service
-@RequiredArgsConstructor
 @Slf4j
 @Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class MemberService {
 
-    private final MemberRepository memberRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final MemberRepository memberRepository;
 
     @Transactional
     public void save(Member member) {
