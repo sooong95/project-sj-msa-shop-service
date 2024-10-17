@@ -26,6 +26,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final QAddress address;
 
+    public final NumberPath<Long> businessRegistrationNumber = createNumber("businessRegistrationNumber", Long.class);
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdDate = _super.createdDate;
 
@@ -39,6 +41,8 @@ public class QMember extends EntityPathBase<Member> {
     public final StringPath password = createString("password");
 
     public final EnumPath<song.sj.enums.Role> role = createEnum("role", song.sj.enums.Role.class);
+
+    public final StringPath shopName = createString("shopName");
 
     public final StringPath username = createString("username");
 

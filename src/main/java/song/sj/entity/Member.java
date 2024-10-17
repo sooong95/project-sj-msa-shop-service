@@ -3,42 +3,72 @@ package song.sj.entity;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
-import lombok.Getter;
+import lombok.*;
 import song.sj.TimeStamp;
 import song.sj.enums.Role;
+
+import java.time.LocalDateTime;
+import java.util.Objects;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Getter
-public class Member extends TimeStamp /*implements UserInfo*/ {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
+public class Member extends TimeStamp {
 
-    @Id @GeneratedValue(strategy = IDENTITY)
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
     @Column(name = "member_id")
     private Long id;
 
-    @NotEmpty(message = "이름은 필수입니다.")
     private String username;
 
-    @Email
-    @NotEmpty(message = "email은 필수입니다.")
-    @Pattern(regexp = "^[a-zA-Z0-9]+@[a-zA-Z]+\\.com$",
-            message = "유효하지 않는 email 입니다.")
+    private String shopName;
+    private Long businessRegistrationNumber;
+
     @Column(unique = true)
     private String email;
 
-    @NotEmpty(message = "비밀번호를 입력해 주세요.")
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private Role role = Role.MEMBER; // member, admin
+    private Role role; // member, admin
 
     @Embedded
     @Valid
     private Address address;
 
-    //@Override
     public void transPassword(String hashPassword) {
         this.password = hashPassword;
+    }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", shopName='" + shopName + '\'' +
+                ", businessRegistrationNumber=" + businessRegistrationNumber +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                ", address=" + address +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Member member = (Member) o;
+        return Objects.equals(id, member.id) && Objects.equals(username, member.username) && Objects.equals(email, member.email) && Objects.equals(password, member.password) && role == member.role && Objects.equals(address, member.address);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username, email, password, role, address);
     }
 }

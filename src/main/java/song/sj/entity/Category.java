@@ -4,18 +4,18 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import song.sj.enums.DeliveryStatus;
+import song.sj.TimeStamp;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Delivery {
+public class Category extends TimeStamp {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "delivery_id")
+    @Column(name = "category_id")
     private Long id;
 
-    @Enumerated(value = EnumType.STRING)
-    private DeliveryStatus deliveryStatus;
+    private String categoryName;
+
 }
