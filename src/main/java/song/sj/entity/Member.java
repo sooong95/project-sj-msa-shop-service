@@ -3,6 +3,7 @@ package song.sj.entity;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.*;
+import org.springframework.util.StringUtils;
 import song.sj.TimeStamp;
 import song.sj.enums.Role;
 
@@ -46,15 +47,24 @@ public class Member extends TimeStamp {
     }
 
     public void changeUsername(String username) {
-        this.username = username;
+        if (StringUtils.hasText(username)) this.username = username;
     }
 
     public void changePassword(String password) {
-        this.password = password;
+        if (StringUtils.hasText(password)) this.password = password;
     }
 
     public void changeEmail(String email) {
         this.email = email;
+    }
+
+    public void changeShopName(String shopName) {
+        if (StringUtils.hasText(shopName)) this.shopName = shopName;
+    }
+
+    public void changeBusinessRegistrationNumber(String businessRegistrationNumber) {
+        if (StringUtils.hasText(businessRegistrationNumber))
+            this.businessRegistrationNumber = businessRegistrationNumber;
     }
 
     public void changeRole(Role role) {
@@ -62,7 +72,7 @@ public class Member extends TimeStamp {
     }
 
     public void changeAddress(Address address) {
-        this.address = address;
+        if (Objects.nonNull(address)) this.address = address;
     }
 
     @Override

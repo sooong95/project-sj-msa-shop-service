@@ -88,7 +88,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         String role = auth.getAuthority();
         // role 값을 뽑아내는 로직 ------------------------
 
-        String token = jwtUtils.createJwt(email, role, 60 * 60 * 10L);
+        String token = jwtUtils.createJwt(email, role, 36000 * 10000L);
 
         // Authorization 이라는 키에 담고, Bearer <-- jwt 데이터 인증 방식은 이것(꼭 뒤에 띄어쓰기 한번).
         response.addHeader("Authorization", "Bearer " + token);

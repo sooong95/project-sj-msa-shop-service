@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import song.sj.dto.MemberJoinDto;
 import song.sj.dto.ShopMemberJoinDto;
 import song.sj.dto.UpdateMemberDto;
+import song.sj.dto.UpdateShopMemberDto;
 import song.sj.entity.Member;
 import song.sj.repository.MemberRepository;
 
@@ -54,12 +55,49 @@ public class MemberService {
         return memberRepository.existsByEmail(email);
     }
 
+    public Member findMember(String email) {
+        return memberRepository.findByEmail(email);
+    }
+
     @Transactional
     public void updateMember(UpdateMemberDto dto) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String email = authentication.getName();
 
+        Member member = memberRepository.findByEmail(email);
         log.info("유저 이메일={}", email);
+
+        member.changeUsername(dto.getUsername());
+        member.changePassword(dto.getNewPassword());
+        member.changeAddress(dto.getAddress());
+    }
+
+    @Transactional
+    public void updateShopMember(UpdateShopMemberDto dto) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+
+        Member member = memberRepository.findByEmail(email);
+        log.info("유저 이메일={}", email);
+
+        member.changeUsername(dto.getUsername());
+        member.changePassword(dto.getNewPassword());
+        member.changeShopName(dto.getShopName());
+        member.changeBusinessRegistrationNumber(dto.getBusinessRegistrationNumber());
+        member.changeAddress(dto.getAddress());
+    }
+
+    @Transactional
+    public void deleteMember(String email, String password) {
+
+        Member findMember = memberRepository.findByEmail(email);
+
+        if (findMember.getPassword().equals(password)) {
+            memberRepository.delete(findMember);
+        } else {
+            throw new RuntimeException("비밀번호가 일치하지 않습니다.");
+        }
     }
 }

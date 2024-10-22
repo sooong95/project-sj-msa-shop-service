@@ -9,13 +9,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import song.sj.dto.UpdateMemberDto;
 import song.sj.dto.UpdateShopMemberDto;
-import song.sj.entity.Member;
 import song.sj.service.MemberService;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/userInfo")
-public class MemberRUDController {
+@RequestMapping("/shop/userInfo")
+public class ShopMemberRUDController {
 
     private final MemberService memberService;
 
@@ -24,18 +23,14 @@ public class MemberRUDController {
     }
 
     @PatchMapping
-    public ResponseEntity<String> updateMember(@RequestBody @Valid UpdateMemberDto updateMemberDto) {
+    public ResponseEntity<String> updateShopMember(@RequestBody @Valid UpdateShopMemberDto dto) {
 
-        memberService.updateMember(updateMemberDto);
+        memberService.updateShopMember(dto);
         return new ResponseEntity<>("회원 정보가 수정 되었습니다.", HttpStatus.OK);
     }
 
-    @DeleteMapping
-    public ResponseEntity<String> deleteMember(String password) {
-
-        String email = authentication().getName();
-        memberService.deleteMember(email, password);
-
-        return new ResponseEntity<>("회원 탈퇴 완료", HttpStatus.OK);
+    @GetMapping
+    public ResponseEntity<String> check() {
+        return new ResponseEntity<>("확인", HttpStatus.OK);
     }
 }
