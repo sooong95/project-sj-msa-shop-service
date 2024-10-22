@@ -10,7 +10,8 @@ public class UpdateMemberDto extends TimeStamp {
 
     private String username;
 
-    private String password;
+    private String currentPassword;
+    private String newPassword;
 
     @Embedded
     private Address address;

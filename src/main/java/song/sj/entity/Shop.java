@@ -20,7 +20,7 @@ public class Shop extends TimeStamp {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column
+    @Column(name = "shop_id")
     private Long id;
 
     private String shopName;

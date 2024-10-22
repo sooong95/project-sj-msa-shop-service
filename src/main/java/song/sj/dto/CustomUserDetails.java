@@ -4,10 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import song.sj.entity.Member;
+import song.sj.enums.Role;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 @RequiredArgsConstructor
 // 클래스는 사용자의 정보를 담고 있으며, Spring Security가 사용자 인증 및 권한 부여 작업을 할 때 UserDetails 객체를 통해 사용자 정보를 조회한다.

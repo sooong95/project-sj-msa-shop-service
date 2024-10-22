@@ -2,10 +2,7 @@ package song.sj.dto;
 
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import song.sj.entity.Address;
 import song.sj.entity.Member;
@@ -13,13 +10,15 @@ import song.sj.enums.Role;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ShopJoinDto {
+public class ShopMemberJoinDto {
 
     @NotEmpty(message = "이름은 필수입니다.")
     private String username;
 
+    @NotEmpty
     private String shopName;
-    private Long businessRegistrationNumber;
+    @NotEmpty
+    private String businessRegistrationNumber;
 
     @Column(unique = true)
     private String email;
@@ -34,7 +33,7 @@ public class ShopJoinDto {
     private Address address;
 
     @Builder
-    public ShopJoinDto(String username, String shopName, Long businessRegistrationNumber, String email, String password, Address address, Role role) {
+    public ShopMemberJoinDto(String username, String shopName, String businessRegistrationNumber, String email, String password, Address address, Role role) {
         this.username = username;
         this.shopName = shopName;
         this.businessRegistrationNumber = businessRegistrationNumber;

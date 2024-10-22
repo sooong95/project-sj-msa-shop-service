@@ -1,5 +1,6 @@
 package song.sj.config;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,8 +13,13 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import song.sj.jwt.JwtFilter;
 import song.sj.jwt.JwtUtils;
 import song.sj.jwt.LoginFilter;
+
+import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity // 스프링 시큐리티에서 사용하는 어노테이션. 웹 보안 기능을 활성화 하는 역할
@@ -37,6 +43,25 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
+        http.cors(cors -> cors.configurationSource(
+                new CorsConfigurationSource() {
+                    @Override
+                    public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
+
+                        CorsConfiguration configuration = new CorsConfiguration();
+                        configuration.setAllowedOrigins(Collections.singletonList("http://localhost:3000")); // 허용할 포트
+                        configuration.setAllowedMethods(Collections.singletonList("*")); // 허용할 메서드 get, post... etc
+                        configuration.setAllowCredentials(true);
+                        configuration.setAllowedHeaders(Collections.singletonList("*")); // 허용할 시간
+                        configuration.setMaxAge(3600L); // 허용할 시간
+
+                        configuration.setExposedHeaders(Collections.singletonList("Authorization")); // 토큰을 넣어줄 Authorization 허용
+
+                        return configuration;
+                    }
+                }
+        ));
+
         // csrf disable
         http.csrf(AbstractHttpConfigurer::disable);
         // form 로그인 방식 disable
@@ -51,6 +76,9 @@ public class SecurityConfig {
                 .requestMatchers("/shop").hasRole("SHOP")// 해당 권한이 있는 사용자만 허용
                 .anyRequest().authenticated() // 그 외 경로는 로그인한 사용자만 허용
         );
+
+        // 특정 필드 앞에 필터 추가
+        http.addFilterBefore(new JwtFilter(jwtUtils), LoginFilter.class);
 
         // addFilterAt => 기존에 있던 UsernamePasswordAuthenticationFilter 대신 커스텀한 LoginFilter 로 대체
         http.addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtils), UsernamePasswordAuthenticationFilter.class);

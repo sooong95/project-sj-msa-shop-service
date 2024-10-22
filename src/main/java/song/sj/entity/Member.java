@@ -2,22 +2,22 @@ package song.sj.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.*;
 import lombok.*;
 import song.sj.TimeStamp;
 import song.sj.enums.Role;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
 public class Member extends TimeStamp {
+
+    public Member() {
+    }
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -27,7 +27,7 @@ public class Member extends TimeStamp {
     private String username;
 
     private String shopName;
-    private Long businessRegistrationNumber;
+    private String businessRegistrationNumber;
 
     @Column(unique = true)
     private String email;
@@ -43,6 +43,26 @@ public class Member extends TimeStamp {
 
     public void transPassword(String hashPassword) {
         this.password = hashPassword;
+    }
+
+    public void changeUsername(String username) {
+        this.username = username;
+    }
+
+    public void changePassword(String password) {
+        this.password = password;
+    }
+
+    public void changeEmail(String email) {
+        this.email = email;
+    }
+
+    public void changeRole(Role role) {
+        this.role = role;
+    }
+
+    public void changeAddress(Address address) {
+        this.address = address;
     }
 
     @Override

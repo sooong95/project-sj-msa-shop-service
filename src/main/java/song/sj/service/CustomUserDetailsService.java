@@ -6,10 +6,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import song.sj.dto.CustomUserDetails;
+import song.sj.dto.MemberDto;
 import song.sj.entity.Member;
-import song.sj.entity.Shop;
 import song.sj.repository.MemberRepository;
-import song.sj.repository.ShopRepository;
 
 @Service
 @RequiredArgsConstructor
