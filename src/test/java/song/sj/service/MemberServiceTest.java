@@ -92,16 +92,16 @@ public class MemberServiceTest {
     @Test
     void checkDuplicateEmail() {
 
-        memberService.memberSave(memberJoinDto);
-        MemberJoinDto memberJoinDto2 = MemberJoinDto.builder()
-                .username(memberJoinDto.getUsername())
-                .email(memberJoinDto.getEmail())
-                .password(memberJoinDto.getPassword())
+        MemberJoinDto memberJoinDto3 = MemberJoinDto.builder()
+                .username("song")
+                .email(memberEmail)
+                .password(password)
                 .address(new Address("city", "street", "zipcode"))
-                .role(memberJoinDto.setRole(Role.MEMBER))
+                .role(Role.MEMBER)
                 .build();
 
-        Assertions.assertThatThrownBy(() -> memberService.memberSave(memberJoinDto2)).isInstanceOf(IllegalArgumentException.class);
+        Assertions.assertThatThrownBy(() -> memberService.memberSave(memberJoinDto3)).isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("중복된 email 입니다.");
     }
 
     @Test
@@ -147,10 +147,10 @@ public class MemberServiceTest {
         String wrongPassword = "wrongPassword";
 
         // when
-        memberService.deleteMember(memberEmail, wrongPassword);
 
         // then
-
+        Assertions.assertThatThrownBy(() -> memberService.deleteMember(memberEmail, wrongPassword))
+                .isInstanceOf(RuntimeException.class).hasMessage("비밀번호가 일치하지 않습니다.");
     }
 }
 

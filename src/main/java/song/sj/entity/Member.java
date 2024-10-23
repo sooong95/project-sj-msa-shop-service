@@ -15,6 +15,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Getter
 @AllArgsConstructor
 @Builder
+@ToString(of = {"id", "username", "shopName", "businessRegistrationNumber", "email", "password", "role", "address"})
 public class Member extends TimeStamp {
 
     public Member() {
@@ -73,20 +74,6 @@ public class Member extends TimeStamp {
 
     public void changeAddress(Address address) {
         if (Objects.nonNull(address)) this.address = address;
-    }
-
-    @Override
-    public String toString() {
-        return "Member{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", shopName='" + shopName + '\'' +
-                ", businessRegistrationNumber=" + businessRegistrationNumber +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", role=" + role +
-                ", address=" + address +
-                '}';
     }
 
     @Override
