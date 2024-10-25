@@ -1,10 +1,10 @@
 package song.sj.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import song.sj.dto.MemberDto;
 import song.sj.entity.Member;
+import song.sj.repository.query.MemberQueryRepository;
 
-public interface MemberRepository extends JpaRepository<Member, Long> {
+public interface MemberRepository extends JpaRepository<Member, Long>, MemberQueryRepository {
 
     Boolean existsByEmail(String email);
 

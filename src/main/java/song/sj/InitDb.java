@@ -5,7 +5,8 @@ import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import song.sj.dto.MemberJoinDto;
+import song.sj.dto.member.MemberJoinDto;
+import song.sj.dto.member.ShopMemberJoinDto;
 import song.sj.entity.Address;
 import song.sj.entity.Member;
 import song.sj.enums.Role;
@@ -48,6 +49,23 @@ public class InitDb {
             em.persist(member4);
             em.persist(member5);
 
+            ShopMemberJoinDto shopMemberJoinDto1 = new ShopMemberJoinDto("shop1", "shop1", "1234324", "shop1@nnnn.com", "password", new Address("city", "street", "zipcode"), Role.SHOP);
+            ShopMemberJoinDto shopMemberJoinDto2 = new ShopMemberJoinDto("shop2", "shop2", "9808345", "shop2@nnnn.com", "password", new Address("city", "street", "zipcode"), Role.SHOP);
+            ShopMemberJoinDto shopMemberJoinDto3 = new ShopMemberJoinDto("shop3", "shop3", "878732894", "shop3@nnnn.com", "password", new Address("city", "street", "zipcode"), Role.SHOP);
+            ShopMemberJoinDto shopMemberJoinDto4 = new ShopMemberJoinDto("shop4", "shop4", "18798234", "shop4@nnnn.com", "password", new Address("city", "street", "zipcode"), Role.SHOP);
+            ShopMemberJoinDto shopMemberJoinDto5 = new ShopMemberJoinDto("shop5", "shop5", "32958445", "shop5@nnnn.com", "password", new Address("city", "street", "zipcode"), Role.SHOP);
+
+            Member shopMember1 = shopMemberJoinDto1.toEntity();
+            Member shopMember2 = shopMemberJoinDto2.toEntity();
+            Member shopMember3 = shopMemberJoinDto3.toEntity();
+            Member shopMember4 = shopMemberJoinDto4.toEntity();
+            Member shopMember5 = shopMemberJoinDto5.toEntity();
+
+            em.persist(shopMember1);
+            em.persist(shopMember2);
+            em.persist(shopMember3);
+            em.persist(shopMember4);
+            em.persist(shopMember5);
         }
     }
 }

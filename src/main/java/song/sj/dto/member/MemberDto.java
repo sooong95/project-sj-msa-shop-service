@@ -1,7 +1,6 @@
-package song.sj.dto;
+package song.sj.dto.member;
 
 import lombok.Data;
-import song.sj.enums.Role;
 
 @Data
 public class MemberDto {

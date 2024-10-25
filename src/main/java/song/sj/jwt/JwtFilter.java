@@ -11,7 +11,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 import song.sj.dto.CustomUserDetails;
-import song.sj.dto.MemberDto;
 import song.sj.entity.Member;
 import song.sj.enums.Role;
 

@@ -7,9 +7,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import song.sj.dto.Result;
 import song.sj.dto.UpdateMemberDto;
 import song.sj.dto.UpdateShopMemberDto;
+import song.sj.dto.member.MemberInfo;
+import song.sj.dto.member.MemberSearchDto;
 import song.sj.entity.Member;
+import song.sj.service.MemberQueryService;
 import song.sj.service.MemberService;
 
 @RestController
@@ -18,6 +22,7 @@ import song.sj.service.MemberService;
 public class MemberRUDController {
 
     private final MemberService memberService;
+    private final MemberQueryService memberQueryService;
 
     private Authentication authentication() {
         return SecurityContextHolder.getContext().getAuthentication();
@@ -37,5 +42,16 @@ public class MemberRUDController {
         memberService.deleteMember(email, password);
 
         return new ResponseEntity<>("회원 탈퇴 완료", HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<MemberSearchDto> findMember() {
+        return new ResponseEntity<>((MemberSearchDto) memberService.findMember(), HttpStatus.OK);
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<Result> findMembers() {
+
+        return new ResponseEntity<>(memberQueryService.findMembers(), HttpStatus.OK);
     }
 }

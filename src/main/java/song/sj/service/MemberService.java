@@ -7,11 +7,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import song.sj.dto.MemberJoinDto;
-import song.sj.dto.ShopMemberJoinDto;
+import song.sj.dto.member.*;
 import song.sj.dto.UpdateMemberDto;
 import song.sj.dto.UpdateShopMemberDto;
 import song.sj.entity.Member;
+import song.sj.enums.Role;
 import song.sj.repository.MemberRepository;
 
 @Service
@@ -62,11 +62,8 @@ public class MemberService {
     @Transactional
     public void updateMember(UpdateMemberDto dto) {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-
-        Member member = memberRepository.findByEmail(email);
-        log.info("유저 이메일={}", email);
+        Member member = memberRepository.findByEmail(loginMemberEmail());
+        log.info("유저 이메일={}", loginMemberEmail());
 
         member.changeUsername(dto.getUsername());
         member.changePassword(dto.getNewPassword());
@@ -76,17 +73,19 @@ public class MemberService {
     @Transactional
     public void updateShopMember(UpdateShopMemberDto dto) {
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-
-        Member member = memberRepository.findByEmail(email);
-        log.info("유저 이메일={}", email);
+        Member member = memberRepository.findByEmail(loginMemberEmail());
+        log.info("유저 이메일={}", loginMemberEmail());
 
         member.changeUsername(dto.getUsername());
         member.changePassword(dto.getNewPassword());
         member.changeShopName(dto.getShopName());
         member.changeBusinessRegistrationNumber(dto.getBusinessRegistrationNumber());
         member.changeAddress(dto.getAddress());
+    }
+
+    private static String loginMemberEmail() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication.getName();
     }
 
     @Transactional
@@ -99,5 +98,19 @@ public class MemberService {
         } else {
             throw new RuntimeException("비밀번호가 일치하지 않습니다.");
         }
+    }
+
+    public MemberInfo findMember() {
+        Member member = memberRepository.findByEmail(loginMemberEmail());
+        log.info("로그인한 회원={}", member.getRole());
+
+        if (member.getRole().equals(Role.MEMBER))
+            return new MemberSearchDto(member.getId(), member.getUsername(), member.getEmail(), member.getAddress());
+
+
+        if (member.getRole().equals(Role.SHOP))
+            return new ShopMemberSearchDto(member.getId(), member.getUsername(), member.getEmail(), member.getShopName(), member.getBusinessRegistrationNumber(), member.getAddress());
+
+        return null;
     }
 }

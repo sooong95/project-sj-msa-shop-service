@@ -1,4 +1,4 @@
-package song.sj.dto;
+package song.sj.dto.member;
 
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
@@ -10,10 +10,15 @@ import song.sj.enums.Role;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class MemberJoinDto {
+public class ShopMemberJoinDto {
 
     @NotEmpty(message = "이름은 필수입니다.")
     private String username;
+
+    @NotEmpty
+    private String shopName;
+    @NotEmpty
+    private String businessRegistrationNumber;
 
     @Column(unique = true)
     private String email;
@@ -28,8 +33,10 @@ public class MemberJoinDto {
     private Address address;
 
     @Builder
-    public MemberJoinDto(String username, String email, String password, Address address, Role role) {
+    public ShopMemberJoinDto(String username, String shopName, String businessRegistrationNumber, String email, String password, Address address, Role role) {
         this.username = username;
+        this.shopName = shopName;
+        this.businessRegistrationNumber = businessRegistrationNumber;
         this.email = email;
         this.password = password;
         this.address = address;
@@ -44,6 +51,8 @@ public class MemberJoinDto {
     public Member toEntity() {
         return Member.builder()
                 .username(username)
+                .shopName(shopName)
+                .businessRegistrationNumber(businessRegistrationNumber)
                 .email(email)
                 .password(password)
                 .address(address)
