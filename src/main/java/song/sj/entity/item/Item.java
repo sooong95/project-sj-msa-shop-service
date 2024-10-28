@@ -1,12 +1,14 @@
 package song.sj.entity.item;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.util.StringUtils;
 import song.sj.TimeStamp;
 import song.sj.entity.Member;
 import song.sj.entity.Order;
+
+import java.util.Objects;
+import java.util.Optional;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
@@ -22,8 +24,10 @@ public abstract class Item extends TimeStamp {
     @Column(name = "item_id")
     private Long id;
 
+    private String itemName;
     private String material;
     private int size;
+    private String design;
     private String description;
 
     @JoinColumn(name = "member_id")
@@ -34,4 +38,27 @@ public abstract class Item extends TimeStamp {
     @ManyToOne(fetch = FetchType.LAZY)
     private Order order;
 
+    public void setMember(Member member) {
+        if (Objects.nonNull(member)) this.member = member;
+    }
+
+    public void changeItemName(String itemName) {
+        if (StringUtils.hasText(itemName)) this.itemName = itemName;
+    }
+
+    public void changeMaterial(String material) {
+        if (StringUtils.hasText(material)) this.material = material;
+    }
+
+    public void changeSize(int size) {
+        Optional.ofNullable(size).filter(s -> s >0).ifPresent(s -> this.size = s);
+    }
+
+    public void changeDesign(String design) {
+        if (StringUtils.hasText(design)) this.design = design;
+    }
+
+    public void changeDescription(String description) {
+        if (StringUtils.hasText(description)) this.description = description;
+    }
 }

@@ -31,7 +31,13 @@ public class QBottom extends EntityPathBase<Bottom> {
     public final StringPath description;
 
     //inherited
+    public final StringPath design;
+
+    //inherited
     public final NumberPath<Long> id;
+
+    //inherited
+    public final StringPath itemName;
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> lastModifiedDate;
@@ -71,7 +77,9 @@ public class QBottom extends EntityPathBase<Bottom> {
         this._super = new QItem(type, metadata, inits);
         this.createdDate = _super.createdDate;
         this.description = _super.description;
+        this.design = _super.design;
         this.id = _super.id;
+        this.itemName = _super.itemName;
         this.lastModifiedDate = _super.lastModifiedDate;
         this.material = _super.material;
         this.member = _super.member;

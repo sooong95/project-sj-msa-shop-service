@@ -7,6 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import song.sj.dto.CustomUserDetails;
 import song.sj.dto.member.*;
 import song.sj.dto.UpdateMemberDto;
 import song.sj.dto.UpdateShopMemberDto;

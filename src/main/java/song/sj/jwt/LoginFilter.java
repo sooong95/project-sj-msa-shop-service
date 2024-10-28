@@ -76,6 +76,8 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         // 인증된 사용자 정보를 CustomUserDetails 객체로 가져온다. getPrincipal() 메서드는 인증된 사용자(주로 사용자 객체)를 반환한다.
         CustomUserDetails customUserDetails = (CustomUserDetails) authResult.getPrincipal();
 
+        Long memberId = customUserDetails.getMemberId();
+
         String email = customUserDetails.getUsername();
 
         // role 값을 뽑아내는 로직 ------------------------
@@ -88,7 +90,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         String role = auth.getAuthority();
         // role 값을 뽑아내는 로직 ------------------------
 
-        String token = jwtUtils.createJwt(email, role, 36000 * 10000L);
+        String token = jwtUtils.createJwt(memberId, email, role, 36000 * 10000L);
 
         // Authorization 이라는 키에 담고, Bearer <-- jwt 데이터 인증 방식은 이것(꼭 뒤에 띄어쓰기 한번).
         response.addHeader("Authorization", "Bearer " + token);

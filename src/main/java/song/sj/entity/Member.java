@@ -3,10 +3,16 @@ package song.sj.entity;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.*;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 import song.sj.TimeStamp;
+import song.sj.dto.CustomUserDetails;
+import song.sj.entity.item.Item;
 import song.sj.enums.Role;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
@@ -42,6 +48,9 @@ public class Member extends TimeStamp {
     @Embedded
     @Valid
     private Address address;
+
+    @OneToMany(mappedBy = "member")
+    List<Item> items = new ArrayList<>();
 
     public void transPassword(String hashPassword) {
         this.password = hashPassword;

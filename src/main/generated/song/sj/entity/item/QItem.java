@@ -29,7 +29,11 @@ public class QItem extends EntityPathBase<Item> {
 
     public final StringPath description = createString("description");
 
+    public final StringPath design = createString("design");
+
     public final NumberPath<Long> id = createNumber("id", Long.class);
+
+    public final StringPath itemName = createString("itemName");
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> lastModifiedDate = _super.lastModifiedDate;

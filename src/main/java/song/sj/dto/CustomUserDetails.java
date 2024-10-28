@@ -34,6 +34,14 @@ public class CustomUserDetails implements UserDetails {
         return collection;
     }
 
+    public Member getMember() {
+        return member;
+    }
+
+    public Long getMemberId() {
+        return member.getId();
+    }
+
     @Override
     public String getUsername() {
         return member.getEmail();

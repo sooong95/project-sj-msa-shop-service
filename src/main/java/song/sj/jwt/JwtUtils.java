@@ -43,9 +43,10 @@ public class JwtUtils {
     }
 
     // jwt 생성 - expiredMS -> 토큰이 살아있을 시간
-    public String createJwt(String email, String role, Long expiredMs) {
+    public String createJwt(Long memberId, String email, String role, Long expiredMs) {
 
         return Jwts.builder()
+                .claim("memberId", memberId)
                 .claim("email", email)
                 .claim("role", role)
                 .issuedAt(new Date(System.currentTimeMillis())) // 현재 발행 시간
