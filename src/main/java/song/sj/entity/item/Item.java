@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.util.StringUtils;
 import song.sj.TimeStamp;
+import song.sj.entity.Category;
 import song.sj.entity.Member;
 import song.sj.entity.Order;
 
@@ -38,8 +39,13 @@ public abstract class Item extends TimeStamp {
     @ManyToOne(fetch = FetchType.LAZY)
     private Order order;
 
+    @JoinColumn(name = "category_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Category category;
+
     public void setMember(Member member) {
         if (Objects.nonNull(member)) this.member = member;
+        member.getItems().add(this);
     }
 
     public void changeItemName(String itemName) {

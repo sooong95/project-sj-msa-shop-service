@@ -24,6 +24,12 @@ public class MemberService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final MemberRepository memberRepository;
 
+    public Member getMemberFromJwt() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        return memberRepository.findByEmail(email);
+    }
+
     @Transactional
     public void memberSave(MemberJoinDto dto) {
 

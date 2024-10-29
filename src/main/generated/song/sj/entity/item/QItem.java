@@ -24,6 +24,8 @@ public class QItem extends EntityPathBase<Item> {
 
     public final song.sj.QTimeStamp _super = new song.sj.QTimeStamp(this);
 
+    public final song.sj.entity.QCategory category;
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdDate = _super.createdDate;
 
@@ -64,6 +66,7 @@ public class QItem extends EntityPathBase<Item> {
 
     public QItem(Class<? extends Item> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
+        this.category = inits.isInitialized("category") ? new song.sj.entity.QCategory(forProperty("category")) : null;
         this.member = inits.isInitialized("member") ? new song.sj.entity.QMember(forProperty("member"), inits.get("member")) : null;
         this.order = inits.isInitialized("order") ? new song.sj.entity.QOrder(forProperty("order"), inits.get("order")) : null;
     }

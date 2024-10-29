@@ -20,17 +20,17 @@ public class MemberQueryService {
 
     private final MemberRepository memberRepository;
 
-    public Result findMembers() {
+    public Result<List<MemberSearchDto>> findMembers() {
         List<MemberSearchDto> memberList = memberRepository.findMembers().stream()
                 .map(m -> new MemberSearchDto(m.getId(), m.getUsername(), m.getEmail(), m.getAddress()))
                 .collect(Collectors.toList());
-        return new Result(memberList.size(), memberList);
+        return new Result<>(memberList.size(), memberList);
     }
 
-    public Result findShopMembers() {
+    public Result<List<ShopMemberSearchDto>> findShopMembers() {
         List<ShopMemberSearchDto> shopMemberList = memberRepository.findShopMembers().stream()
                 .map(m -> new ShopMemberSearchDto(m.getId(), m.getUsername(), m.getEmail(), m.getShopName(), m.getBusinessRegistrationNumber(), m.getAddress()))
                 .collect(Collectors.toList());
-        return new Result(shopMemberList.size(), shopMemberList);
+        return new Result<>(shopMemberList.size(), shopMemberList);
     }
 }

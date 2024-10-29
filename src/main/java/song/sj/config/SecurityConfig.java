@@ -71,7 +71,7 @@ public class SecurityConfig {
 
         // 경로별 인가 작업
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers("/login", "/", "/join", "/join/shop", "/item").permitAll() // 해당 경로는 모든 권한 허용
+                .requestMatchers("/login", "/", "/join", "/join/shop", "/item/**", "/item").permitAll() // 해당 경로는 모든 권한 허용
                 .requestMatchers("/admin").hasRole("ADMIN")
                 .requestMatchers("/shop").hasRole("SHOP")// 해당 권한이 있는 사용자만 허용
                 .anyRequest().authenticated() // 그 외 경로는 로그인한 사용자만 허용

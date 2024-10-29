@@ -5,11 +5,16 @@ import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import song.sj.dto.item.ItemSaveDto;
 import song.sj.dto.member.MemberJoinDto;
 import song.sj.dto.member.ShopMemberJoinDto;
 import song.sj.entity.Address;
+import song.sj.entity.Category;
 import song.sj.entity.Member;
+import song.sj.entity.item.Item;
+import song.sj.enums.ItemValue;
 import song.sj.enums.Role;
+import song.sj.service.toEntity.ToItem;
 
 @Component
 @RequiredArgsConstructor
@@ -66,6 +71,43 @@ public class InitDb {
             em.persist(shopMember3);
             em.persist(shopMember4);
             em.persist(shopMember5);
+
+            em.flush();
+            em.clear();
+
+            ItemSaveDto item1 = new ItemSaveDto("itemA", "A", 110, "designA", "descriptionA", "A", ItemValue.TOP);
+            ItemSaveDto item2 = new ItemSaveDto("itemB", "B", 100, "designB", "descriptionB", "B", ItemValue.TOP);
+            ItemSaveDto item3 = new ItemSaveDto("itemC", "C", 110, "designC", "descriptionC", "C", ItemValue.BOTTOM);
+            ItemSaveDto item4 = new ItemSaveDto("itemD", "D", 100, "designD", "descriptionD", "D", ItemValue.TOP);
+            ItemSaveDto item5 = new ItemSaveDto("itemE", "E", 110, "designE", "descriptionE", "E", ItemValue.BOTTOM);
+
+            Item itemEntity1 = ToItem.toItemEntity(item1);
+            Item itemEntity2 = ToItem.toItemEntity(item2);
+            Item itemEntity3 = ToItem.toItemEntity(item3);
+            Item itemEntity4 = ToItem.toItemEntity(item4);
+            Item itemEntity5 = ToItem.toItemEntity(item5);
+
+            Member findMember = em.find(Member.class, 1);
+
+            itemEntity1.setMember(findMember);
+            itemEntity2.setMember(findMember);
+            itemEntity3.setMember(findMember);
+            itemEntity4.setMember(findMember);
+            itemEntity5.setMember(findMember);
+
+            em.persist(itemEntity1);
+            em.persist(itemEntity2);
+            em.persist(itemEntity3);
+            em.persist(itemEntity4);
+            em.persist(itemEntity5);
+
+            Category top = new Category("TOP");
+            Category bottom = new Category("BOTTOM");
+            Category shoes = new Category("SHOES");
+
+            em.persist(top);
+            em.persist(bottom);
+            em.persist(shoes);
         }
     }
 }

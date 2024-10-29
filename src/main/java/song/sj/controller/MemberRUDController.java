@@ -16,6 +16,8 @@ import song.sj.entity.Member;
 import song.sj.service.MemberQueryService;
 import song.sj.service.MemberService;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/userInfo")
@@ -50,7 +52,7 @@ public class MemberRUDController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<Result> findMembers() {
+    public ResponseEntity<Result<List<MemberSearchDto>>> findMembers() {
 
         return new ResponseEntity<>(memberQueryService.findMembers(), HttpStatus.OK);
     }

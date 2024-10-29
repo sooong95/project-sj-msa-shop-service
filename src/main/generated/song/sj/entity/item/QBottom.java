@@ -24,6 +24,9 @@ public class QBottom extends EntityPathBase<Bottom> {
 
     public final QItem _super;
 
+    // inherited
+    public final song.sj.entity.QCategory category;
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdDate;
 
@@ -75,6 +78,7 @@ public class QBottom extends EntityPathBase<Bottom> {
     public QBottom(Class<? extends Bottom> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this._super = new QItem(type, metadata, inits);
+        this.category = _super.category;
         this.createdDate = _super.createdDate;
         this.description = _super.description;
         this.design = _super.design;

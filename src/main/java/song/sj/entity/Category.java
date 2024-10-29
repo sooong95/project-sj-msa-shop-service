@@ -18,4 +18,7 @@ public class Category extends TimeStamp {
 
     private String categoryName;
 
+    public Category(String categoryName) {
+        this.categoryName = categoryName;
+    }
 }

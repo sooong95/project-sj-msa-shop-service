@@ -2,5 +2,6 @@ package song.sj.enums;
 
 public enum ItemValue {
 
-    TOP, BOTTOM, SHOES
+    TOP, BOTTOM, SHOES;
+
 }

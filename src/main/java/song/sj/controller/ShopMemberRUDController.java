@@ -15,6 +15,8 @@ import song.sj.dto.member.ShopMemberSearchDto;
 import song.sj.service.MemberQueryService;
 import song.sj.service.MemberService;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/shop/userInfo")
@@ -40,7 +42,7 @@ public class ShopMemberRUDController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<Result> findShopMembers() {
+    public ResponseEntity<Result<List<ShopMemberSearchDto>>> findShopMembers() {
 
         return new ResponseEntity<>(memberQueryService.findShopMembers(), HttpStatus.OK);
     }
