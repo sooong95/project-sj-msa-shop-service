@@ -5,7 +5,6 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import song.sj.TimeStamp;
 import song.sj.entity.item.Item;
 
 import java.util.Objects;
@@ -13,10 +12,10 @@ import java.util.Objects;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ItemImages extends TimeStamp {
+public class ShopImages {
 
     @Builder
-    public ItemImages(String imageName, String imageType, byte[] images) {
+    public ShopImages(String imageName, String imageType, byte[] images) {
         this.imageName = imageName;
         this.imageType = imageType;
         this.images = images;
@@ -24,7 +23,7 @@ public class ItemImages extends TimeStamp {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "item_images_id")
+    @Column(name = "shop_images_id")
     private Long id;
 
     private String imageName;
@@ -33,12 +32,11 @@ public class ItemImages extends TimeStamp {
     @Lob
     private byte[] images;
 
-    @JoinColumn(name = "item_id")
+    @JoinColumn(name = "shop_id")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Item item;
+    private Shop shop;
 
-    public void controlItem(Item item) {
-        if (Objects.nonNull(item)) this.item = item;
+    public void controlShop(Shop shop) {
+        if (Objects.nonNull(shop)) this.shop = shop;
     }
-
 }

@@ -9,6 +9,8 @@ import lombok.*;
 import song.sj.TimeStamp;
 import song.sj.enums.Role;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
@@ -31,4 +33,20 @@ public class Shop extends TimeStamp {
     @Valid
     private Address address;
 
+    @OneToMany(mappedBy = "shop")
+    private List<ItemImages> itemImages = new ArrayList<>();
+
+    public void addImage(ItemImages images) {
+        if (Objects.nonNull(images)) {
+            this.itemImages.add(images);
+            images.controlShop(this);
+        }
+    }
+
+    public void removeImage(ItemImages images) {
+        if (Objects.nonNull(images)) {
+            this.itemImages.remove(images);
+            images.controlShop(null);
+        }
+    }
 }

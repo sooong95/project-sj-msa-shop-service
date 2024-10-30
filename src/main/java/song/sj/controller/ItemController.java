@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import song.sj.dto.Result;
 import song.sj.dto.item.ItemSaveDto;
 import song.sj.dto.item.ItemSearchConditionDto;
@@ -25,9 +26,10 @@ public class ItemController {
     private final ItemQueryService itemQueryService;
 
     @PostMapping
-    public ResponseEntity<String> save(@Valid @RequestBody ItemSaveDto dto) {
+    public ResponseEntity<String> save(@Valid @RequestBody ItemSaveDto dto, @RequestParam("file") MultipartFile file) {
 
-        itemService.save(dto);
+
+        itemService.save(dto, file);
 
         return new ResponseEntity<>("정상적으로 상품이 등록 되었습니다.", HttpStatus.CREATED);
     }
