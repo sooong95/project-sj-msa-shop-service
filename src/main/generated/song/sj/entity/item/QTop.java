@@ -40,6 +40,9 @@ public class QTop extends EntityPathBase<Top> {
     public final NumberPath<Long> id;
 
     //inherited
+    public final ListPath<song.sj.entity.ItemImages, song.sj.entity.QItemImages> itemImages;
+
+    //inherited
     public final StringPath itemName;
 
     //inherited
@@ -83,6 +86,7 @@ public class QTop extends EntityPathBase<Top> {
         this.description = _super.description;
         this.design = _super.design;
         this.id = _super.id;
+        this.itemImages = _super.itemImages;
         this.itemName = _super.itemName;
         this.lastModifiedDate = _super.lastModifiedDate;
         this.material = _super.material;

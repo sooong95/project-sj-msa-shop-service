@@ -2,12 +2,8 @@ package song.sj.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import song.sj.TimeStamp;
-import song.sj.enums.Role;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,18 +30,18 @@ public class Shop extends TimeStamp {
     private Address address;
 
     @OneToMany(mappedBy = "shop")
-    private List<ItemImages> itemImages = new ArrayList<>();
+    private List<ShopImages> shopImages = new ArrayList<>();
 
-    public void addImage(ItemImages images) {
+    public void addImage(ShopImages images) {
         if (Objects.nonNull(images)) {
-            this.itemImages.add(images);
+            this.shopImages.add(images);
             images.controlShop(this);
         }
     }
 
-    public void removeImage(ItemImages images) {
+    public void removeImage(ShopImages images) {
         if (Objects.nonNull(images)) {
-            this.itemImages.remove(images);
+            this.shopImages.remove(images);
             images.controlShop(null);
         }
     }

@@ -1,6 +1,7 @@
 package song.sj.controller;
 
 import jakarta.validation.Valid;
+import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -26,8 +27,7 @@ public class ItemController {
     private final ItemQueryService itemQueryService;
 
     @PostMapping
-    public ResponseEntity<String> save(@Valid @RequestBody ItemSaveDto dto, @RequestParam("file") MultipartFile file) {
-
+    public ResponseEntity<String> saveItem(@Valid @ModelAttribute ItemSaveDto dto, @RequestParam("image") MultipartFile file) {
 
         itemService.save(dto, file);
 

@@ -49,6 +49,7 @@ public class Member extends TimeStamp {
     @Valid
     private Address address;
 
+    @Builder.Default
     @OneToMany(mappedBy = "member")
     List<Item> items = new ArrayList<>();
 

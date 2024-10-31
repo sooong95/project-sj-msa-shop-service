@@ -35,6 +35,8 @@ public class QItem extends EntityPathBase<Item> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final ListPath<song.sj.entity.ItemImages, song.sj.entity.QItemImages> itemImages = this.<song.sj.entity.ItemImages, song.sj.entity.QItemImages>createList("itemImages", song.sj.entity.ItemImages.class, song.sj.entity.QItemImages.class, PathInits.DIRECT2);
+
     public final StringPath itemName = createString("itemName");
 
     //inherited

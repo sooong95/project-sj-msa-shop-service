@@ -1,63 +1,16 @@
-package song.sj.service;
+package song.sj.service.image;
 
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.multipart.MultipartFile;
-import song.sj.entity.ItemImages;
-import song.sj.entity.ShopImages;
-import song.sj.repository.ItemImageRepository;
-import song.sj.repository.ShopImageRepository;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
 @Slf4j
-@RequiredArgsConstructor
-public class UploadImage {
-
-    private final ItemImageRepository itemImageRepository;
-    private final ShopImageRepository shopImageRepository;
-
-    public void uploadItemImage(MultipartFile file) throws IOException {
-
-        ItemImages itemImage = itemImageRepository.save(
-                ItemImages.builder()
-                        .imageName(file.getOriginalFilename())
-                        .imageType(file.getContentType())
-                        .images(compressImage(file.getBytes()))
-                        .build()
-        );
-        log.info("itemImage={}", itemImage);
-    }
-
-    public void uploadShopImage(MultipartFile file) throws IOException {
-
-        ShopImages itemImage = shopImageRepository.save(
-                ShopImages.builder()
-                        .imageName(file.getOriginalFilename())
-                        .imageType(file.getContentType())
-                        .images(compressImage(file.getBytes()))
-                        .build()
-        );
-    }
-
-    // 이미지 파일로 압축
-    public byte[] downloadItemImage(String imageName) {
-
-        ItemImages itemImages = itemImageRepository.findByImageName(imageName).orElseThrow(RuntimeException::new);
-        return decompressImage(itemImages.getImages());
-    }
-
-    public byte[] downloadShopImage(String imageName) {
-
-        ShopImages shopImages = shopImageRepository.findByImageName(imageName).orElseThrow(RuntimeException::new);
-        return decompressImage(shopImages.getImages());
-    }
+public class ImageUtils {
 
     // 이미지 데이터 압축
-    private byte[] compressImage(byte[] data) {
+    public static byte[] compressImage(byte[] data) {
         // Deflater 객체는 압축 작업을 수행하는 Java 클래스
         Deflater deflater = new Deflater();
         // 압축 수준이 높을수록 결과 파일 크기는 작아지지만, 속도는 느려질 수 있다.
@@ -90,7 +43,7 @@ public class UploadImage {
     }
 
     // 압축된 이미지 데이터 해제
-    private byte[] decompressImage(byte[] data) {
+    public static byte[] decompressImage(byte[] data) {
 
         Inflater inflater = new Inflater();
         inflater.setInput(data);
