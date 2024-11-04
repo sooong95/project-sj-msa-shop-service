@@ -15,6 +15,7 @@ import song.sj.service.image.ItemImageUpload;
 import song.sj.service.toEntity.ToItem;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 @Transactional
@@ -30,22 +31,27 @@ public class ItemService {
         return itemRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Item not found"));
     }
 
-    public void save(ItemSaveDto dto, MultipartFile file) {
+    public void save(ItemSaveDto dto, List<MultipartFile> files) {
 
         Item item = ToItem.toItemEntity(dto);
         item.setMember(memberService.getMemberFromJwt());
+        itemRepository.save(item);
 
         try {
             ItemImageUpload itemImageUpload = new ItemImageUpload(itemImageRepository);
-            itemImageUpload.uploadItemImage(file);
+            itemImageUpload.uploadItemImage(files, item);
         } catch (IOException e) {
             throw new RuntimeException("이미지를 등록해주세요!");
         }
 
-        ItemImages itemImages = itemImageRepository.findByImageName(file.getOriginalFilename()).orElseThrow();
-        item.addImage(itemImages);
+        for (MultipartFile file : files) {
+
+            ItemImages itemImages = itemImageRepository.findByImageName(file.getOriginalFilename()).orElseThrow();
+            item.addImage(itemImages);
+        }
 
         itemRepository.save(item);
+
     }
 
     public void updateItem(Long id, ItemSaveDto dto) {

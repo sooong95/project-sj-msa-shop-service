@@ -40,6 +40,8 @@ public class QItemImages extends EntityPathBase<ItemImages> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> lastModifiedDate = _super.lastModifiedDate;
 
+    public final StringPath serverImageName = createString("serverImageName");
+
     public QItemImages(String variable) {
         this(ItemImages.class, forVariable(variable), INITS);
     }

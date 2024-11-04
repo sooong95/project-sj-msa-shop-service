@@ -5,6 +5,7 @@ import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import song.sj.dto.item.ItemSaveDto;
 import song.sj.dto.member.MemberJoinDto;
 import song.sj.dto.member.ShopMemberJoinDto;
@@ -15,6 +16,12 @@ import song.sj.entity.item.Item;
 import song.sj.enums.ItemValue;
 import song.sj.enums.Role;
 import song.sj.service.toEntity.ToItem;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 @RequiredArgsConstructor
@@ -74,6 +81,49 @@ public class InitDb {
 
             em.flush();
             em.clear();
+
+            MultipartFile file = new MultipartFile() {
+                @Override
+                public String getName() {
+                    return "";
+                }
+
+                @Override
+                public String getOriginalFilename() {
+                    return "";
+                }
+
+                @Override
+                public String getContentType() {
+                    return "";
+                }
+
+                @Override
+                public boolean isEmpty() {
+                    return false;
+                }
+
+                @Override
+                public long getSize() {
+                    return 0;
+                }
+
+                @Override
+                public byte[] getBytes() throws IOException {
+                    return new byte[0];
+                }
+
+                @Override
+                public InputStream getInputStream() throws IOException {
+                    return null;
+                }
+
+                @Override
+                public void transferTo(File dest) throws IOException, IllegalStateException {
+
+                }
+            };
+            List<MultipartFile> files = new ArrayList<>();
 
             ItemSaveDto item1 = new ItemSaveDto("itemA", "A", 110, "designA", "descriptionA", "A", ItemValue.TOP);
             ItemSaveDto item2 = new ItemSaveDto("itemB", "B", 100, "designB", "descriptionB", "B", ItemValue.TOP);

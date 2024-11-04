@@ -15,23 +15,25 @@ import java.util.Objects;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ItemImages extends TimeStamp {
 
-    @Builder
-    public ItemImages(String imageName, String imageType, byte[] images) {
-        this.imageName = imageName;
-        this.imageType = imageType;
-        this.images = images;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "item_images_id")
     private Long id;
 
     private String imageName;
-    private String imageType;
 
+    private String serverImageName;
+    private String imageType;
     @Lob
     private byte[] images;
+
+    @Builder
+    public ItemImages(String imageName, String serverImageName, String imageType, byte[] images) {
+        this.imageName = imageName;
+        this.serverImageName = serverImageName;
+        this.imageType = imageType;
+        this.images = images;
+    }
 
     @JoinColumn(name = "item_id")
     @ManyToOne(fetch = FetchType.LAZY)

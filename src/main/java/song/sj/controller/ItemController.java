@@ -27,9 +27,9 @@ public class ItemController {
     private final ItemQueryService itemQueryService;
 
     @PostMapping
-    public ResponseEntity<String> saveItem(@Valid @ModelAttribute ItemSaveDto dto, @RequestParam("image") MultipartFile file) {
+    public ResponseEntity<String> saveItem(@Valid @ModelAttribute ItemSaveDto dto, @RequestParam("image") List<MultipartFile> files) {
 
-        itemService.save(dto, file);
+        itemService.save(dto, files);
 
         return new ResponseEntity<>("정상적으로 상품이 등록 되었습니다.", HttpStatus.CREATED);
     }
