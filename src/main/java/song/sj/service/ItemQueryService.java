@@ -5,11 +5,16 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import song.sj.dto.Result;
+import song.sj.dto.item.FindItemDto;
+import song.sj.dto.item.ImageDto;
 import song.sj.dto.item.ItemSearchConditionDto;
 import song.sj.dto.item.SearchItemDto;
+import song.sj.entity.ItemImages;
 import song.sj.entity.item.Item;
+import song.sj.repository.ItemImageRepository;
 import song.sj.repository.ItemRepository;
 import song.sj.repository.query.ItemQueryRepository;
+import song.sj.service.image.ImageUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,6 +26,7 @@ import java.util.stream.Collectors;
 public class ItemQueryService {
 
     private final ItemRepository itemRepository;
+    private final ItemImageRepository itemImageRepository;
 
     public Result<List<SearchItemDto>> searchItems(ItemSearchConditionDto dto, String categoryName) {
 
@@ -30,5 +36,19 @@ public class ItemQueryService {
 
         return new Result<>(searchItem.size(), searchItem);
 
+    }
+
+    public FindItemDto findItem(Long id) {
+
+        Item item = itemRepository.findById(id).orElseThrow();
+        List<byte[]> images = itemImageRepository.findByItemId(id)
+                .stream().map(image -> ImageUtils.decompressImage(image.getImages())).toList();
+
+        return new FindItemDto(item.getItemName(), item.getMaterial(), item.getSize(), item.getDesign(), item.getDescription(), images);
+    }
+
+    public List<byte[]> findItemImage(Long id) {
+
+        return itemImageRepository.findByItemId(id).stream().map(image -> ImageUtils.decompressImage(image.getImages())).toList();
     }
 }

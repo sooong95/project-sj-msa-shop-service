@@ -56,7 +56,7 @@ public abstract class Item extends TimeStamp {
         }
     }
 
-    public void removeImage(ItemImages images) {
+    public void deleteImage(ItemImages images) {
         if (Objects.nonNull(images)) {
             this.itemImages.remove(images);
             images.controlItem(this);

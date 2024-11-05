@@ -8,6 +8,7 @@ import song.sj.entity.item.Item;
 import song.sj.repository.ItemImageRepository;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,11 +18,9 @@ public class ItemImageUpload {
 
     private final ItemImageRepository itemImageRepository;
 
-    public void uploadItemImage(List<MultipartFile> files, Item item) throws IOException {
+    public List<ItemImages> uploadItemImage(List<MultipartFile> files) throws IOException {
 
-        if (files == null || files.isEmpty()) {
-            throw new IllegalArgumentException("상품 이미지를 등록해주세요!");
-        }
+        List<ItemImages> images = new ArrayList<>();
 
         String uuid = UUID.randomUUID().toString();
 
@@ -35,8 +34,9 @@ public class ItemImageUpload {
                             .build()
             );
             log.info("itemImage={}", itemImage);
+            images.add(itemImage);
         }
-
+        return images;
     }
 
     // 이미지 파일로 압축

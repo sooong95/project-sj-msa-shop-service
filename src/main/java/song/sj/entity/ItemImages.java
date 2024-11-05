@@ -1,10 +1,7 @@
 package song.sj.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import song.sj.TimeStamp;
 import song.sj.entity.item.Item;
 
@@ -13,6 +10,7 @@ import java.util.Objects;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString(of = {"imageName", "serverImageName", "imageType"})
 public class ItemImages extends TimeStamp {
 
     @Id
