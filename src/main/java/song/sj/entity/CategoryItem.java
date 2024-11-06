@@ -14,4 +14,6 @@ public class CategoryItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "category_item_id")
     private Long id;
+
+
 }

@@ -22,15 +22,18 @@ public class Shop extends TimeStamp {
     private Long id;
 
     private String shopName;
-
-    private String description;
+    private String ShopDescription;
 
     @Embedded
     @Valid
     private Address address;
 
+
     @OneToMany(mappedBy = "shop")
     private List<ShopImages> shopImages = new ArrayList<>();
+
+    @OneToMany(mappedBy = "shop")
+    private List<OrderShop> orderShopList = new ArrayList<>();
 
     public void addImage(ShopImages images) {
         if (Objects.nonNull(images)) {

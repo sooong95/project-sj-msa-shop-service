@@ -31,8 +31,6 @@ public class QItemImages extends EntityPathBase<ItemImages> {
 
     public final StringPath imageName = createString("imageName");
 
-    public final ArrayPath<byte[], Byte> images = createArray("images", byte[].class);
-
     public final StringPath imageType = createString("imageType");
 
     public final song.sj.entity.item.QItem item;

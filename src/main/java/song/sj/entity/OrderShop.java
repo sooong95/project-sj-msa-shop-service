@@ -14,4 +14,14 @@ public class OrderShop {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_shop_id")
     private Long id;
+
+    @JoinColumn(name = "shop_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Shop shop;
+
+    @JoinColumn(name = "order_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Order order;
+
+
 }

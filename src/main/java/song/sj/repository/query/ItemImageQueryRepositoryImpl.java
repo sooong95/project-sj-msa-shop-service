@@ -2,6 +2,7 @@ package song.sj.repository.query;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import song.sj.entity.ItemImages;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 import static song.sj.entity.QItemImages.itemImages;
 import static song.sj.entity.item.QItem.item;
 
+@Slf4j
 @RequiredArgsConstructor
 public class ItemImageQueryRepositoryImpl implements ItemImageQueryRepository {
 
@@ -19,7 +21,7 @@ public class ItemImageQueryRepositoryImpl implements ItemImageQueryRepository {
 
         return jpaQueryFactory
                 .selectFrom(itemImages)
-                .join(itemImages.item, item)
+                .leftJoin(itemImages.item, item)
                 .where(itemImages.item.id.eq(id))
                 .fetch();
     }

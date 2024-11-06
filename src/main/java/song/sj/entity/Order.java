@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 import song.sj.TimeStamp;
 import song.sj.enums.OrderStatus;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Table(name = "orders")
@@ -28,4 +31,7 @@ public class Order extends TimeStamp {
 
     @Enumerated(value = EnumType.STRING)
     OrderStatus orderStatus;
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderShop> orderShopList = new ArrayList<>();
 }

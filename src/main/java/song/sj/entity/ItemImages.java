@@ -19,18 +19,17 @@ public class ItemImages extends TimeStamp {
     private Long id;
 
     private String imageName;
-
     private String serverImageName;
     private String imageType;
-    @Lob
-    private byte[] images;
+    /*@Lob
+    private byte[] images;*/
 
     @Builder
-    public ItemImages(String imageName, String serverImageName, String imageType, byte[] images) {
+    public ItemImages(String imageName, String serverImageName, String imageType/*, byte[] images*/) {
         this.imageName = imageName;
         this.serverImageName = serverImageName;
         this.imageType = imageType;
-        this.images = images;
+        /*this.images = images;*/
     }
 
     @JoinColumn(name = "item_id")

@@ -2,6 +2,7 @@ package song.sj.dto.item;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -15,5 +16,5 @@ public class FindItemDto {
     private String design;
     private String description;
 
-    private List<byte[]> image;
+    /*private List<byte[]> image;*/
 }

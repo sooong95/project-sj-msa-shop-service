@@ -14,6 +14,7 @@ import song.sj.entity.item.Item;
 import song.sj.repository.ItemImageRepository;
 import song.sj.repository.ItemRepository;
 import song.sj.repository.query.ItemQueryRepository;
+import song.sj.service.image.ImageFile;
 import song.sj.service.image.ImageUtils;
 
 import java.util.List;
@@ -27,6 +28,7 @@ public class ItemQueryService {
 
     private final ItemRepository itemRepository;
     private final ItemImageRepository itemImageRepository;
+    private final ImageFile imageFile;
 
     public Result<List<SearchItemDto>> searchItems(ItemSearchConditionDto dto, String categoryName) {
 
@@ -38,7 +40,7 @@ public class ItemQueryService {
 
     }
 
-    public FindItemDto findItem(Long id) {
+    /*public FindItemDto findItem(Long id) {
 
         Item item = itemRepository.findById(id).orElseThrow();
         List<byte[]> images = itemImageRepository.findByItemId(id)
@@ -50,5 +52,18 @@ public class ItemQueryService {
     public List<byte[]> findItemImage(Long id) {
 
         return itemImageRepository.findByItemId(id).stream().map(image -> ImageUtils.decompressImage(image.getImages())).toList();
+    }*/
+
+    public FindItemDto findItem(Long id) {
+        Item item = itemRepository.findById(id).orElseThrow();
+        return new FindItemDto(item.getItemName(), item.getMaterial(), item.getSize(), item.getDesign(), item.getDescription());
+    }
+
+    public Result<List<ImageDto>> findItemImage(Long id) {
+        List<ImageDto> itemImages = itemImageRepository.findByItemId(id).stream()
+                .map(image -> new ImageDto(image.getImageName(), image.getImageType(), imageFile.getFullPath(image.getImageName()))).toList();
+
+        return new Result<>(itemImages.size(), itemImages);
+
     }
 }

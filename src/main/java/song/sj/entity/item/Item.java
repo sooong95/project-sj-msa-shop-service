@@ -49,6 +49,10 @@ public abstract class Item extends TimeStamp {
     @OneToMany(mappedBy = "item")
     private List<ItemImages> itemImages = new ArrayList<>();
 
+    public void addCategory(Category category) {
+
+    }
+
     public void addImage(ItemImages images) {
         if (Objects.nonNull(images)) {
             this.itemImages.add(images);

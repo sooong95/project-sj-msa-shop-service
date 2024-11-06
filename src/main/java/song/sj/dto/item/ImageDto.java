@@ -10,5 +10,5 @@ public class ImageDto {
 
     private String imageName;
     private String imageType;
-    private byte[] images;
+    private String imageURL;
 }
