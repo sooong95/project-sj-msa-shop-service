@@ -36,6 +36,8 @@ public class QOrder extends EntityPathBase<Order> {
 
     public final QMember member;
 
+    public final ListPath<OrderShop, QOrderShop> orderShopList = this.<OrderShop, QOrderShop>createList("orderShopList", OrderShop.class, QOrderShop.class, PathInits.DIRECT2);
+
     public final EnumPath<song.sj.enums.OrderStatus> orderStatus = createEnum("orderStatus", song.sj.enums.OrderStatus.class);
 
     public QOrder(String variable) {

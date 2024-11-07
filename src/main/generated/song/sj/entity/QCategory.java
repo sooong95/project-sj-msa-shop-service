@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -16,6 +17,8 @@ import com.querydsl.core.types.Path;
 public class QCategory extends EntityPathBase<Category> {
 
     private static final long serialVersionUID = -899264853L;
+
+    private static final PathInits INITS = PathInits.DIRECT2;
 
     public static final QCategory category = new QCategory("category");
 
@@ -28,19 +31,32 @@ public class QCategory extends EntityPathBase<Category> {
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final ListPath<song.sj.entity.item.Item, song.sj.entity.item.QItem> items = this.<song.sj.entity.item.Item, song.sj.entity.item.QItem>createList("items", song.sj.entity.item.Item.class, song.sj.entity.item.QItem.class, PathInits.DIRECT2);
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> lastModifiedDate = _super.lastModifiedDate;
 
+    public final QCategory parent;
+
     public QCategory(String variable) {
-        super(Category.class, forVariable(variable));
+        this(Category.class, forVariable(variable), INITS);
     }
 
     public QCategory(Path<? extends Category> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QCategory(PathMetadata metadata) {
-        super(Category.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QCategory(PathMetadata metadata, PathInits inits) {
+        this(Category.class, metadata, inits);
+    }
+
+    public QCategory(Class<? extends Category> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.parent = inits.isInitialized("parent") ? new QCategory(forProperty("parent"), inits.get("parent")) : null;
     }
 
 }

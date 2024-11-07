@@ -1,5 +1,7 @@
 package song.sj.service.image;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,6 +16,7 @@ import java.util.UUID;
 @Component
 public class ImageFile {
 
+    private static final Logger log = LoggerFactory.getLogger(ImageFile.class);
     @Value("${file.dir}")
     private String fileDir;
 
@@ -21,17 +24,23 @@ public class ImageFile {
         return fileDir + fileName;
     }
 
-    public List<ItemImages> serverFiles(List<MultipartFile> files) throws IOException {
+    /*public List<ItemImages> serverFiles(List<MultipartFile> files) throws IOException {
 
         List<ItemImages> serverFileResult = new ArrayList<>();
 
         for (MultipartFile file : files) {
             if (!file.isEmpty()) {
-                serverFileResult.add(serverFile(file));
+                log.info("!file.isEmpty");
+
+
+                ItemImages e = serverFile(file);
+                log.info("e={}", e);
+                serverFileResult.add(e);
+                log.info("첫번째 파일={}", serverFileResult.get(0));
             }
         }
         return serverFileResult;
-    }
+    }*/
 
     public ItemImages serverFile(MultipartFile file) throws IOException {
 
@@ -40,10 +49,23 @@ public class ImageFile {
         }
 
         String originalFilename = file.getOriginalFilename();
-        String severFileName = createServerFileName(originalFilename);
+        String serverFileName = createServerFileName(originalFilename);
         String contentType = file.getContentType();
-        file.transferTo(new File(getFullPath(severFileName)));
-        return new ItemImages(originalFilename, severFileName, contentType);
+
+        log.info("서버 파일 이름={}", serverFileName);
+
+        log.info("파일 경로={}", new File(getFullPath(serverFileName)));
+
+        try {
+            file.transferTo(new File(getFullPath(serverFileName)));
+        } catch (IOException e) {
+            log.error("파일 저장 중 오류 발생 - 경로: {}, 오류: {}", getFullPath(serverFileName), e.getMessage());
+            throw e;
+        }
+        /*file.transferTo(new File(getFullPath(serverFileName)));*/
+        ItemImages images = new ItemImages(originalFilename, serverFileName, contentType);
+        log.info("출력 확인={}", images);
+        return images;
     }
 
     private String createServerFileName(String originalFilename) {

@@ -125,6 +125,14 @@ public class InitDb {
             };
             List<MultipartFile> files = new ArrayList<>();
 
+            Category top = new Category("TOP");
+            Category bottom = new Category("BOTTOM");
+            Category shoes = new Category("SHOES");
+
+            em.persist(top);
+            em.persist(bottom);
+            em.persist(shoes);
+
             ItemSaveDto item1 = new ItemSaveDto("itemA", "A", 110, "designA", "descriptionA", "A", ItemValue.TOP);
             ItemSaveDto item2 = new ItemSaveDto("itemB", "B", 100, "designB", "descriptionB", "B", ItemValue.TOP);
             ItemSaveDto item3 = new ItemSaveDto("itemC", "C", 110, "designC", "descriptionC", "C", ItemValue.BOTTOM);
@@ -136,6 +144,15 @@ public class InitDb {
             Item itemEntity3 = ToItem.toItemEntity(item3);
             Item itemEntity4 = ToItem.toItemEntity(item4);
             Item itemEntity5 = ToItem.toItemEntity(item5);
+
+            itemEntity1.addCategory(top);
+            itemEntity2.addCategory(top);
+            itemEntity3.addCategory(bottom);
+            itemEntity4.addCategory(top);
+            itemEntity5.addCategory(bottom);
+
+            em.flush();
+            em.clear();
 
             Member findMember = em.find(Member.class, 1);
 
@@ -151,13 +168,6 @@ public class InitDb {
             em.persist(itemEntity4);
             em.persist(itemEntity5);
 
-            Category top = new Category("TOP");
-            Category bottom = new Category("BOTTOM");
-            Category shoes = new Category("SHOES");
-
-            em.persist(top);
-            em.persist(bottom);
-            em.persist(shoes);
         }
     }
 }

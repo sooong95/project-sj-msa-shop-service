@@ -21,7 +21,7 @@ public class ItemQueryRepositoryImpl implements ItemQueryRepository{
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<Item> itemSearch(ItemSearchConditionDto dto, String CategoryName) {
+    public List<Item> itemSearch(ItemSearchConditionDto dto) {
 
         return queryFactory
                 .selectFrom(item)

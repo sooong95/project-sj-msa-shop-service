@@ -58,9 +58,9 @@ public class ItemController {
     }
 
     @GetMapping
-    public ResponseEntity<Result<List<SearchItemDto>>> searchItems(ItemSearchConditionDto dto, @RequestParam("categoryName") String categoryName) {
+    public ResponseEntity<Result<List<SearchItemDto>>> searchItems(ItemSearchConditionDto dto) {
 
-        return new ResponseEntity<>(itemQueryService.searchItems(dto, categoryName), HttpStatus.OK);
+        return new ResponseEntity<>(itemQueryService.searchItems(dto), HttpStatus.OK);
     }
 
     @DeleteMapping("/deleteImage/{imageId}")

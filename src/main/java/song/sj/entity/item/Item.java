@@ -50,6 +50,8 @@ public abstract class Item extends TimeStamp {
     private List<ItemImages> itemImages = new ArrayList<>();
 
     public void addCategory(Category category) {
+        this.category = category;
+        category.getItems().add(this);
 
     }
 

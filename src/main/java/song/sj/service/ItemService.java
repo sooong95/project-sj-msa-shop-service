@@ -7,8 +7,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import song.sj.dto.item.ItemSaveDto;
+import song.sj.entity.Category;
 import song.sj.entity.ItemImages;
 import song.sj.entity.item.Item;
+import song.sj.enums.ItemValue;
+import song.sj.repository.CategoryRepository;
 import song.sj.repository.ItemImageRepository;
 import song.sj.repository.ItemRepository;
 import song.sj.service.image.ImageFile;
@@ -26,6 +29,7 @@ public class ItemService {
     private final ItemRepository itemRepository;
     private final MemberService memberService;
     private final ItemImageRepository itemImageRepository;
+    private final CategoryRepository categoryRepository;
     private final ImageFile imageFile;
 
     private Item privateFindItem(Long id) {
@@ -39,27 +43,37 @@ public class ItemService {
         item.setMember(memberService.getMemberFromJwt());
 
         itemRepository.save(item);
+        log.info("이미지 files={}", files);
+
+        item.addCategory(categoryRepository.findByCategoryName(dto.getValue().toString()));
 
         try {
             addItemImage(files, item);
         } catch (IOException e) {
-            log.info(e.getMessage());
+            log.info("문제가 터짐={}",e.getMessage());
         }
     }
 
     private void addItemImage(List<MultipartFile> files, Item item) throws IOException {
 
         for (MultipartFile file : files) {
-            imageFile.serverFile(file);
+            ItemImages itemImages = imageFile.serverFile(file);
+            itemImageRepository.save(itemImages);
+            ItemImages image = itemImageRepository.findById(itemImages.getId()).orElseThrow();
+            item.addImage(image);
+            log.info("이미지 개별 파일={}", itemImages);
         }
 
-        List<ItemImages> imageFiles = imageFile.serverFiles(files);
+//        List<ItemImages> imageFiles = imageFile.serverFiles(files);
 
-        for (ItemImages file : imageFiles) {
+        /*log.info("여긴 나오나={}", imageFiles);*/
+
+        /*for (ItemImages file : imageFiles) {
             itemImageRepository.save(file);
             ItemImages image = itemImageRepository.findById(file.getId()).orElseThrow();
             item.addImage(image);
-        }
+            log.info("이미지 파일={}", file.getImageName());
+        }*/
     }
 
     public void updateItem(Long id, ItemSaveDto dto) {

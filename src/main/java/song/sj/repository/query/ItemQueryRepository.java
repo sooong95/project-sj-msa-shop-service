@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ItemQueryRepository {
 
-    List<Item> itemSearch(ItemSearchConditionDto dto, String categoryName);
+    List<Item> itemSearch(ItemSearchConditionDto dto);
 }

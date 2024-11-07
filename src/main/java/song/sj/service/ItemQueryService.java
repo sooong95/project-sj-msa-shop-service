@@ -17,6 +17,7 @@ import song.sj.repository.query.ItemQueryRepository;
 import song.sj.service.image.ImageFile;
 import song.sj.service.image.ImageUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,29 +31,25 @@ public class ItemQueryService {
     private final ItemImageRepository itemImageRepository;
     private final ImageFile imageFile;
 
-    public Result<List<SearchItemDto>> searchItems(ItemSearchConditionDto dto, String categoryName) {
+    public Result<List<SearchItemDto>> searchItems(ItemSearchConditionDto dto) {
 
-        List<SearchItemDto> searchItem = itemRepository.itemSearch(dto, categoryName)
-                .stream().map(i -> new SearchItemDto(i.getItemName()))
-                .toList();
+        List<SearchItemDto> searchItem = itemRepository.itemSearch(dto)
+                .stream()
+                .map(i -> {
+
+                    List<String> imageUrlList = itemImageRepository.findByItemId(i.getId()).stream().map(image -> imageFile.getFullPath(image.getImageName())).toList();
+
+                    return new SearchItemDto(
+                            i.getItemName(),
+                            itemRepository.findById(i.getId()).orElseThrow().getCategory().getCategoryName(),
+                            i.getSize(),
+                            imageUrlList // 단일 이미지 URL
+                    );
+                })
+                .collect(Collectors.toList());
 
         return new Result<>(searchItem.size(), searchItem);
-
     }
-
-    /*public FindItemDto findItem(Long id) {
-
-        Item item = itemRepository.findById(id).orElseThrow();
-        List<byte[]> images = itemImageRepository.findByItemId(id)
-                .stream().map(image -> ImageUtils.decompressImage(image.getImages())).toList();
-
-        return new FindItemDto(item.getItemName(), item.getMaterial(), item.getSize(), item.getDesign(), item.getDescription(), images);
-    }
-
-    public List<byte[]> findItemImage(Long id) {
-
-        return itemImageRepository.findByItemId(id).stream().map(image -> ImageUtils.decompressImage(image.getImages())).toList();
-    }*/
 
     public FindItemDto findItem(Long id) {
         Item item = itemRepository.findById(id).orElseThrow();
