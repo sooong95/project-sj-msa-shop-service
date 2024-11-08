@@ -8,11 +8,11 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Shoes extends Item {
+public class Bag extends Item{
 
     private String productClassification;
 
-    public Shoes(String productClassification) {
+    public Bag(String productClassification) {
         this.productClassification = productClassification;
     }
 }

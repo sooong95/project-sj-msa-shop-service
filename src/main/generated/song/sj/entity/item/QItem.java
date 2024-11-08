@@ -24,8 +24,6 @@ public class QItem extends EntityPathBase<Item> {
 
     public final song.sj.QTimeStamp _super = new song.sj.QTimeStamp(this);
 
-    public final song.sj.entity.QCategory category;
-
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdDate = _super.createdDate;
 
@@ -34,6 +32,8 @@ public class QItem extends EntityPathBase<Item> {
     public final StringPath design = createString("design");
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
+
+    public final song.sj.entity.QItemCategory itemCategory;
 
     public final ListPath<song.sj.entity.ItemImages, song.sj.entity.QItemImages> itemImages = this.<song.sj.entity.ItemImages, song.sj.entity.QItemImages>createList("itemImages", song.sj.entity.ItemImages.class, song.sj.entity.QItemImages.class, PathInits.DIRECT2);
 
@@ -68,7 +68,7 @@ public class QItem extends EntityPathBase<Item> {
 
     public QItem(Class<? extends Item> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.category = inits.isInitialized("category") ? new song.sj.entity.QCategory(forProperty("category"), inits.get("category")) : null;
+        this.itemCategory = inits.isInitialized("itemCategory") ? new song.sj.entity.QItemCategory(forProperty("itemCategory"), inits.get("itemCategory")) : null;
         this.member = inits.isInitialized("member") ? new song.sj.entity.QMember(forProperty("member"), inits.get("member")) : null;
         this.order = inits.isInitialized("order") ? new song.sj.entity.QOrder(forProperty("order"), inits.get("order")) : null;
     }

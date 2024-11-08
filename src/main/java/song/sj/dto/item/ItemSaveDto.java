@@ -29,13 +29,4 @@ public class ItemSaveDto {
     @Enumerated(EnumType.STRING)
     private ItemValue value;
 
-    /*public ItemSaveDto(@JsonProperty String itemName, @JsonProperty String material, @JsonProperty int size, @JsonProperty String design, @JsonProperty String description, @JsonProperty String productClassification, @JsonProperty ItemValue value) {
-        this.itemName = itemName;
-        this.material = material;
-        this.size = size;
-        this.design = design;
-        this.description = description;
-        this.productClassification = productClassification;
-        this.value = value;
-    }*/
 }

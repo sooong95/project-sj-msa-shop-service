@@ -24,9 +24,6 @@ public class QTop extends EntityPathBase<Top> {
 
     public final QItem _super;
 
-    // inherited
-    public final song.sj.entity.QCategory category;
-
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdDate;
 
@@ -38,6 +35,9 @@ public class QTop extends EntityPathBase<Top> {
 
     //inherited
     public final NumberPath<Long> id;
+
+    // inherited
+    public final song.sj.entity.QItemCategory itemCategory;
 
     //inherited
     public final ListPath<song.sj.entity.ItemImages, song.sj.entity.QItemImages> itemImages;
@@ -81,11 +81,11 @@ public class QTop extends EntityPathBase<Top> {
     public QTop(Class<? extends Top> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this._super = new QItem(type, metadata, inits);
-        this.category = _super.category;
         this.createdDate = _super.createdDate;
         this.description = _super.description;
         this.design = _super.design;
         this.id = _super.id;
+        this.itemCategory = _super.itemCategory;
         this.itemImages = _super.itemImages;
         this.itemName = _super.itemName;
         this.lastModifiedDate = _super.lastModifiedDate;

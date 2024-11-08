@@ -7,11 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import song.sj.dto.item.ItemSaveDto;
-import song.sj.entity.Category;
 import song.sj.entity.ItemImages;
 import song.sj.entity.item.Item;
-import song.sj.enums.ItemValue;
-import song.sj.repository.CategoryRepository;
+import song.sj.repository.ItemCategoryRepository;
 import song.sj.repository.ItemImageRepository;
 import song.sj.repository.ItemRepository;
 import song.sj.service.image.ImageFile;
@@ -29,7 +27,7 @@ public class ItemService {
     private final ItemRepository itemRepository;
     private final MemberService memberService;
     private final ItemImageRepository itemImageRepository;
-    private final CategoryRepository categoryRepository;
+    private final ItemCategoryRepository itemCategoryRepository;
     private final ImageFile imageFile;
 
     private Item privateFindItem(Long id) {
@@ -43,56 +41,26 @@ public class ItemService {
         item.setMember(memberService.getMemberFromJwt());
 
         itemRepository.save(item);
-        log.info("이미지 files={}", files);
 
-        item.addCategory(categoryRepository.findByCategoryName(dto.getValue().toString()));
+        item.addItemCategory(itemCategoryRepository.findByCategoryName(dto.getValue().toString()));
 
+        addItemImage(files, item);
+    }
+
+    private void addItemImage(List<MultipartFile> files, Item item) {
         try {
-            addItemImage(files, item);
+            for (MultipartFile file : files) {
+                ItemImages itemImages = imageFile.serverFile(file, ItemImages.class);
+                itemImageRepository.save(itemImages);
+                item.addImage(itemImageRepository.findById(itemImages.getId()).orElseThrow());
+            }
         } catch (IOException e) {
-            log.info("문제가 터짐={}",e.getMessage());
+            log.info("addItemImage error={}", e.getMessage());
         }
-    }
-
-    private void addItemImage(List<MultipartFile> files, Item item) throws IOException {
-
-        for (MultipartFile file : files) {
-            ItemImages itemImages = imageFile.serverFile(file);
-            itemImageRepository.save(itemImages);
-            ItemImages image = itemImageRepository.findById(itemImages.getId()).orElseThrow();
-            item.addImage(image);
-            log.info("이미지 개별 파일={}", itemImages);
-        }
-
-//        List<ItemImages> imageFiles = imageFile.serverFiles(files);
-
-        /*log.info("여긴 나오나={}", imageFiles);*/
-
-        /*for (ItemImages file : imageFiles) {
-            itemImageRepository.save(file);
-            ItemImages image = itemImageRepository.findById(file.getId()).orElseThrow();
-            item.addImage(image);
-            log.info("이미지 파일={}", file.getImageName());
-        }*/
-    }
-
-    public void updateItem(Long id, ItemSaveDto dto) {
-
-        Item item = privateFindItem(id);
-        item.changeItemName(dto.getItemName());
-        item.changeSize(dto.getSize());
-        item.changeMaterial(dto.getMaterial());
-        item.changeDesign(dto.getDesign());
-        item.changeDescription(dto.getDescription());
     }
 
     public void addImages(Long id, List<MultipartFile> files) {
-
-        try {
-            addItemImage(files, itemRepository.findById(id).orElseThrow());
-        } catch (IOException e) {
-            log.info(e.getMessage());
-        }
+        addItemImage(files, itemRepository.findById(id).orElseThrow());
     }
 
     public void deleteImage(Long id) {
@@ -105,5 +73,15 @@ public class ItemService {
         item.deleteImage(itemImage);
 
         itemImageRepository.delete(itemImage);
+    }
+
+    public void updateItem(Long id, ItemSaveDto dto) {
+
+        Item item = privateFindItem(id);
+        item.changeItemName(dto.getItemName());
+        item.changeSize(dto.getSize());
+        item.changeMaterial(dto.getMaterial());
+        item.changeDesign(dto.getDesign());
+        item.changeDescription(dto.getDescription());
     }
 }

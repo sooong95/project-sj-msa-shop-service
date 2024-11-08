@@ -43,7 +43,7 @@ public class ItemController {
 
         itemService.updateItem(itemId, dto);
 
-        return new ResponseEntity<>("상품 정보 변경 완료!", HttpStatus.OK);
+        return new ResponseEntity<>("상품 정보가 변경 되었습니다.", HttpStatus.OK);
     }
 
     @GetMapping("/{itemId}")

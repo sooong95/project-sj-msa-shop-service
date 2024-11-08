@@ -1,3 +1,4 @@
+/*
 package song.sj.service.image;
 
 import lombok.RequiredArgsConstructor;
@@ -31,3 +32,4 @@ public class ShopImageUpload {
         return ImageUtils.decompressImage(shopImages.getImages());
     }
 }
+*/

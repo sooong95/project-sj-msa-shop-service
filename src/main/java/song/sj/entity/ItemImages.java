@@ -11,25 +11,16 @@ import java.util.Objects;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(of = {"imageName", "serverImageName", "imageType"})
-public class ItemImages extends TimeStamp {
+public class ItemImages extends BaseImages {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "item_images_id")
     private Long id;
 
-    private String imageName;
-    private String serverImageName;
-    private String imageType;
-    /*@Lob
-    private byte[] images;*/
-
     @Builder
-    public ItemImages(String imageName, String serverImageName, String imageType/*, byte[] images*/) {
-        this.imageName = imageName;
-        this.serverImageName = serverImageName;
-        this.imageType = imageType;
-        /*this.images = images;*/
+    public ItemImages(String imageName, String serverImageName, String imageType) {
+        super(imageName, serverImageName, imageType);
     }
 
     @JoinColumn(name = "item_id")
@@ -39,5 +30,4 @@ public class ItemImages extends TimeStamp {
     public void controlItem(Item item) {
         if (Objects.nonNull(item)) this.item = item;
     }
-
 }

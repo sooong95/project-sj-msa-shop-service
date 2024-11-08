@@ -11,16 +11,16 @@ import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
- * QCategory is a Querydsl query type for Category
+ * QItemCategory is a Querydsl query type for ItemCategory
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QCategory extends EntityPathBase<ItemCategory> {
+public class QItemCategory extends EntityPathBase<ItemCategory> {
 
-    private static final long serialVersionUID = -899264853L;
+    private static final long serialVersionUID = -1959736226L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
-    public static final QCategory category = new QCategory("category");
+    public static final QItemCategory itemCategory = new QItemCategory("itemCategory");
 
     public final song.sj.QTimeStamp _super = new song.sj.QTimeStamp(this);
 
@@ -36,27 +36,27 @@ public class QCategory extends EntityPathBase<ItemCategory> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> lastModifiedDate = _super.lastModifiedDate;
 
-    public final QCategory parent;
+    public final QItemCategory parent;
 
-    public QCategory(String variable) {
+    public QItemCategory(String variable) {
         this(ItemCategory.class, forVariable(variable), INITS);
     }
 
-    public QCategory(Path<? extends ItemCategory> path) {
+    public QItemCategory(Path<? extends ItemCategory> path) {
         this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
-    public QCategory(PathMetadata metadata) {
+    public QItemCategory(PathMetadata metadata) {
         this(metadata, PathInits.getFor(metadata, INITS));
     }
 
-    public QCategory(PathMetadata metadata, PathInits inits) {
+    public QItemCategory(PathMetadata metadata, PathInits inits) {
         this(ItemCategory.class, metadata, inits);
     }
 
-    public QCategory(Class<? extends ItemCategory> type, PathMetadata metadata, PathInits inits) {
+    public QItemCategory(Class<? extends ItemCategory> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.parent = inits.isInitialized("parent") ? new QCategory(forProperty("parent"), inits.get("parent")) : null;
+        this.parent = inits.isInitialized("parent") ? new QItemCategory(forProperty("parent"), inits.get("parent")) : null;
     }
 
 }

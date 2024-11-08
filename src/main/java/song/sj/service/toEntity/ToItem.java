@@ -1,10 +1,7 @@
 package song.sj.service.toEntity;
 
 import song.sj.dto.item.ItemSaveDto;
-import song.sj.entity.item.Bottom;
-import song.sj.entity.item.Item;
-import song.sj.entity.item.Shoes;
-import song.sj.entity.item.Top;
+import song.sj.entity.item.*;
 
 public class ToItem {
 
@@ -27,6 +24,10 @@ public class ToItem {
             case TOP -> item = new Top(dto.getProductClassification());
             case BOTTOM -> item = new Bottom(dto.getProductClassification());
             case SHOES -> item = new Shoes(dto.getProductClassification());
+            case OUTER -> item = new Outer(dto.getProductClassification());
+            case BAG -> item = new Bag(dto.getProductClassification());
+            case ACCESSORY -> item = new Accessory(dto.getProductClassification());
+            case ETC -> item = new Etc(dto.getProductClassification());
             default -> throw new IllegalArgumentException("상품 카테고리를 입력해주세요");
         }
 

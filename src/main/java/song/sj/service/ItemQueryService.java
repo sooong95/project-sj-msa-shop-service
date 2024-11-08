@@ -9,15 +9,11 @@ import song.sj.dto.item.FindItemDto;
 import song.sj.dto.item.ImageDto;
 import song.sj.dto.item.ItemSearchConditionDto;
 import song.sj.dto.item.SearchItemDto;
-import song.sj.entity.ItemImages;
 import song.sj.entity.item.Item;
 import song.sj.repository.ItemImageRepository;
 import song.sj.repository.ItemRepository;
-import song.sj.repository.query.ItemQueryRepository;
 import song.sj.service.image.ImageFile;
-import song.sj.service.image.ImageUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,7 +37,7 @@ public class ItemQueryService {
 
                     return new SearchItemDto(
                             i.getItemName(),
-                            itemRepository.findById(i.getId()).orElseThrow().getCategory().getCategoryName(),
+                            itemRepository.findById(i.getId()).orElseThrow().getItemCategory().getItemCategoryName(),
                             i.getSize(),
                             imageUrlList // 단일 이미지 URL
                     );

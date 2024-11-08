@@ -4,14 +4,11 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import song.sj.dto.item.ItemSearchConditionDto;
-import song.sj.entity.QCategory;
 import song.sj.entity.item.Item;
-import song.sj.entity.item.QItem;
-import song.sj.enums.ItemValue;
 
 import java.util.List;
 
-import static song.sj.entity.QCategory.category;
+import static song.sj.entity.QItemCategory.itemCategory;
 import static song.sj.entity.item.QItem.item;
 
 
@@ -25,7 +22,7 @@ public class ItemQueryRepositoryImpl implements ItemQueryRepository{
 
         return queryFactory
                 .selectFrom(item)
-                .leftJoin(item.category, category)
+                .leftJoin(item.itemCategory, itemCategory)
                 .where(
                         itemNameEq(dto.getItemName()),
                         categoryNameEq(dto.getCategoryName())
@@ -38,6 +35,6 @@ public class ItemQueryRepositoryImpl implements ItemQueryRepository{
     }
 
     private BooleanExpression categoryNameEq(String categoryName) {
-        return categoryName.isBlank() ? null : category.categoryName.eq(categoryName);
+        return categoryName.isBlank() ? null : itemCategory.categoryName.eq(categoryName);
     }
 }

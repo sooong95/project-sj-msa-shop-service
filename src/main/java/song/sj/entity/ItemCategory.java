@@ -13,23 +13,23 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Category extends TimeStamp {
+public class ItemCategory extends TimeStamp {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "category_id")
+    @Column(name = "item_category_id")
     private Long id;
 
-    private String categoryName;
+    private String itemCategoryName;
 
     @JoinColumn(name = "parent_id")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Category parent;
+    private ItemCategory parent;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "itemCategory")
     private List<Item> items = new ArrayList<>();
 
-    public Category(String categoryName) {
-        this.categoryName = categoryName;
+    public ItemCategory(String itemCategoryName) {
+        this.itemCategoryName = itemCategoryName;
     }
 }

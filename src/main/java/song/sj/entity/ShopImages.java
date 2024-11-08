@@ -12,25 +12,17 @@ import java.util.Objects;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ShopImages {
-
-    @Builder
-    public ShopImages(String imageName, String imageType, byte[] images) {
-        this.imageName = imageName;
-        this.imageType = imageType;
-        this.images = images;
-    }
+public class ShopImages extends BaseImages{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "shop_images_id")
     private Long id;
 
-    private String imageName;
-    private String imageType;
-
-    @Lob
-    private byte[] images;
+    @Builder
+    public ShopImages(String imageName, String serverImageName, String imageType) {
+        super(imageName, serverImageName, imageType);
+    }
 
     @JoinColumn(name = "shop_id")
     @ManyToOne(fetch = FetchType.LAZY)

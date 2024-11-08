@@ -5,4 +5,5 @@ import song.sj.entity.Shop;
 
 public interface ShopRepository extends JpaRepository<Shop, Long> {
 
+    Shop findByEmail(String email);
 }

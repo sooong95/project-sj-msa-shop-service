@@ -1,22 +1,24 @@
 package song.sj.service.image;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
+import song.sj.entity.BaseImages;
 import song.sj.entity.ItemImages;
+import song.sj.entity.ShopImages;
+import song.sj.entity.item.Item;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
+@Slf4j
 @Component
 public class ImageFile {
 
-    private static final Logger log = LoggerFactory.getLogger(ImageFile.class);
     @Value("${file.dir}")
     private String fileDir;
 
@@ -24,25 +26,7 @@ public class ImageFile {
         return fileDir + fileName;
     }
 
-    /*public List<ItemImages> serverFiles(List<MultipartFile> files) throws IOException {
-
-        List<ItemImages> serverFileResult = new ArrayList<>();
-
-        for (MultipartFile file : files) {
-            if (!file.isEmpty()) {
-                log.info("!file.isEmpty");
-
-
-                ItemImages e = serverFile(file);
-                log.info("e={}", e);
-                serverFileResult.add(e);
-                log.info("첫번째 파일={}", serverFileResult.get(0));
-            }
-        }
-        return serverFileResult;
-    }*/
-
-    public ItemImages serverFile(MultipartFile file) throws IOException {
+    public <T extends BaseImages> T serverFile(MultipartFile file, Class<T> clazz) throws IOException {
 
         if (file.isEmpty()) {
             throw new RuntimeException("이미지를 등록해 주세요");
@@ -52,20 +36,18 @@ public class ImageFile {
         String serverFileName = createServerFileName(originalFilename);
         String contentType = file.getContentType();
 
-        log.info("서버 파일 이름={}", serverFileName);
-
-        log.info("파일 경로={}", new File(getFullPath(serverFileName)));
-
         try {
             file.transferTo(new File(getFullPath(serverFileName)));
         } catch (IOException e) {
-            log.error("파일 저장 중 오류 발생 - 경로: {}, 오류: {}", getFullPath(serverFileName), e.getMessage());
-            throw e;
+            log.info("serverFile error={}", e.getMessage());
         }
-        /*file.transferTo(new File(getFullPath(serverFileName)));*/
-        ItemImages images = new ItemImages(originalFilename, serverFileName, contentType);
-        log.info("출력 확인={}", images);
-        return images;
+
+        if (clazz.equals(ItemImages.class)) {
+            return clazz.cast(new ItemImages(originalFilename, serverFileName, contentType));
+        } else if (clazz.equals(ShopImages.class)) {
+            return clazz.cast(new ShopImages(originalFilename, serverFileName, contentType));
+        }
+        throw new IllegalArgumentException("존재하지 않는 이미지 타입");
     }
 
     private String createServerFileName(String originalFilename) {

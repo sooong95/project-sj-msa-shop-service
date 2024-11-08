@@ -11,16 +11,16 @@ import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
- * QCategory is a Querydsl query type for Category
+ * QShopCategory is a Querydsl query type for ShopCategory
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QCategory extends EntityPathBase<ItemCategory> {
+public class QShopCategory extends EntityPathBase<ShopCategory> {
 
-    private static final long serialVersionUID = -899264853L;
+    private static final long serialVersionUID = 622106945L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
-    public static final QCategory category = new QCategory("category");
+    public static final QShopCategory shopCategory = new QShopCategory("shopCategory");
 
     public final song.sj.QTimeStamp _super = new song.sj.QTimeStamp(this);
 
@@ -36,27 +36,27 @@ public class QCategory extends EntityPathBase<ItemCategory> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> lastModifiedDate = _super.lastModifiedDate;
 
-    public final QCategory parent;
+    public final QShopCategory parent;
 
-    public QCategory(String variable) {
-        this(ItemCategory.class, forVariable(variable), INITS);
+    public QShopCategory(String variable) {
+        this(ShopCategory.class, forVariable(variable), INITS);
     }
 
-    public QCategory(Path<? extends ItemCategory> path) {
+    public QShopCategory(Path<? extends ShopCategory> path) {
         this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
-    public QCategory(PathMetadata metadata) {
+    public QShopCategory(PathMetadata metadata) {
         this(metadata, PathInits.getFor(metadata, INITS));
     }
 
-    public QCategory(PathMetadata metadata, PathInits inits) {
-        this(ItemCategory.class, metadata, inits);
+    public QShopCategory(PathMetadata metadata, PathInits inits) {
+        this(ShopCategory.class, metadata, inits);
     }
 
-    public QCategory(Class<? extends ItemCategory> type, PathMetadata metadata, PathInits inits) {
+    public QShopCategory(Class<? extends ShopCategory> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.parent = inits.isInitialized("parent") ? new QCategory(forProperty("parent"), inits.get("parent")) : null;
+        this.parent = inits.isInitialized("parent") ? new QShopCategory(forProperty("parent"), inits.get("parent")) : null;
     }
 
 }

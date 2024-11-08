@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.util.StringUtils;
 import song.sj.TimeStamp;
-import song.sj.entity.Category;
+import song.sj.entity.ItemCategory;
 import song.sj.entity.ItemImages;
 import song.sj.entity.Member;
 import song.sj.entity.Order;
@@ -42,16 +42,16 @@ public abstract class Item extends TimeStamp {
     @ManyToOne(fetch = FetchType.LAZY)
     private Order order;
 
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "item_category_id")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Category category;
+    private ItemCategory itemCategory;
 
     @OneToMany(mappedBy = "item")
     private List<ItemImages> itemImages = new ArrayList<>();
 
-    public void addCategory(Category category) {
-        this.category = category;
-        category.getItems().add(this);
+    public void addItemCategory(ItemCategory itemCategory) {
+        this.itemCategory = itemCategory;
+        itemCategory.getItems().add(this);
 
     }
 

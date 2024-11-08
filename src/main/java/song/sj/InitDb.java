@@ -10,7 +10,7 @@ import song.sj.dto.item.ItemSaveDto;
 import song.sj.dto.member.MemberJoinDto;
 import song.sj.dto.member.ShopMemberJoinDto;
 import song.sj.entity.Address;
-import song.sj.entity.Category;
+import song.sj.entity.ItemCategory;
 import song.sj.entity.Member;
 import song.sj.entity.item.Item;
 import song.sj.enums.ItemValue;
@@ -125,9 +125,9 @@ public class InitDb {
             };
             List<MultipartFile> files = new ArrayList<>();
 
-            Category top = new Category("TOP");
-            Category bottom = new Category("BOTTOM");
-            Category shoes = new Category("SHOES");
+            ItemCategory top = new ItemCategory("TOP");
+            ItemCategory bottom = new ItemCategory("BOTTOM");
+            ItemCategory shoes = new ItemCategory("SHOES");
 
             em.persist(top);
             em.persist(bottom);
@@ -145,11 +145,11 @@ public class InitDb {
             Item itemEntity4 = ToItem.toItemEntity(item4);
             Item itemEntity5 = ToItem.toItemEntity(item5);
 
-            itemEntity1.addCategory(top);
-            itemEntity2.addCategory(top);
-            itemEntity3.addCategory(bottom);
-            itemEntity4.addCategory(top);
-            itemEntity5.addCategory(bottom);
+            itemEntity1.addItemCategory(top);
+            itemEntity2.addItemCategory(top);
+            itemEntity3.addItemCategory(bottom);
+            itemEntity4.addItemCategory(top);
+            itemEntity5.addItemCategory(bottom);
 
             em.flush();
             em.clear();
