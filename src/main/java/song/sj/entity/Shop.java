@@ -41,6 +41,18 @@ public class Shop extends TimeStamp {
     @OneToMany(mappedBy = "shop")
     private List<ShopCategoryMiddleTable> shopCategoryMiddleTableList = new ArrayList<>();
 
+    @JoinColumn(name = "member_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Member member;
+
+    @Builder
+    public Shop(String shopName, String shopDescription, List<ItemValue> mainEvent, Address address) {
+        this.shopName = shopName;
+        this.shopDescription = shopDescription;
+        this.mainEvent = mainEvent;
+        this.address = address;
+    }
+
     public void changeShopName(String shopName) {
         if (StringUtils.hasText(shopName)) this.shopName = shopName;
     }
@@ -68,6 +80,13 @@ public class Shop extends TimeStamp {
         if (Objects.nonNull(images)) {
             this.shopImages.remove(images);
             images.controlShop(null);
+        }
+    }
+
+    public void addShop(Member member) {
+        if (Objects.nonNull(member)) {
+            member.getShopList().add(this);
+            this.member = member;
         }
     }
 }

@@ -13,13 +13,8 @@ public class ToShop {
         return shop;
     }*/
 
-    public static Shop toShopEntity(Shop shop, ShopSaveDto dto) {
+    public static Shop toShopEntity(ShopSaveDto dto) {
 
-        shop.changeShopName(dto.getShopName());
-        shop.changeShopDescription(dto.getShopDescription());
-        shop.changeMainEvent(dto.getMainEvent());
-        shop.changeAddress(dto.getAddress());
-
-        return shop;
+        return new Shop(dto.getShopName(), dto.getShopDescription(), dto.getMainEvent(), dto.getAddress());
     }
 }

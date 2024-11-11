@@ -3,7 +3,6 @@ package song.sj.repository.query;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import song.sj.entity.Member;
-import song.sj.entity.QMember;
 import song.sj.enums.Role;
 
 import java.util.List;
@@ -20,7 +19,7 @@ public class MemberQueryRepositoryImpl implements MemberQueryRepository{
 
         return queryFactory
                 .selectFrom(member)
-                .where(member.role.eq(Role.MEMBER))
+                .where(member.role.eq(Role.ROLE_MEMBER))
                 .fetch();
     }
 
@@ -29,7 +28,7 @@ public class MemberQueryRepositoryImpl implements MemberQueryRepository{
 
         return queryFactory
                 .selectFrom(member)
-                .where(member.role.eq(Role.SHOP))
+                .where(member.role.eq(Role.ROLE_SHOP))
                 .fetch();
     }
 }

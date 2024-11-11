@@ -23,6 +23,11 @@ public class ShopCategoryMiddleTable {
     @ManyToOne(fetch = FetchType.LAZY)
     private Shop shop;
 
+    public ShopCategoryMiddleTable(ShopCategory shopCategory, Shop shop) {
+        this.shopCategory = shopCategory;
+        this.shop = shop;
+    }
+
     public void addShopCategory(ShopCategory shopCategory) {
         this.shopCategory = shopCategory;
         shopCategory.getShopCategoryMiddleTableList().add(this);

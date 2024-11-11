@@ -5,4 +5,5 @@ import song.sj.entity.ShopCategory;
 
 public interface ShopCategoryRepository extends JpaRepository<ShopCategory, Long> {
 
+    ShopCategory findByShopCategoryName(String shopCategoryName);
 }

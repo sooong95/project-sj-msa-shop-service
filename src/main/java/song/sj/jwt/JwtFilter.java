@@ -51,6 +51,7 @@ public class JwtFilter extends OncePerRequestFilter {
         // 토큰에서 email 과 role 획득
         String email = jwtUtils.getEmail(token);
         String role = jwtUtils.getRole(token);
+        log.info("롤 값 확인={}", role);
 
         // member 를 생성해서 값 입력
         Member member = new Member();

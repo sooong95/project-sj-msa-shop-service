@@ -22,23 +22,26 @@ public class QItemImages extends EntityPathBase<ItemImages> {
 
     public static final QItemImages itemImages = new QItemImages("itemImages");
 
-    public final song.sj.QTimeStamp _super = new song.sj.QTimeStamp(this);
+    public final QBaseImages _super = new QBaseImages(this);
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdDate = _super.createdDate;
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final StringPath imageName = createString("imageName");
+    //inherited
+    public final StringPath imageName = _super.imageName;
 
-    public final StringPath imageType = createString("imageType");
+    //inherited
+    public final StringPath imageType = _super.imageType;
 
     public final song.sj.entity.item.QItem item;
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> lastModifiedDate = _super.lastModifiedDate;
 
-    public final StringPath serverImageName = createString("serverImageName");
+    //inherited
+    public final StringPath serverImageName = _super.serverImageName;
 
     public QItemImages(String variable) {
         this(ItemImages.class, forVariable(variable), INITS);

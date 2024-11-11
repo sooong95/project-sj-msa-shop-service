@@ -12,6 +12,7 @@ import song.sj.dto.member.ShopMemberJoinDto;
 import song.sj.entity.Address;
 import song.sj.entity.ItemCategory;
 import song.sj.entity.Member;
+import song.sj.entity.ShopCategory;
 import song.sj.entity.item.Item;
 import song.sj.enums.ItemValue;
 import song.sj.enums.Role;
@@ -43,11 +44,11 @@ public class InitDb {
 
         public void initDb() {
 
-            MemberJoinDto memberDto1 = new MemberJoinDto("song1", "song1@nnnn.com", "password", new Address("city", "street", "zipcode"), Role.MEMBER);
-            MemberJoinDto memberDto2 = new MemberJoinDto("song2", "song2@nnnn.com", "password", new Address("city", "street", "zipcode"), Role.MEMBER);
-            MemberJoinDto memberDto3 = new MemberJoinDto("song3", "song3@nnnn.com", "password", new Address("city", "street", "zipcode"), Role.MEMBER);
-            MemberJoinDto memberDto4 = new MemberJoinDto("song4", "song4@nnnn.com", "password", new Address("city", "street", "zipcode"), Role.MEMBER);
-            MemberJoinDto memberDto5 = new MemberJoinDto("song5", "song5@nnnn.com", "password", new Address("city", "street", "zipcode"), Role.MEMBER);
+            MemberJoinDto memberDto1 = new MemberJoinDto("song1", "song1@nnnn.com", "password", new Address("city", "street", "zipcode"), Role.ROLE_MEMBER);
+            MemberJoinDto memberDto2 = new MemberJoinDto("song2", "song2@nnnn.com", "password", new Address("city", "street", "zipcode"), Role.ROLE_MEMBER);
+            MemberJoinDto memberDto3 = new MemberJoinDto("song3", "song3@nnnn.com", "password", new Address("city", "street", "zipcode"), Role.ROLE_MEMBER);
+            MemberJoinDto memberDto4 = new MemberJoinDto("song4", "song4@nnnn.com", "password", new Address("city", "street", "zipcode"), Role.ROLE_MEMBER);
+            MemberJoinDto memberDto5 = new MemberJoinDto("song5", "song5@nnnn.com", "password", new Address("city", "street", "zipcode"), Role.ROLE_MEMBER);
 
             Member member1 = memberDto1.toEntity();
             Member member2 = memberDto2.toEntity();
@@ -61,11 +62,11 @@ public class InitDb {
             em.persist(member4);
             em.persist(member5);
 
-            ShopMemberJoinDto shopMemberJoinDto1 = new ShopMemberJoinDto("shop1", "shop1", "1234324", "shop1@nnnn.com", "password", new Address("city", "street", "zipcode"), Role.SHOP);
-            ShopMemberJoinDto shopMemberJoinDto2 = new ShopMemberJoinDto("shop2", "shop2", "9808345", "shop2@nnnn.com", "password", new Address("city", "street", "zipcode"), Role.SHOP);
-            ShopMemberJoinDto shopMemberJoinDto3 = new ShopMemberJoinDto("shop3", "shop3", "878732894", "shop3@nnnn.com", "password", new Address("city", "street", "zipcode"), Role.SHOP);
-            ShopMemberJoinDto shopMemberJoinDto4 = new ShopMemberJoinDto("shop4", "shop4", "18798234", "shop4@nnnn.com", "password", new Address("city", "street", "zipcode"), Role.SHOP);
-            ShopMemberJoinDto shopMemberJoinDto5 = new ShopMemberJoinDto("shop5", "shop5", "32958445", "shop5@nnnn.com", "password", new Address("city", "street", "zipcode"), Role.SHOP);
+            ShopMemberJoinDto shopMemberJoinDto1 = new ShopMemberJoinDto("shop1", "shop1", "1234324", "shop1@nnnn.com", "password", new Address("city", "street", "zipcode"), Role.ROLE_SHOP);
+            ShopMemberJoinDto shopMemberJoinDto2 = new ShopMemberJoinDto("shop2", "shop2", "9808345", "shop2@nnnn.com", "password", new Address("city", "street", "zipcode"), Role.ROLE_SHOP);
+            ShopMemberJoinDto shopMemberJoinDto3 = new ShopMemberJoinDto("shop3", "shop3", "878732894", "shop3@nnnn.com", "password", new Address("city", "street", "zipcode"), Role.ROLE_SHOP);
+            ShopMemberJoinDto shopMemberJoinDto4 = new ShopMemberJoinDto("shop4", "shop4", "18798234", "shop4@nnnn.com", "password", new Address("city", "street", "zipcode"), Role.ROLE_SHOP);
+            ShopMemberJoinDto shopMemberJoinDto5 = new ShopMemberJoinDto("shop5", "shop5", "32958445", "shop5@nnnn.com", "password", new Address("city", "street", "zipcode"), Role.ROLE_SHOP);
 
             Member shopMember1 = shopMemberJoinDto1.toEntity();
             Member shopMember2 = shopMemberJoinDto2.toEntity();
@@ -125,13 +126,30 @@ public class InitDb {
             };
             List<MultipartFile> files = new ArrayList<>();
 
+            em.persist(new ShopCategory("TOP"));
+            em.persist(new ShopCategory("BOTTOM"));
+            em.persist(new ShopCategory("SHOES"));
+            em.persist(new ShopCategory("OUTER"));
+            em.persist(new ShopCategory("BAG"));
+            em.persist(new ShopCategory("ACCESSORY"));
+            em.persist(new ShopCategory("GRADE"));
+            em.persist(new ShopCategory("REVIEWS"));
+
             ItemCategory top = new ItemCategory("TOP");
             ItemCategory bottom = new ItemCategory("BOTTOM");
             ItemCategory shoes = new ItemCategory("SHOES");
+            ItemCategory outer = new ItemCategory("OUTER");
+            ItemCategory bag = new ItemCategory("BAG");
+            ItemCategory accessory = new ItemCategory("ACCESSORY");
+            ItemCategory etc = new ItemCategory("ETC");
 
             em.persist(top);
             em.persist(bottom);
             em.persist(shoes);
+            em.persist(outer);
+            em.persist(bag);
+            em.persist(accessory);
+            em.persist(etc);
 
             ItemSaveDto item1 = new ItemSaveDto("itemA", "A", 110, "designA", "descriptionA", "A", ItemValue.TOP);
             ItemSaveDto item2 = new ItemSaveDto("itemB", "B", 100, "designB", "descriptionB", "B", ItemValue.TOP);

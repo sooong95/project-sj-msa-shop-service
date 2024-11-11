@@ -2,5 +2,5 @@ package song.sj.enums;
 
 public enum Role {
 
-    MEMBER, SHOP, ADMIN
+    ROLE_MEMBER, ROLE_SHOP, ROLE_ADMIN
 }

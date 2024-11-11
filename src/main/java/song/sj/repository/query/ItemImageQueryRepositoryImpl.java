@@ -4,11 +4,13 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import song.sj.entity.ItemImages;
+import song.sj.entity.QItemImages;
 
 import java.util.List;
 
 import static song.sj.entity.QItemImages.itemImages;
 import static song.sj.entity.item.QItem.item;
+
 
 @Slf4j
 @RequiredArgsConstructor

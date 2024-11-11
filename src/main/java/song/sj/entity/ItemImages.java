@@ -10,7 +10,6 @@ import java.util.Objects;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString(of = {"imageName", "serverImageName", "imageType"})
 public class ItemImages extends BaseImages {
 
     @Id

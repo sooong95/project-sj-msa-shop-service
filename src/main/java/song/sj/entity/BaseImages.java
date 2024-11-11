@@ -7,16 +7,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import song.sj.TimeStamp;
 
-@Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@MappedSuperclass
 public abstract class BaseImages extends TimeStamp {
 
     private String imageName;
     private String serverImageName;
     private String imageType;
 
-    @Builder
     public BaseImages(String imageName, String serverImageName, String imageType) {
         this.imageName = imageName;
         this.serverImageName = serverImageName;

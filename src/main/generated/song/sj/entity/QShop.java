@@ -34,9 +34,15 @@ public class QShop extends EntityPathBase<Shop> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> lastModifiedDate = _super.lastModifiedDate;
 
+    public final ListPath<song.sj.enums.ItemValue, EnumPath<song.sj.enums.ItemValue>> mainEvent = this.<song.sj.enums.ItemValue, EnumPath<song.sj.enums.ItemValue>>createList("mainEvent", song.sj.enums.ItemValue.class, EnumPath.class, PathInits.DIRECT2);
+
+    public final QMember member;
+
     public final ListPath<OrderShop, QOrderShop> orderShopList = this.<OrderShop, QOrderShop>createList("orderShopList", OrderShop.class, QOrderShop.class, PathInits.DIRECT2);
 
-    public final StringPath ShopDescription = createString("ShopDescription");
+    public final ListPath<ShopCategoryMiddleTable, QShopCategoryMiddleTable> shopCategoryMiddleTableList = this.<ShopCategoryMiddleTable, QShopCategoryMiddleTable>createList("shopCategoryMiddleTableList", ShopCategoryMiddleTable.class, QShopCategoryMiddleTable.class, PathInits.DIRECT2);
+
+    public final StringPath shopDescription = createString("shopDescription");
 
     public final ListPath<ShopImages, QShopImages> shopImages = this.<ShopImages, QShopImages>createList("shopImages", ShopImages.class, QShopImages.class, PathInits.DIRECT2);
 
@@ -61,6 +67,7 @@ public class QShop extends EntityPathBase<Shop> {
     public QShop(Class<? extends Shop> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.address = inits.isInitialized("address") ? new QAddress(forProperty("address")) : null;
+        this.member = inits.isInitialized("member") ? new QMember(forProperty("member"), inits.get("member")) : null;
     }
 
 }

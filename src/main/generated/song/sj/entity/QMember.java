@@ -44,6 +44,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final EnumPath<song.sj.enums.Role> role = createEnum("role", song.sj.enums.Role.class);
 
+    public final ListPath<Shop, QShop> shopList = this.<Shop, QShop>createList("shopList", Shop.class, QShop.class, PathInits.DIRECT2);
+
     public final StringPath shopName = createString("shopName");
 
     public final StringPath username = createString("username");

@@ -24,12 +24,12 @@ public class QItemCategory extends EntityPathBase<ItemCategory> {
 
     public final song.sj.QTimeStamp _super = new song.sj.QTimeStamp(this);
 
-    public final StringPath categoryName = createString("categoryName");
-
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdDate = _super.createdDate;
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
+
+    public final StringPath itemCategoryName = createString("itemCategoryName");
 
     public final ListPath<song.sj.entity.item.Item, song.sj.entity.item.QItem> items = this.<song.sj.entity.item.Item, song.sj.entity.item.QItem>createList("items", song.sj.entity.item.Item.class, song.sj.entity.item.QItem.class, PathInits.DIRECT2);
 

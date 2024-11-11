@@ -53,6 +53,9 @@ public class Member extends TimeStamp {
     @OneToMany(mappedBy = "member")
     List<Item> items = new ArrayList<>();
 
+    @OneToMany(mappedBy = "member")
+    private List<Shop> shopList = new ArrayList<>();
+
     public void transPassword(String hashPassword) {
         this.password = hashPassword;
     }

@@ -42,7 +42,7 @@ public class ItemService {
 
         itemRepository.save(item);
 
-        item.addItemCategory(itemCategoryRepository.findByCategoryName(dto.getValue().toString()));
+        item.addItemCategory(itemCategoryRepository.findByItemCategoryName(dto.getValue().toString()));
 
         addItemImage(files, item);
     }

@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-import song.sj.dto.member.MemberInfo;
 import song.sj.dto.member.MemberJoinDto;
 import song.sj.dto.UpdateMemberDto;
 import song.sj.entity.Address;
@@ -58,7 +57,7 @@ public class MemberServiceTest {
                 .email("song@nnnn.com")
                 .password(password)
                 .address(new Address("city", "street", "zipcode"))
-                .role(Role.MEMBER)
+                .role(Role.ROLE_MEMBER)
                 .build();
 
         memberJoinDto2 = MemberJoinDto.builder()
@@ -66,7 +65,7 @@ public class MemberServiceTest {
                 .email(memberEmail)
                 .password(password)
                 .address(new Address("city", "street", "zipcode"))
-                .role(Role.MEMBER)
+                .role(Role.ROLE_MEMBER)
                 .build();
 
         memberRepository.save(memberJoinDto2.toEntity());
@@ -95,7 +94,7 @@ public class MemberServiceTest {
                 .email(memberEmail)
                 .password(password)
                 .address(new Address("city", "street", "zipcode"))
-                .role(Role.MEMBER)
+                .role(Role.ROLE_MEMBER)
                 .build();
 
         Assertions.assertThatThrownBy(() -> memberService.memberSave(memberJoinDto3)).isInstanceOf(IllegalArgumentException.class)

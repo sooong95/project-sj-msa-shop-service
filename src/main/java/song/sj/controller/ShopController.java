@@ -20,10 +20,16 @@ public class ShopController {
     private final ShopService shopService;
 
     @PostMapping
-    public ResponseEntity<String> save(@ModelAttribute ShopSaveDto shopSaveDto, @RequestParam("image") List<MultipartFile> files) {
-        shopService.save(shopSaveDto, files);
+    public ResponseEntity<String> save(@RequestBody ShopSaveDto shopSaveDto) {
+        shopService.save(shopSaveDto);
 
         return new ResponseEntity<>("Shop 등록이 완료 되었습니다.", HttpStatus.CREATED);
+    }
+
+    @PostMapping("/{shopId}/images")
+    public ResponseEntity<String> saveShopImages(@PathVariable("shopId") Long id, @RequestParam("image") List<MultipartFile> files) {
+        shopService.saveShopImages(id, files);
+        return new ResponseEntity<>("이미지가 성공적으로 등록되었습니다.", HttpStatus.OK);
     }
 
     @PatchMapping("/{shopId}")
@@ -31,13 +37,6 @@ public class ShopController {
         shopService.updateShop(shopId, shopSaveDto);
 
         return new ResponseEntity<>("shop 정보가 변경 되었습니다.", HttpStatus.OK);
-    }
-
-    @PostMapping("/{shopId}/images")
-    public ResponseEntity<String> addShopImages(@PathVariable("shopId") Long id, @RequestParam("image") List<MultipartFile> files) {
-        shopService.addImages(id, files);
-
-        return new ResponseEntity<>("이미지가 성공적으로 등록 되었습니다.", HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{shopId}/images")

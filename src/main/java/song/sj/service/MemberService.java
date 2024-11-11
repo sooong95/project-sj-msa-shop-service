@@ -7,7 +7,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import song.sj.dto.CustomUserDetails;
 import song.sj.dto.member.*;
 import song.sj.dto.UpdateMemberDto;
 import song.sj.dto.UpdateShopMemberDto;
@@ -111,11 +110,11 @@ public class MemberService {
         Member member = memberRepository.findByEmail(loginMemberEmail());
         log.info("로그인한 회원={}", member.getRole());
 
-        if (member.getRole().equals(Role.MEMBER))
+        if (member.getRole().equals(Role.ROLE_MEMBER))
             return new MemberSearchDto(member.getId(), member.getUsername(), member.getEmail(), member.getAddress());
 
 
-        if (member.getRole().equals(Role.SHOP))
+        if (member.getRole().equals(Role.ROLE_SHOP))
             return new ShopMemberSearchDto(member.getId(), member.getUsername(), member.getEmail(), member.getShopName(), member.getBusinessRegistrationNumber(), member.getAddress());
 
         return null;

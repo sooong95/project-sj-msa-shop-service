@@ -24,19 +24,21 @@ public class QShopCategory extends EntityPathBase<ShopCategory> {
 
     public final song.sj.QTimeStamp _super = new song.sj.QTimeStamp(this);
 
-    public final StringPath categoryName = createString("categoryName");
-
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdDate = _super.createdDate;
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final ListPath<song.sj.entity.item.Item, song.sj.entity.item.QItem> items = this.<song.sj.entity.item.Item, song.sj.entity.item.QItem>createList("items", song.sj.entity.item.Item.class, song.sj.entity.item.QItem.class, PathInits.DIRECT2);
-
     //inherited
     public final DateTimePath<java.time.LocalDateTime> lastModifiedDate = _super.lastModifiedDate;
 
     public final QShopCategory parent;
+
+    public final ListPath<ShopCategoryMiddleTable, QShopCategoryMiddleTable> shopCategoryMiddleTableList = this.<ShopCategoryMiddleTable, QShopCategoryMiddleTable>createList("shopCategoryMiddleTableList", ShopCategoryMiddleTable.class, QShopCategoryMiddleTable.class, PathInits.DIRECT2);
+
+    public final StringPath shopCategoryName = createString("shopCategoryName");
+
+    public final ListPath<ShopCategory, QShopCategory> subCategory = this.<ShopCategory, QShopCategory>createList("subCategory", ShopCategory.class, QShopCategory.class, PathInits.DIRECT2);
 
     public QShopCategory(String variable) {
         this(ShopCategory.class, forVariable(variable), INITS);

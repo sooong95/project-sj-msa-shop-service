@@ -25,7 +25,7 @@ public class ItemQueryRepositoryImpl implements ItemQueryRepository{
                 .leftJoin(item.itemCategory, itemCategory)
                 .where(
                         itemNameEq(dto.getItemName()),
-                        categoryNameEq(dto.getCategoryName())
+                        itemCategoryNameEq(dto.getCategoryName())
                 )
                 .fetch();
     }
@@ -34,7 +34,7 @@ public class ItemQueryRepositoryImpl implements ItemQueryRepository{
         return itemName.isBlank() ? null : item.itemName.eq(itemName);
     }
 
-    private BooleanExpression categoryNameEq(String categoryName) {
-        return categoryName.isBlank() ? null : itemCategory.categoryName.eq(categoryName);
+    private BooleanExpression itemCategoryNameEq(String categoryName) {
+        return categoryName.isBlank() ? null : itemCategory.itemCategoryName.eq(categoryName);
     }
 }

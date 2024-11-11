@@ -5,5 +5,5 @@ import song.sj.entity.ItemCategory;
 
 public interface ItemCategoryRepository extends JpaRepository<ItemCategory, Long> {
 
-    ItemCategory findByCategoryName(String categoryName);
+    ItemCategory findByItemCategoryName(String ItemCategoryName);
 }

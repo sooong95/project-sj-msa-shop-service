@@ -22,13 +22,24 @@ public class QShopImages extends EntityPathBase<ShopImages> {
 
     public static final QShopImages shopImages = new QShopImages("shopImages");
 
+    public final QBaseImages _super = new QBaseImages(this);
+
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> createdDate = _super.createdDate;
+
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final StringPath imageName = createString("imageName");
+    //inherited
+    public final StringPath imageName = _super.imageName;
 
-    public final ArrayPath<byte[], Byte> images = createArray("images", byte[].class);
+    //inherited
+    public final StringPath imageType = _super.imageType;
 
-    public final StringPath imageType = createString("imageType");
+    //inherited
+    public final DateTimePath<java.time.LocalDateTime> lastModifiedDate = _super.lastModifiedDate;
+
+    //inherited
+    public final StringPath serverImageName = _super.serverImageName;
 
     public final QShop shop;
 
