@@ -5,6 +5,8 @@ import lombok.*;
 import song.sj.TimeStamp;
 import song.sj.entity.item.Item;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -25,6 +27,9 @@ public class ItemImages extends BaseImages {
     @JoinColumn(name = "item_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Item item;
+
+    @OneToMany(mappedBy = "itemImages")
+    private List<ReviewsItemImages> reviewsItemImagesList = new ArrayList<>();
 
     public void controlItem(Item item) {
         if (Objects.nonNull(item)) this.item = item;

@@ -45,6 +45,9 @@ public class Shop extends TimeStamp {
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
+    @OneToMany(mappedBy = "shop")
+    private List<Reviews> reviewsList = new ArrayList<>();
+
     @Builder
     public Shop(String shopName, String shopDescription, List<ItemValue> mainEvent, Address address) {
         this.shopName = shopName;

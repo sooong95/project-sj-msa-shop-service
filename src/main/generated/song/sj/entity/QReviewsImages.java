@@ -13,7 +13,7 @@ import com.querydsl.core.types.Path;
  * QReviewsImages is a Querydsl query type for ReviewsImages
  */
 @Generated("com.querydsl.codegen.DefaultEntitySerializer")
-public class QReviewsImages extends EntityPathBase<ReviewsImages> {
+public class QReviewsImages extends EntityPathBase<ReviewsItemImages> {
 
     private static final long serialVersionUID = 372643046L;
 
@@ -22,15 +22,15 @@ public class QReviewsImages extends EntityPathBase<ReviewsImages> {
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public QReviewsImages(String variable) {
-        super(ReviewsImages.class, forVariable(variable));
+        super(ReviewsItemImages.class, forVariable(variable));
     }
 
-    public QReviewsImages(Path<? extends ReviewsImages> path) {
+    public QReviewsImages(Path<? extends ReviewsItemImages> path) {
         super(path.getType(), path.getMetadata());
     }
 
     public QReviewsImages(PathMetadata metadata) {
-        super(ReviewsImages.class, metadata);
+        super(ReviewsItemImages.class, metadata);
     }
 
 }

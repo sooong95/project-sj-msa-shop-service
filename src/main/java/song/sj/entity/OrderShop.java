@@ -5,6 +5,9 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -23,5 +26,6 @@ public class OrderShop {
     @ManyToOne(fetch = FetchType.LAZY)
     private Order order;
 
-
+    @OneToMany(mappedBy = "orderShop")
+    private List<Reviews> reviewsList = new ArrayList<>();
 }
