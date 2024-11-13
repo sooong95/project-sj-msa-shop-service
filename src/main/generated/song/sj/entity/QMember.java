@@ -42,6 +42,10 @@ public class QMember extends EntityPathBase<Member> {
 
     public final StringPath password = createString("password");
 
+    public final ListPath<Review, QReview> reviewList = this.<Review, QReview>createList("reviewList", Review.class, QReview.class, PathInits.DIRECT2);
+
+    public final NumberPath<Integer> reviewsCount = createNumber("reviewsCount", Integer.class);
+
     public final EnumPath<song.sj.enums.Role> role = createEnum("role", song.sj.enums.Role.class);
 
     public final ListPath<Shop, QShop> shopList = this.<Shop, QShop>createList("shopList", Shop.class, QShop.class, PathInits.DIRECT2);
@@ -49,6 +53,10 @@ public class QMember extends EntityPathBase<Member> {
     public final StringPath shopName = createString("shopName");
 
     public final StringPath username = createString("username");
+
+    public final NumberPath<Integer> wishlistCount = createNumber("wishlistCount", Integer.class);
+
+    public final ListPath<Wishlist, QWishlist> wishlists = this.<Wishlist, QWishlist>createList("wishlists", Wishlist.class, QWishlist.class, PathInits.DIRECT2);
 
     public QMember(String variable) {
         this(Member.class, forVariable(variable), INITS);

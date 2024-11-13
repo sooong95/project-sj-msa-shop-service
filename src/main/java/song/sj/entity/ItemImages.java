@@ -28,9 +28,6 @@ public class ItemImages extends BaseImages {
     @ManyToOne(fetch = FetchType.LAZY)
     private Item item;
 
-    @OneToMany(mappedBy = "itemImages")
-    private List<ReviewsItemImages> reviewsItemImagesList = new ArrayList<>();
-
     public void controlItem(Item item) {
         if (Objects.nonNull(item)) this.item = item;
     }

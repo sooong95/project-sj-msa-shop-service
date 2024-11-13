@@ -26,6 +26,8 @@ public class QShop extends EntityPathBase<Shop> {
 
     public final QAddress address;
 
+    public final NumberPath<Double> averageGrade = createNumber("averageGrade", Double.class);
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdDate = _super.createdDate;
 
@@ -40,6 +42,8 @@ public class QShop extends EntityPathBase<Shop> {
 
     public final ListPath<OrderShop, QOrderShop> orderShopList = this.<OrderShop, QOrderShop>createList("orderShopList", OrderShop.class, QOrderShop.class, PathInits.DIRECT2);
 
+    public final ListPath<Review, QReview> reviewList = this.<Review, QReview>createList("reviewList", Review.class, QReview.class, PathInits.DIRECT2);
+
     public final ListPath<ShopCategoryMiddleTable, QShopCategoryMiddleTable> shopCategoryMiddleTableList = this.<ShopCategoryMiddleTable, QShopCategoryMiddleTable>createList("shopCategoryMiddleTableList", ShopCategoryMiddleTable.class, QShopCategoryMiddleTable.class, PathInits.DIRECT2);
 
     public final StringPath shopDescription = createString("shopDescription");
@@ -47,6 +51,12 @@ public class QShop extends EntityPathBase<Shop> {
     public final ListPath<ShopImages, QShopImages> shopImages = this.<ShopImages, QShopImages>createList("shopImages", ShopImages.class, QShopImages.class, PathInits.DIRECT2);
 
     public final StringPath shopName = createString("shopName");
+
+    public final NumberPath<Integer> totalReviewsCount = createNumber("totalReviewsCount", Integer.class);
+
+    public final NumberPath<Integer> totalWishlistCount = createNumber("totalWishlistCount", Integer.class);
+
+    public final ListPath<Wishlist, QWishlist> wishlists = this.<Wishlist, QWishlist>createList("wishlists", Wishlist.class, QWishlist.class, PathInits.DIRECT2);
 
     public QShop(String variable) {
         this(Shop.class, forVariable(variable), INITS);

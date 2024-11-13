@@ -26,6 +26,8 @@ public class QOrderShop extends EntityPathBase<OrderShop> {
 
     public final QOrder order;
 
+    public final ListPath<Review, QReview> reviewList = this.<Review, QReview>createList("reviewList", Review.class, QReview.class, PathInits.DIRECT2);
+
     public final QShop shop;
 
     public QOrderShop(String variable) {

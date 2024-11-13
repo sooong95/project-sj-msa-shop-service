@@ -13,6 +13,8 @@ import song.sj.dto.UpdateShopMemberDto;
 import song.sj.entity.Member;
 import song.sj.enums.Role;
 import song.sj.repository.MemberRepository;
+import song.sj.repository.ReviewRepository;
+import song.sj.service.image.ImageFile;
 
 @Service
 @Slf4j

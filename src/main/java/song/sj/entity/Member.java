@@ -3,11 +3,8 @@ package song.sj.entity;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.*;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 import song.sj.TimeStamp;
-import song.sj.dto.CustomUserDetails;
 import song.sj.entity.item.Item;
 import song.sj.enums.Role;
 
@@ -50,14 +47,25 @@ public class Member extends TimeStamp {
     private Address address;
 
     @Builder.Default
+    private int reviewsCount = 0;
+    @Builder.Default
+    private int wishlistCount = 0;
+
+    @Builder.Default
     @OneToMany(mappedBy = "member")
     List<Item> items = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "member")
     private List<Shop> shopList = new ArrayList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "member")
-    private List<Reviews> reviewsList = new ArrayList<>();
+    private List<Review> reviewList = new ArrayList<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "member")
+    private List<Wishlist> wishlists = new ArrayList<>();
 
     public void transPassword(String hashPassword) {
         this.password = hashPassword;
@@ -90,6 +98,14 @@ public class Member extends TimeStamp {
 
     public void changeAddress(Address address) {
         if (Objects.nonNull(address)) this.address = address;
+    }
+
+    public void reviewsCount() {
+        reviewsCount++;
+    }
+
+    public void wishlistCount() {
+        wishlistCount++;
     }
 
     @Override

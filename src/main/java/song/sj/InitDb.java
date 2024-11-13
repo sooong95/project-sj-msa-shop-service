@@ -9,10 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import song.sj.dto.item.ItemSaveDto;
 import song.sj.dto.member.MemberJoinDto;
 import song.sj.dto.member.ShopMemberJoinDto;
-import song.sj.entity.Address;
-import song.sj.entity.ItemCategory;
-import song.sj.entity.Member;
-import song.sj.entity.ShopCategory;
+import song.sj.entity.*;
 import song.sj.entity.item.Item;
 import song.sj.enums.ItemValue;
 import song.sj.enums.Role;
@@ -79,6 +76,27 @@ public class InitDb {
             em.persist(shopMember3);
             em.persist(shopMember4);
             em.persist(shopMember5);
+
+            List<ItemValue> mainEvent = new ArrayList<>();
+            mainEvent.add(ItemValue.TOP);
+            mainEvent.add(ItemValue.BOTTOM);
+            Shop shop1 = new Shop("shopA", "이곳은 수선집1", mainEvent, new Address("city", "sdf", "sdf"));
+            Shop shop2 = new Shop("shopB", "이곳은 수선집2", mainEvent, new Address("city", "sdf", "sdf"));
+            Shop shop3 = new Shop("shopC", "이곳은 수선집3", mainEvent, new Address("city", "sdf", "sdf"));
+            Shop shop4 = new Shop("shopD", "이곳은 수선집4", mainEvent, new Address("city", "sdf", "sdf"));
+            Shop shop5 = new Shop("shopE", "이곳은 수선집5", mainEvent, new Address("city", "sdf", "sdf"));
+
+            shop1.averageGrade(4);
+            shop2.averageGrade(4.7);
+            shop3.averageGrade(3.9);
+            shop4.averageGrade(2.4);
+            shop5.averageGrade(3.3);
+
+            em.persist(shop1);
+            em.persist(shop2);
+            em.persist(shop3);
+            em.persist(shop4);
+            em.persist(shop5);
 
             em.flush();
             em.clear();

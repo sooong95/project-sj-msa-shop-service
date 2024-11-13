@@ -8,11 +8,27 @@ import song.sj.TimeStamp;
 
 @Entity
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Wishlist extends TimeStamp {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "wishlist_id")
     private Long id;
+
+    @JoinColumn(name = "member_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Member member;
+
+    @JoinColumn(name = "shop_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Shop shop;
+
+    public void addWishlist(Member member, Shop shop) {
+        this.member = member;
+        this.shop = shop;
+        member.getWishlists().add(this);
+        shop.getWishlists().add(this);
+        member.wishlistCount();
+        shop.totalWishlistCount();
+    }
 }

@@ -28,6 +28,13 @@ public class Shop extends TimeStamp {
     @Enumerated(EnumType.STRING)
     private List<ItemValue> mainEvent;
 
+    private int totalReviewsCount = 0;
+    private int totalWishlistCount = 0;
+    private double averageGrade = 0.0;
+
+    @Transient
+    private double totalGradeSum = 0.0;
+
     @Embedded
     @Valid
     private Address address;
@@ -46,9 +53,11 @@ public class Shop extends TimeStamp {
     private Member member;
 
     @OneToMany(mappedBy = "shop")
-    private List<Reviews> reviewsList = new ArrayList<>();
+    private List<Review> reviewList = new ArrayList<>();
 
-    @Builder
+    @OneToMany(mappedBy = "shop")
+    private List<Wishlist> wishlists = new ArrayList<>();
+
     public Shop(String shopName, String shopDescription, List<ItemValue> mainEvent, Address address) {
         this.shopName = shopName;
         this.shopDescription = shopDescription;
@@ -91,5 +100,25 @@ public class Shop extends TimeStamp {
             member.getShopList().add(this);
             this.member = member;
         }
+    }
+
+    public void addReview(Review review) {
+        if (Objects.nonNull(review)) {
+            totalReviewsCount++;
+            totalGradeSum += review.getGrade();
+            calculateAverageGrade();
+        }
+    }
+
+    public void calculateAverageGrade() {
+        if (totalReviewsCount > 0) this.averageGrade = totalGradeSum / totalReviewsCount;
+    }
+
+    public void totalWishlistCount() {
+        totalWishlistCount++;
+    }
+
+    public void averageGrade(double averageGrade) {
+        this.averageGrade = averageGrade;
     }
 }

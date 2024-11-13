@@ -9,10 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import song.sj.dto.Result;
 import song.sj.dto.UpdateMemberDto;
-import song.sj.dto.UpdateShopMemberDto;
-import song.sj.dto.member.MemberInfo;
 import song.sj.dto.member.MemberSearchDto;
-import song.sj.entity.Member;
 import song.sj.service.MemberQueryService;
 import song.sj.service.MemberService;
 
@@ -21,7 +18,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/userInfo")
-public class MemberRUDController {
+public class MemberInfoController {
 
     private final MemberService memberService;
     private final MemberQueryService memberQueryService;

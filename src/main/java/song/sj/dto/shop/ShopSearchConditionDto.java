@@ -1,7 +1,6 @@
 package song.sj.dto.shop;
 
 import lombok.Data;
-import song.sj.entity.Reviews;
 import song.sj.entity.Wishlist;
 
 import java.util.List;

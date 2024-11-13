@@ -27,5 +27,5 @@ public class OrderShop {
     private Order order;
 
     @OneToMany(mappedBy = "orderShop")
-    private List<Reviews> reviewsList = new ArrayList<>();
+    private List<Review> reviewList = new ArrayList<>();
 }

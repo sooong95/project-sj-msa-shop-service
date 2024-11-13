@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -16,6 +17,8 @@ import com.querydsl.core.types.Path;
 public class QWishlist extends EntityPathBase<Wishlist> {
 
     private static final long serialVersionUID = -1918417038L;
+
+    private static final PathInits INITS = PathInits.DIRECT2;
 
     public static final QWishlist wishlist = new QWishlist("wishlist");
 
@@ -29,16 +32,30 @@ public class QWishlist extends EntityPathBase<Wishlist> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> lastModifiedDate = _super.lastModifiedDate;
 
+    public final QMember member;
+
+    public final QShop shop;
+
     public QWishlist(String variable) {
-        super(Wishlist.class, forVariable(variable));
+        this(Wishlist.class, forVariable(variable), INITS);
     }
 
     public QWishlist(Path<? extends Wishlist> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QWishlist(PathMetadata metadata) {
-        super(Wishlist.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QWishlist(PathMetadata metadata, PathInits inits) {
+        this(Wishlist.class, metadata, inits);
+    }
+
+    public QWishlist(Class<? extends Wishlist> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.member = inits.isInitialized("member") ? new QMember(forProperty("member"), inits.get("member")) : null;
+        this.shop = inits.isInitialized("shop") ? new QShop(forProperty("shop"), inits.get("shop")) : null;
     }
 
 }
