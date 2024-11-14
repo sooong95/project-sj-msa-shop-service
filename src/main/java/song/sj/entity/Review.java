@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,13 +50,22 @@ public class Review {
         orderShop.getReviewList().add(this);
     }
 
-    public void addReviews(Member member, Shop shop) {
+    public void addReview(Member member, Shop shop) {
         this.member = member;
         member.getReviewList().add(this);
-        member.reviewsCount();
+        member.reviewCount();
         shop.getReviewList().add(this);
         this.shop = shop;
         shop.addReview(this);
+    }
+
+    public void deleteReview(Member member, Shop shop) {
+        this.member = null;
+        member.getReviewList().remove(this);
+        member.reviewCountReduce();
+        shop.getReviewList().remove(this);
+        this.shop = null;
+        shop.deleteReview(this);
     }
 
     public void addReviewImages(ReviewImages images) {
@@ -70,5 +80,17 @@ public class Review {
             this.reviewImagesList.remove(images);
             images.controllerReviewImages(null);
         }
+    }
+
+    public void changeReviewTitle(String reviewTitle) {
+        if (StringUtils.hasText(reviewTitle)) this.reviewTitle = reviewTitle;
+    }
+
+    public void changeContent(String content) {
+        if (StringUtils.hasText(content)) this.content = content;
+    }
+
+    public void changeGrade(double grade) {
+        if (grade > 0) this.grade = grade;
     }
 }

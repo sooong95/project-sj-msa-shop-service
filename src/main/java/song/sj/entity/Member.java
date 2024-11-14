@@ -46,8 +46,11 @@ public class Member extends TimeStamp {
     @Valid
     private Address address;
 
+    private int balance = 0;
+    private int point = 0;
+
     @Builder.Default
-    private int reviewsCount = 0;
+    private int reviewCount = 0;
     @Builder.Default
     private int wishlistCount = 0;
 
@@ -66,6 +69,10 @@ public class Member extends TimeStamp {
     @Builder.Default
     @OneToMany(mappedBy = "member")
     private List<Wishlist> wishlists = new ArrayList<>();
+
+    @Builder.Default
+    @OneToMany(mappedBy = "member")
+    private List<Payment> paymentList = new ArrayList<>();
 
     public void transPassword(String hashPassword) {
         this.password = hashPassword;
@@ -100,12 +107,30 @@ public class Member extends TimeStamp {
         if (Objects.nonNull(address)) this.address = address;
     }
 
-    public void reviewsCount() {
-        reviewsCount++;
+    public void reviewCount() {
+        reviewCount++;
+    }
+
+    public void reviewCountReduce() {
+        reviewCount--;
     }
 
     public void wishlistCount() {
         wishlistCount++;
+    }
+
+    public void inCreaseBalance(int deposit) {
+        if (this.balance >= 0) {
+            this.balance = deposit;
+        }
+    }
+
+    public void decreaseBalance(int withdrawal) {
+        if (this.balance > 0) {
+            this.balance -= withdrawal;
+        } else {
+            throw new RuntimeException("잔고가 부족합니다.");
+        }
     }
 
     @Override

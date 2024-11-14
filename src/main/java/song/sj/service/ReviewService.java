@@ -1,12 +1,12 @@
 package song.sj.service;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import song.sj.dto.member.SaveReviewDto;
-import song.sj.entity.Member;
 import song.sj.entity.Review;
 import song.sj.entity.ReviewImages;
 import song.sj.repository.ReviewImageRepository;
@@ -35,7 +35,7 @@ public class ReviewService {
         Review review = reviewRepository.save(reviewEntity);
 
         addReviewImages(files, review);
-        review.addReviews(memberService.getMemberFromJwt(), shopRepository.findById(shopId).orElseThrow());
+        review.addReview(memberService.getMemberFromJwt(), shopRepository.findById(shopId).orElseThrow());
 
     }
 
@@ -52,4 +52,41 @@ public class ReviewService {
         }
     }
 
+    public void updateReview(Long id, SaveReviewDto dto) {
+
+        Review review = reviewRepository.findById(id).orElseThrow();
+        review.changeReviewTitle(dto.getReviewTitle());
+        review.changeContent(dto.getContent());
+        review.changeGrade(dto.getGrade());
+    }
+
+    public void addReviewImages(Long reviewId, List<MultipartFile> files) {
+
+        addReviewImages(files, reviewRepository.findById(reviewId).orElseThrow());
+    }
+
+    public void deleteReviewImages(Long reviewImageId) {
+
+        ReviewImages reviewImages = reviewImageRepository.findById(reviewImageId).orElseThrow(() ->
+                new EntityNotFoundException("이미지를 찾을 수 없습니다."));
+
+        Review review = reviewImages.getReview();
+        review.deleteReviewImages(reviewImages);
+
+        reviewImageRepository.delete(reviewImages);
+    }
+
+    public void deleteReview(Long reviewId, Long shopId) {
+
+        Review review = reviewRepository.findById(reviewId).orElseThrow(() -> new EntityNotFoundException("존재하지 않는 리뷰 입니다."));
+        log.info("리뷰 내용={}", review.getReviewTitle());
+        /*review.getReviewImagesList().forEach(image -> deleteReviewImages(image.getId()));*/
+        review.getReviewImagesList().forEach(reviewImageRepository::delete);
+
+        log.info("shop={}", shopRepository.findById(shopId).orElseThrow());
+
+        review.deleteReview(memberService.getMemberFromJwt(), shopRepository.findById(shopId).orElseThrow(() -> new EntityNotFoundException("존재하지 않는 shop 입니다.")));
+        reviewRepository.delete(review);
+        log.info("리뷰 확인={}", review.getReviewTitle());
+    }
 }

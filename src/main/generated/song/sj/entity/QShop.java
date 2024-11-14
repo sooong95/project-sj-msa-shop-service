@@ -52,7 +52,7 @@ public class QShop extends EntityPathBase<Shop> {
 
     public final StringPath shopName = createString("shopName");
 
-    public final NumberPath<Integer> totalReviewsCount = createNumber("totalReviewsCount", Integer.class);
+    public final NumberPath<Integer> totalReviewCount = createNumber("totalReviewCount", Integer.class);
 
     public final NumberPath<Integer> totalWishlistCount = createNumber("totalWishlistCount", Integer.class);
 

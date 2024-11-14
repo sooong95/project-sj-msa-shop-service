@@ -42,9 +42,9 @@ public class QMember extends EntityPathBase<Member> {
 
     public final StringPath password = createString("password");
 
-    public final ListPath<Review, QReview> reviewList = this.<Review, QReview>createList("reviewList", Review.class, QReview.class, PathInits.DIRECT2);
+    public final NumberPath<Integer> reviewCount = createNumber("reviewCount", Integer.class);
 
-    public final NumberPath<Integer> reviewsCount = createNumber("reviewsCount", Integer.class);
+    public final ListPath<Review, QReview> reviewList = this.<Review, QReview>createList("reviewList", Review.class, QReview.class, PathInits.DIRECT2);
 
     public final EnumPath<song.sj.enums.Role> role = createEnum("role", song.sj.enums.Role.class);
 

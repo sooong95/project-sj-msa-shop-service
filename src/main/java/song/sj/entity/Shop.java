@@ -28,7 +28,7 @@ public class Shop extends TimeStamp {
     @Enumerated(EnumType.STRING)
     private List<ItemValue> mainEvent;
 
-    private int totalReviewsCount = 0;
+    private int totalReviewCount = 0;
     private int totalWishlistCount = 0;
     private double averageGrade = 0.0;
 
@@ -104,14 +104,22 @@ public class Shop extends TimeStamp {
 
     public void addReview(Review review) {
         if (Objects.nonNull(review)) {
-            totalReviewsCount++;
+            totalReviewCount++;
             totalGradeSum += review.getGrade();
             calculateAverageGrade();
         }
     }
 
+    public void deleteReview(Review review) {
+        if (Objects.nonNull(review)) {
+            totalReviewCount--;
+            totalGradeSum -= review.getGrade();
+            calculateAverageGrade();
+        }
+    }
+
     public void calculateAverageGrade() {
-        if (totalReviewsCount > 0) this.averageGrade = totalGradeSum / totalReviewsCount;
+        if (totalReviewCount > 0) this.averageGrade = totalGradeSum / totalReviewCount;
     }
 
     public void totalWishlistCount() {

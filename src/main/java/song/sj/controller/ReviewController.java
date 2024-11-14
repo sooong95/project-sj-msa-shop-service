@@ -21,10 +21,37 @@ public class ReviewController {
 
     @PostMapping("/{shopId}")
     public ResponseEntity<String> saveReview(@PathVariable("shopId") Long shopId, @ModelAttribute SaveReviewDto dto,
-                                             @RequestParam("image")List<MultipartFile> files) {
+                                             @RequestParam("image") List<MultipartFile> files) {
         reviewService.saveReview(shopId, dto, files);
         return new ResponseEntity<>("리뷰 저장 성공!", HttpStatus.CREATED);
     }
 
+    @PatchMapping("/{reviewId}")
+    public ResponseEntity<String> updateReview(@PathVariable("reviewId") Long reviewId, @RequestBody SaveReviewDto dto) {
 
+        reviewService.updateReview(reviewId, dto);
+        return new ResponseEntity<>("성공적으로 리뷰가 변경 되었습니다.", HttpStatus.OK);
+    }
+
+    @PostMapping("/{reviewId}/images")
+    public ResponseEntity<String> addReviewImage(@PathVariable("reviewId") Long reviewId,
+                                                 @RequestParam("image") List<MultipartFile> files) {
+        reviewService.addReviewImages(reviewId, files);
+        return new ResponseEntity<>("정상적으로 이미지가 등록 되었습니다.", HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{reviewImageId}/images")
+    public ResponseEntity<String> deleteImage(@PathVariable("reviewImageId") Long reviewImageId) {
+
+        reviewService.deleteReviewImages(reviewImageId);
+        return new ResponseEntity<>("정상적으로 이미지가 삭제 되었습니다.", HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{reviewId}")
+    public ResponseEntity<String> deleteReview(@PathVariable("reviewId") Long reviewId, @RequestParam("shopId") Long shopId) {
+
+        log.info("리뷰 Id={},shop Id={}", reviewId, shopId);
+        reviewService.deleteReview(reviewId, shopId);
+        return new ResponseEntity<>("리뷰가 정상적으로 삭제 되었습니다.", HttpStatus.OK);
+    }
 }
