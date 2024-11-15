@@ -102,6 +102,10 @@ public class Shop extends TimeStamp {
         }
     }
 
+    public void addOrderShop(Order order) {
+        OrderShop.createOrderShop(this, order);
+    }
+
     public void addReview(Review review) {
         if (Objects.nonNull(review)) {
             totalReviewCount++;

@@ -28,8 +28,10 @@ public class Payment extends TimeStamp {
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
-    public void addPayment(Member member) {
+    public Payment(Member member, PaymentStatus paymentStatus, int amount) {
         this.member = member;
+        this.paymentStatus = paymentStatus;
+        this.amount = amount;
         member.getPaymentList().add(this);
     }
 
@@ -45,5 +47,9 @@ public class Payment extends TimeStamp {
             this.member.decreaseBalance(amount);
             this.paymentStatus = PaymentStatus.WITHDRAWAL;
         }
+    }
+
+    public void payment(int amount) {
+
     }
 }

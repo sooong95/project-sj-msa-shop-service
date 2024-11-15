@@ -74,6 +74,11 @@ public abstract class Item extends TimeStamp {
         member.getItems().add(this);
     }
 
+    public void addOrder(Order order) {
+        this.order = order;
+        order.getItemList().add(this);
+    }
+
     public void changeItemName(String itemName) {
         if (StringUtils.hasText(itemName)) this.itemName = itemName;
     }

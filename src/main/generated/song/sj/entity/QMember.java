@@ -26,6 +26,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final QAddress address;
 
+    public final NumberPath<Integer> balance = createNumber("balance", Integer.class);
+
     public final StringPath businessRegistrationNumber = createString("businessRegistrationNumber");
 
     //inherited
@@ -41,6 +43,10 @@ public class QMember extends EntityPathBase<Member> {
     public final DateTimePath<java.time.LocalDateTime> lastModifiedDate = _super.lastModifiedDate;
 
     public final StringPath password = createString("password");
+
+    public final ListPath<Payment, QPayment> paymentList = this.<Payment, QPayment>createList("paymentList", Payment.class, QPayment.class, PathInits.DIRECT2);
+
+    public final NumberPath<Integer> point = createNumber("point", Integer.class);
 
     public final NumberPath<Integer> reviewCount = createNumber("reviewCount", Integer.class);
 

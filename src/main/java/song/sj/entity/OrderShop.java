@@ -28,4 +28,11 @@ public class OrderShop {
 
     @OneToMany(mappedBy = "orderShop")
     private List<Review> reviewList = new ArrayList<>();
+
+    public static OrderShop createOrderShop(Shop shop, Order order) {
+        OrderShop orderShop = new OrderShop();
+        orderShop.shop = shop;
+        orderShop.order = order;
+        return orderShop;
+    }
 }

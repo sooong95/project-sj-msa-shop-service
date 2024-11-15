@@ -46,7 +46,9 @@ public class Member extends TimeStamp {
     @Valid
     private Address address;
 
+    @Builder.Default
     private int balance = 0;
+    @Builder.Default
     private int point = 0;
 
     @Builder.Default
@@ -119,15 +121,15 @@ public class Member extends TimeStamp {
         wishlistCount++;
     }
 
-    public void inCreaseBalance(int deposit) {
+    public void inCreaseBalance(int amount) {
         if (this.balance >= 0) {
-            this.balance = deposit;
+            this.balance = amount;
         }
     }
 
-    public void decreaseBalance(int withdrawal) {
-        if (this.balance > 0) {
-            this.balance -= withdrawal;
+    public void decreaseBalance(int amount) {
+        if (this.balance >= amount) {
+            this.balance -= amount;
         } else {
             throw new RuntimeException("잔고가 부족합니다.");
         }
