@@ -4,10 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.util.StringUtils;
 import song.sj.TimeStamp;
-import song.sj.entity.ItemCategory;
-import song.sj.entity.ItemImages;
-import song.sj.entity.Member;
-import song.sj.entity.Order;
+import song.sj.entity.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +28,7 @@ public abstract class Item extends TimeStamp {
     private String itemName;
     private String material;
     private int size;
+    private int quantity;
     private String design;
     private String description;
 
@@ -49,10 +47,12 @@ public abstract class Item extends TimeStamp {
     @OneToMany(mappedBy = "item")
     private List<ItemImages> itemImages = new ArrayList<>();
 
+    @OneToOne(mappedBy = "item")
+    private OrderItem orderItem;
+
     public void addItemCategory(ItemCategory itemCategory) {
         this.itemCategory = itemCategory;
         itemCategory.getItems().add(this);
-
     }
 
     public void addImage(ItemImages images) {
@@ -77,6 +77,24 @@ public abstract class Item extends TimeStamp {
     public void addOrder(Order order) {
         this.order = order;
         order.getItemList().add(this);
+    }
+
+    public void changeQuantity(int quantity) {
+
+        this.quantity += quantity;
+
+        if (this.quantity <= 0) {
+            throw new IllegalArgumentException("수량은 한 개 이상이어야 합니다.");
+        }
+    }
+
+    public void reduceQuantity(int quantity) {
+
+        if (this.quantity >= quantity) {
+            this.quantity -= quantity;
+        } else {
+            throw new IllegalArgumentException("수량은 1개 이상이어야 합니다.");
+        }
     }
 
     public void changeItemName(String itemName) {

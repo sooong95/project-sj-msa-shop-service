@@ -169,11 +169,11 @@ public class InitDb {
             em.persist(accessory);
             em.persist(etc);
 
-            ItemSaveDto item1 = new ItemSaveDto("itemA", "A", 110, "designA", "descriptionA", "A", ItemValue.TOP);
-            ItemSaveDto item2 = new ItemSaveDto("itemB", "B", 100, "designB", "descriptionB", "B", ItemValue.TOP);
-            ItemSaveDto item3 = new ItemSaveDto("itemC", "C", 110, "designC", "descriptionC", "C", ItemValue.BOTTOM);
-            ItemSaveDto item4 = new ItemSaveDto("itemD", "D", 100, "designD", "descriptionD", "D", ItemValue.TOP);
-            ItemSaveDto item5 = new ItemSaveDto("itemE", "E", 110, "designE", "descriptionE", "E", ItemValue.BOTTOM);
+            ItemSaveDto item1 = new ItemSaveDto("itemA", "A", 110, 1, "designA", "descriptionA", "A", ItemValue.TOP);
+            ItemSaveDto item2 = new ItemSaveDto("itemB", "B", 100, 1, "designB", "descriptionB", "B", ItemValue.TOP);
+            ItemSaveDto item3 = new ItemSaveDto("itemC", "C", 110, 3, "designC", "descriptionC", "C", ItemValue.BOTTOM);
+            ItemSaveDto item4 = new ItemSaveDto("itemD", "D", 100, 10, "designD", "descriptionD", "D", ItemValue.TOP);
+            ItemSaveDto item5 = new ItemSaveDto("itemE", "E", 110, 1, "designE", "descriptionE", "E", ItemValue.BOTTOM);
 
             Item itemEntity1 = ToItem.toItemEntity(item1);
             Item itemEntity2 = ToItem.toItemEntity(item2);

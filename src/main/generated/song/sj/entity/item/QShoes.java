@@ -60,6 +60,9 @@ public class QShoes extends EntityPathBase<Shoes> {
     public final StringPath productClassification = createString("productClassification");
 
     //inherited
+    public final NumberPath<Integer> quantity;
+
+    //inherited
     public final NumberPath<Integer> size;
 
     public QShoes(String variable) {
@@ -92,6 +95,7 @@ public class QShoes extends EntityPathBase<Shoes> {
         this.material = _super.material;
         this.member = _super.member;
         this.order = _super.order;
+        this.quantity = _super.quantity;
         this.size = _super.size;
     }
 

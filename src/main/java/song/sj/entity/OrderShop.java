@@ -27,6 +27,9 @@ public class OrderShop {
     private Order order;
 
     @OneToMany(mappedBy = "orderShop")
+    private List<OrderItem> orderItemsList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "orderShop")
     private List<Review> reviewList = new ArrayList<>();
 
     public static OrderShop createOrderShop(Shop shop, Order order) {

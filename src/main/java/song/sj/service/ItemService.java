@@ -80,6 +80,7 @@ public class ItemService {
         Item item = privateFindItem(id);
         item.changeItemName(dto.getItemName());
         item.changeSize(dto.getSize());
+        item.changeQuantity(dto.getQuantity());
         item.changeMaterial(dto.getMaterial());
         item.changeDesign(dto.getDesign());
         item.changeDescription(dto.getDescription());

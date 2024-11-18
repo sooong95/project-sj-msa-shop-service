@@ -39,25 +39,26 @@ public class Order extends TimeStamp {
     @OneToMany(mappedBy = "order")
     private List<OrderShop> orderShopList = new ArrayList<>();
 
-    public void addOrderShop(Shop shop) {
-        this.orderShopList.add(OrderShop.createOrderShop(shop, this));
+    public static void addOrderShop(Shop shop) {
+        Order order = new Order();
+        order.orderShopList.add(OrderShop.createOrderShop(shop, order));
     }
 
-    public Order createOrder(Member member, List<Item> items, List<Shop> shopList) {
+    public static Order createOrder(Member member, List<Item> items, List<Shop> shopList) {
 
         Order order = new Order();
         order.member = member;
 
         for (Item item : items) {
             order.getItemList().add(item);
-            item.addOrder(this);
+            item.addOrder(order);
         }
 
         for (Shop shop : shopList) {
             addOrderShop(shop);
         }
 
-        this.orderStatus = OrderStatus.ORDER;
+        order.orderStatus = OrderStatus.ORDER;
 
         return order;
     }

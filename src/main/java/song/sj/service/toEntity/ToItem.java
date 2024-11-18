@@ -9,6 +9,7 @@ public class ToItem {
         item.changeItemName(dto.getItemName());
         item.changeMaterial(dto.getMaterial());
         item.changeSize(dto.getSize());
+        item.changeQuantity(dto.getQuantity());
         item.changeDesign(dto.getDesign());
         item.changeDescription(dto.getDescription());
 

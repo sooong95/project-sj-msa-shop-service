@@ -23,6 +23,7 @@ public class ItemSaveDto {
     private String itemName;
     private String material;
     private int size;
+    private int quantity;
     private String design;
     private String description;
     private String productClassification;

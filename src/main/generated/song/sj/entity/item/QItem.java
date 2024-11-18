@@ -48,6 +48,8 @@ public class QItem extends EntityPathBase<Item> {
 
     public final song.sj.entity.QOrder order;
 
+    public final NumberPath<Integer> quantity = createNumber("quantity", Integer.class);
+
     public final NumberPath<Integer> size = createNumber("size", Integer.class);
 
     public QItem(String variable) {
