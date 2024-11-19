@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import song.sj.entity.item.Item;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,10 +33,15 @@ public class OrderShop {
     @OneToMany(mappedBy = "orderShop")
     private List<Review> reviewList = new ArrayList<>();
 
-    public static OrderShop createOrderShop(Shop shop, Order order) {
+    public static OrderShop createOrderShop(Shop shop) {
         OrderShop orderShop = new OrderShop();
         orderShop.shop = shop;
-        orderShop.order = order;
+
         return orderShop;
+    }
+
+    public void addOrder(Order order) {
+        this.order = order;
+        order.getOrderShopList().add(this);
     }
 }

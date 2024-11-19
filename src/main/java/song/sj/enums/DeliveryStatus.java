@@ -2,5 +2,5 @@ package song.sj.enums;
 
 public enum DeliveryStatus {
 
-    READY, COMPLETE
+    READY, START, DELIVERED
 }

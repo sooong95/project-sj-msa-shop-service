@@ -46,7 +46,7 @@ public class QItem extends EntityPathBase<Item> {
 
     public final song.sj.entity.QMember member;
 
-    public final song.sj.entity.QOrder order;
+    public final song.sj.entity.QOrderItem orderItem;
 
     public final NumberPath<Integer> quantity = createNumber("quantity", Integer.class);
 
@@ -72,7 +72,7 @@ public class QItem extends EntityPathBase<Item> {
         super(type, metadata, inits);
         this.itemCategory = inits.isInitialized("itemCategory") ? new song.sj.entity.QItemCategory(forProperty("itemCategory"), inits.get("itemCategory")) : null;
         this.member = inits.isInitialized("member") ? new song.sj.entity.QMember(forProperty("member"), inits.get("member")) : null;
-        this.order = inits.isInitialized("order") ? new song.sj.entity.QOrder(forProperty("order"), inits.get("order")) : null;
+        this.orderItem = inits.isInitialized("orderItem") ? new song.sj.entity.QOrderItem(forProperty("orderItem"), inits.get("orderItem")) : null;
     }
 
 }

@@ -5,6 +5,7 @@ import jakarta.validation.Valid;
 import lombok.*;
 import org.springframework.util.StringUtils;
 import song.sj.TimeStamp;
+import song.sj.entity.item.Item;
 import song.sj.enums.ItemValue;
 
 import java.util.ArrayList;
@@ -100,10 +101,6 @@ public class Shop extends TimeStamp {
             member.getShopList().add(this);
             this.member = member;
         }
-    }
-
-    public void addOrderShop(Order order) {
-        OrderShop.createOrderShop(this, order);
     }
 
     public void addReview(Review review) {

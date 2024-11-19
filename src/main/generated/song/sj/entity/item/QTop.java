@@ -55,7 +55,7 @@ public class QTop extends EntityPathBase<Top> {
     public final song.sj.entity.QMember member;
 
     // inherited
-    public final song.sj.entity.QOrder order;
+    public final song.sj.entity.QOrderItem orderItem;
 
     public final StringPath productClassification = createString("productClassification");
 
@@ -94,7 +94,7 @@ public class QTop extends EntityPathBase<Top> {
         this.lastModifiedDate = _super.lastModifiedDate;
         this.material = _super.material;
         this.member = _super.member;
-        this.order = _super.order;
+        this.orderItem = _super.orderItem;
         this.quantity = _super.quantity;
         this.size = _super.size;
     }

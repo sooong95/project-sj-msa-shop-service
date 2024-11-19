@@ -36,9 +36,9 @@ public abstract class Item extends TimeStamp {
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
-    @JoinColumn(name = "order_id")
+    /*@JoinColumn(name = "order_id")
     @ManyToOne(fetch = FetchType.LAZY)
-    private Order order;
+    private Order order;*/
 
     @JoinColumn(name = "item_category_id")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -74,10 +74,10 @@ public abstract class Item extends TimeStamp {
         member.getItems().add(this);
     }
 
-    public void addOrder(Order order) {
+    /*public void addOrder(Order order) {
         this.order = order;
         order.getItemList().add(this);
-    }
+    }*/
 
     public void changeQuantity(int quantity) {
 
@@ -115,5 +115,9 @@ public abstract class Item extends TimeStamp {
 
     public void changeDescription(String description) {
         if (StringUtils.hasText(description)) this.description = description;
+    }
+
+    public void setOrderItem(OrderItem orderItem) {
+        this.orderItem = orderItem;
     }
 }

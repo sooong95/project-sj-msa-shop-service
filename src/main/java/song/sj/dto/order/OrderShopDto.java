@@ -9,7 +9,8 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderSaveDto {
+public class OrderShopDto {
 
-    private List<OrderShopDto> orderShopList;
+    private Long shopId;
+    private List<OrderItemDto> orderItemList;
 }
