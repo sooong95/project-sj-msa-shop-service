@@ -51,4 +51,19 @@ public class OrderService {
             orderRepository.save(order);
         }
     }
+
+    public void orderCancel(Long orderId) {
+
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new EntityNotFoundException("존재하지 않는 주문입니다."));
+
+        for (OrderShop orderShop : order.getOrderShopList()) {
+            OrderShop findOrderShop = orderShopRepository.findById(orderShop.getId()).orElseThrow();
+
+            for (OrderItem orderItem : findOrderShop.getOrderItemsList()) {
+                orderItemRepository.delete(orderItemRepository.findById(orderItem.getId()).orElseThrow());
+            }
+            orderShopRepository.delete(findOrderShop);
+        }
+        orderRepository.delete(order);
+    }
 }

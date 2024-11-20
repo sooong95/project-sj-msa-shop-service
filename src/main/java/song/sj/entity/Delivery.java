@@ -38,6 +38,12 @@ public class Delivery {
     private LocalDateTime deliveryStartDate;
     private LocalDateTime deliveredDate;
 
+    public Delivery(String courierName, String memo, Address address) {
+        this.courierName = courierName;
+        this.memo = memo;
+        this.address = address;
+    }
+
     public void orderSetting(Order order) {
         this.order = order;
     }
@@ -46,9 +52,8 @@ public class Delivery {
         this.member = member;
     }
 
-
-
     public void changeDeliveryStatus(DeliveryStatus deliveryStatus) {
         if (Objects.nonNull(deliveryStatus)) this.deliveryStatus = deliveryStatus;
     }
+
 }

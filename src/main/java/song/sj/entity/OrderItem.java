@@ -37,10 +37,4 @@ public class OrderItem {
         orderShop.getOrderItemsList().add(orderItem);
         return orderItem;
     }
-
-    /*public static void addOrderShop(OrderShop orderShop) {
-        OrderItem orderItem = new OrderItem();
-        orderItem.orderShop = orderShop;
-        orderShop.getOrderItemsList().add(orderItem);
-    }*/
 }

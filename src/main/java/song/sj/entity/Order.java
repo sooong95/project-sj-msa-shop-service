@@ -53,6 +53,6 @@ public class Order extends TimeStamp {
 
     public void setDelivery(Delivery delivery) {
         this.delivery = delivery;
-        delivery.changeOrder(this);
+        delivery.orderSetting(this);
     }
 }

@@ -74,6 +74,7 @@ public class SecurityConfig {
                 .requestMatchers("/login", "/", "/join", "/join/shop").permitAll() // 해당 경로는 모든 권한 허용
                 .requestMatchers("/admin").hasRole("ADMIN")
                 .requestMatchers("/shop", "/shop/**").hasRole("SHOP")// 해당 권한이 있는 사용자만 허용
+                .requestMatchers("/order", "/order/**", "/item", "/item/**").hasRole("MEMBER")
                 .anyRequest().authenticated() // 그 외 경로는 로그인한 사용자만 허용
         );
 

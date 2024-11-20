@@ -24,9 +24,21 @@ public class QDelivery extends EntityPathBase<Delivery> {
 
     public final QAddress address;
 
+    public final StringPath courierName = createString("courierName");
+
+    public final DateTimePath<java.time.LocalDateTime> deliveredDate = createDateTime("deliveredDate", java.time.LocalDateTime.class);
+
+    public final DateTimePath<java.time.LocalDateTime> deliveryStartDate = createDateTime("deliveryStartDate", java.time.LocalDateTime.class);
+
     public final EnumPath<song.sj.enums.DeliveryStatus> deliveryStatus = createEnum("deliveryStatus", song.sj.enums.DeliveryStatus.class);
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
+
+    public final QMember member;
+
+    public final StringPath memo = createString("memo");
+
+    public final QOrder order;
 
     public QDelivery(String variable) {
         this(Delivery.class, forVariable(variable), INITS);
@@ -47,6 +59,8 @@ public class QDelivery extends EntityPathBase<Delivery> {
     public QDelivery(Class<? extends Delivery> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.address = inits.isInitialized("address") ? new QAddress(forProperty("address")) : null;
+        this.member = inits.isInitialized("member") ? new QMember(forProperty("member"), inits.get("member")) : null;
+        this.order = inits.isInitialized("order") ? new QOrder(forProperty("order"), inits.get("order")) : null;
     }
 
 }
