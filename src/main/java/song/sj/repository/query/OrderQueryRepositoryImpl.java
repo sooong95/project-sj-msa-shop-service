@@ -3,12 +3,10 @@ package song.sj.repository.query;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import song.sj.entity.*;
-import song.sj.entity.item.QItem;
 
 import java.util.List;
 
 import static song.sj.entity.QItemImages.itemImages;
-import static song.sj.entity.QMember.member;
 import static song.sj.entity.QOrder.order;
 import static song.sj.entity.QOrderItem.orderItem;
 import static song.sj.entity.QOrderShop.orderShop;
@@ -30,5 +28,17 @@ public class OrderQueryRepositoryImpl implements OrderQueryRepository{
                 .where(order.member.id.eq(memberId))
                 .distinct()
                 .fetch();
+    }
+
+    public Order findOneShopOrder(Long shopId) {
+
+        return jpaQueryFactory
+                .selectFrom(order)
+                .leftJoin(order.orderShopList, orderShop)
+                .leftJoin(orderShop.orderItemsList, orderItem)
+                .leftJoin(orderItem.item, item)
+                .leftJoin(item.itemImages, itemImages)
+                .where(orderShop.shop.id.eq(shopId))
+                .fetchOne();
     }
 }

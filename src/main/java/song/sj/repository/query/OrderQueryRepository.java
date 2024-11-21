@@ -7,4 +7,6 @@ import java.util.List;
 public interface OrderQueryRepository {
 
     List<Order> findAllOrder(Long memberId);
+
+    Order findOneShopOrder(Long shopId);
 }

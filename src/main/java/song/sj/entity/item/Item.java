@@ -36,10 +36,6 @@ public abstract class Item extends TimeStamp {
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
-    /*@JoinColumn(name = "order_id")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Order order;*/
-
     @JoinColumn(name = "item_category_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private ItemCategory itemCategory;

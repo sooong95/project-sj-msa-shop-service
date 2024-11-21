@@ -13,15 +13,14 @@ import song.sj.entity.OrderItem;
 import song.sj.entity.OrderShop;
 import song.sj.entity.Shop;
 import song.sj.entity.item.Item;
+import song.sj.enums.OrderStatus;
 import song.sj.repository.*;
-
-import java.util.List;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class OrderService {
+public class MemberOrderService {
 
     private final OrderRepository orderRepository;
     private final OrderItemRepository orderItemRepository;
@@ -65,5 +64,15 @@ public class OrderService {
             orderShopRepository.delete(findOrderShop);
         }
         orderRepository.delete(order);
+    }
+
+    public void orderAccept(Long orderId) {
+
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new EntityNotFoundException("존재하지 않는 주문입니다."));
+
+
+
+        order.changeOrderStatus(OrderStatus.ACCEPT);
+        orderRepository.save(order);
     }
 }

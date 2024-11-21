@@ -8,7 +8,6 @@ import song.sj.dto.Result;
 import song.sj.dto.order.OrderHistoryDto;
 import song.sj.dto.order.OrderHistoryItemDto;
 import song.sj.dto.order.OrderHistoryShopDto;
-import song.sj.entity.ItemImages;
 import song.sj.entity.Order;
 import song.sj.entity.OrderItem;
 import song.sj.entity.OrderShop;
@@ -22,14 +21,14 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class OrderQueryService {
+public class MemberOrderQueryService {
 
     private final OrderRepository orderRepository;
     private final MemberService memberService;
     private final ItemImageRepository itemImageRepository;
     private final ImageFile imageFile;
 
-    public Result<List<OrderHistoryDto>> orderHistory() {
+    public Result<List<OrderHistoryDto>> memberOrderHistory() {
 
         List<OrderHistoryDto> orderHistoryList = orderRepository.findAllOrder(memberService.getMemberFromJwt().getId()).stream().map(
                 order -> {
@@ -48,20 +47,29 @@ public class OrderQueryService {
         return new Result<>(orderHistoryList.size(), orderHistoryList);
     }
 
+    public OrderHistoryDto findOneShopOrder(Long orderId) {
+
+        List<OrderHistoryShopDto> historyShop = orderRepository.findOneShopOrder(orderId).getOrderShopList()
+                .stream().map(orderShop -> {
+                            List<OrderHistoryItemDto> historyItem = orderShop.getOrderItemsList().stream().map(
+                                    this::convertToOrderHistoryItemDto
+                            ).toList();
+                            return convertToOrderHistoryShopDto(orderShop, historyItem);
+                        }
+                ).toList();
+
+        return convertToOrderHistoryDto(orderRepository.findById(orderId).orElseThrow(), historyShop);
+    }
+
     private OrderHistoryItemDto convertToOrderHistoryItemDto(OrderItem orderItem) {
 
-        List<String> imageUrlList = itemImageRepository.findByItemId(orderItem.getItem().getId()).stream().map(
-                image -> imageFile.getFullPath(image.getImageName())
-        ).toList();
-
-        for (String url : imageUrlList) {
-            log.info("이미지 링크={}", url);
-        }
         return new OrderHistoryItemDto(
                 orderItem.getItem().getItemName(),
                 orderItem.getQuantity(),
                 orderItem.getOrderShop().getOrder().getOrderStatus(),
-                imageUrlList
+                itemImageRepository.findByItemId(orderItem.getItem().getId()).stream().map(
+                        image -> imageFile.getFullPath(image.getImageName())
+                ).toList()
         );
     }
 

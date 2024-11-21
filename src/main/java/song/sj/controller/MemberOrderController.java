@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import song.sj.dto.Result;
 import song.sj.dto.order.OrderHistoryDto;
 import song.sj.dto.order.OrderSaveDto;
-import song.sj.service.OrderQueryService;
-import song.sj.service.OrderService;
+import song.sj.service.MemberOrderQueryService;
+import song.sj.service.MemberOrderService;
 
 import java.util.List;
 
@@ -17,28 +17,34 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/order")
-public class OrderController {
+public class MemberOrderController {
 
-    private final OrderService orderService;
-    private final OrderQueryService orderQueryService;
+    private final MemberOrderService memberOrderService;
+    private final MemberOrderQueryService memberOrderQueryService;
 
     @PostMapping
     public ResponseEntity<String> orderSave(@RequestBody OrderSaveDto orderSaveDto) {
 
-        orderService.orderSave(orderSaveDto);
+        memberOrderService.orderSave(orderSaveDto);
         return new ResponseEntity<>("주문이 완료 되었습니다.", HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{orderId}")
     public ResponseEntity<String> orderCancel(@PathVariable("orderId") Long orderId) {
 
-        orderService.orderCancel(orderId);
+        memberOrderService.orderCancel(orderId);
         return new ResponseEntity<>("주문이 취소 되었습니다.", HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<Result<List<OrderHistoryDto>>> orderHistory() {
+    public ResponseEntity<Result<List<OrderHistoryDto>>> memberOrderHistory() {
 
-        return new ResponseEntity<>(orderQueryService.orderHistory(), HttpStatus.OK);
+        return new ResponseEntity<>(memberOrderQueryService.memberOrderHistory(), HttpStatus.OK);
+    }
+
+    @GetMapping("/shop/{orderId}")
+    public ResponseEntity<OrderHistoryDto> shopFindOneOrder(@PathVariable("orderId") Long orderId) {
+
+        return new ResponseEntity<>(memberOrderQueryService.findOneShopOrder(orderId), HttpStatus.OK);
     }
 }

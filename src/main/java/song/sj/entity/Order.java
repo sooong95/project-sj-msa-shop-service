@@ -9,6 +9,7 @@ import song.sj.enums.OrderStatus;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -54,5 +55,9 @@ public class Order extends TimeStamp {
     public void setDelivery(Delivery delivery) {
         this.delivery = delivery;
         delivery.orderSetting(this);
+    }
+
+    public void changeOrderStatus(OrderStatus orderStatus) {
+        if (Objects.nonNull(orderStatus)) this.orderStatus = orderStatus;
     }
 }
