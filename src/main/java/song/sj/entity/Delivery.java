@@ -30,6 +30,7 @@ public class Delivery {
     private Member member;
 
     private String courierName;
+    private Long transportationNumber;
     private String memo;
 
     @Embedded
@@ -38,8 +39,9 @@ public class Delivery {
     private LocalDateTime deliveryStartDate;
     private LocalDateTime deliveredDate;
 
-    public Delivery(String courierName, String memo, Address address) {
+    public Delivery(String courierName, Long transportationNumber, String memo, Address address) {
         this.courierName = courierName;
+        this.transportationNumber = transportationNumber;
         this.memo = memo;
         this.address = address;
     }

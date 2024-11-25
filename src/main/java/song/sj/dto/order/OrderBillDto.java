@@ -1,11 +1,19 @@
 package song.sj.dto.order;
 
+import lombok.Data;
+
+import java.util.List;
+
+@Data
 public class OrderBillDto {
 
+    private Long orderId;
+    private Long shopId;
     private String shopName;
-    private int cost;
-    private String itemName;
-    private String repairDescription;
+    private String shopEmail;
+    private String clientEmail;
+    private List<OrderItemBillDto> itemBillDtoList;
+    private int totalCost;
 }
 
 /*청구서 번호: 거래를 식별하기 위한 고유 번호

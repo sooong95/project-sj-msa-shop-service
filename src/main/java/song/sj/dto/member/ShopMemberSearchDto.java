@@ -11,7 +11,6 @@ public class ShopMemberSearchDto implements MemberInfo{
     private Long id;
     private String username;
     private String email;
-    private String shopName;
     private String businessRegistrationNumber;
     private Address address;
 }

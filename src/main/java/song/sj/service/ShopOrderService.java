@@ -23,17 +23,13 @@ import song.sj.repository.*;
 public class ShopOrderService {
 
     private final OrderRepository orderRepository;
-    private final OrderItemRepository orderItemRepository;
-    private final OrderShopRepository orderShopRepository;
-    private final ShopRepository shopRepository;
-    private final ItemRepository itemRepository;
-    private final MemberService memberService;
 
-    public void orderAccept(Long orderId) {
+    public void changeOrderStatus(Long orderId, OrderStatus orderStatus) {
 
-        Order order = orderRepository.findById(orderId).orElseThrow(() -> new EntityNotFoundException("존재하지 않는 주문입니다."));
+        findOrder(orderId).changeOrderStatus(orderStatus);
+    }
 
-        order.changeOrderStatus(OrderStatus.ACCEPT);
-        orderRepository.save(order);
+    private Order findOrder(Long orderId) {
+        return orderRepository.findById(orderId).orElseThrow(() -> new EntityNotFoundException("존재하지 않는 주문입니다."));
     }
 }

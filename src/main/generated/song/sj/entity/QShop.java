@@ -28,6 +28,8 @@ public class QShop extends EntityPathBase<Shop> {
 
     public final NumberPath<Double> averageGrade = createNumber("averageGrade", Double.class);
 
+    public final ListPath<Bill, QBill> billList = this.<Bill, QBill>createList("billList", Bill.class, QBill.class, PathInits.DIRECT2);
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdDate = _super.createdDate;
 

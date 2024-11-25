@@ -59,6 +59,9 @@ public class Shop extends TimeStamp {
     @OneToMany(mappedBy = "shop")
     private List<Wishlist> wishlists = new ArrayList<>();
 
+    @OneToMany(mappedBy = "shop")
+    private List<Bill> billList = new ArrayList<>();
+
     public Shop(String shopName, String shopDescription, List<ItemValue> mainEvent, Address address) {
         this.shopName = shopName;
         this.shopDescription = shopDescription;

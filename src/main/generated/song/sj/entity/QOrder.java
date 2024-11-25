@@ -24,6 +24,8 @@ public class QOrder extends EntityPathBase<Order> {
 
     public final song.sj.QTimeStamp _super = new song.sj.QTimeStamp(this);
 
+    public final ListPath<Bill, QBill> billList = this.<Bill, QBill>createList("billList", Bill.class, QBill.class, PathInits.DIRECT2);
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdDate = _super.createdDate;
 

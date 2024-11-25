@@ -29,7 +29,7 @@ public class MemberQueryService {
 
     public Result<List<ShopMemberSearchDto>> findShopMembers() {
         List<ShopMemberSearchDto> shopMemberList = memberRepository.findShopMembers().stream()
-                .map(m -> new ShopMemberSearchDto(m.getId(), m.getUsername(), m.getEmail(), m.getShopName(), m.getBusinessRegistrationNumber(), m.getAddress()))
+                .map(m -> new ShopMemberSearchDto(m.getId(), m.getUsername(), m.getEmail(), m.getBusinessRegistrationNumber(), m.getAddress()))
                 .collect(Collectors.toList());
         return new Result<>(shopMemberList.size(), shopMemberList);
     }

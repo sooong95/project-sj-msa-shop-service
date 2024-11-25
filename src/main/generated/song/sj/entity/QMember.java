@@ -28,6 +28,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final NumberPath<Integer> balance = createNumber("balance", Integer.class);
 
+    public final ListPath<Bill, QBill> billList = this.<Bill, QBill>createList("billList", Bill.class, QBill.class, PathInits.DIRECT2);
+
     public final StringPath businessRegistrationNumber = createString("businessRegistrationNumber");
 
     //inherited
@@ -55,8 +57,6 @@ public class QMember extends EntityPathBase<Member> {
     public final EnumPath<song.sj.enums.Role> role = createEnum("role", song.sj.enums.Role.class);
 
     public final ListPath<Shop, QShop> shopList = this.<Shop, QShop>createList("shopList", Shop.class, QShop.class, PathInits.DIRECT2);
-
-    public final StringPath shopName = createString("shopName");
 
     public final StringPath username = createString("username");
 

@@ -6,16 +6,18 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.nio.file.AccessDeniedException;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<String> IllegalArgumentExceptionHandler(IllegalArgumentException ex) {
+    public ResponseEntity<String> illegalArgumentExceptionHandler(IllegalArgumentException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<String> MethodArgumentNotValidExceptionHandler(MethodArgumentNotValidException ex) {
+    public ResponseEntity<String> methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException ex) {
 
         String errorMessage = ex.getBindingResult()
                 .getFieldError()
@@ -25,7 +27,12 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<String> InvalidPasswordException(RuntimeException ex) {
+    public ResponseEntity<String> invalidPasswordException(RuntimeException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<String> accessDeniedExceptionHandler(AccessDeniedException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
     }
 }

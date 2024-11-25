@@ -16,8 +16,6 @@ public class ShopMemberJoinDto {
     private String username;
 
     @NotEmpty
-    private String shopName;
-    @NotEmpty
     private String businessRegistrationNumber;
 
     @Column(unique = true)
@@ -33,9 +31,8 @@ public class ShopMemberJoinDto {
     private Address address;
 
     @Builder
-    public ShopMemberJoinDto(String username, String shopName, String businessRegistrationNumber, String email, String password, Address address, Role role) {
+    public ShopMemberJoinDto(String username, String businessRegistrationNumber, String email, String password, Address address, Role role) {
         this.username = username;
-        this.shopName = shopName;
         this.businessRegistrationNumber = businessRegistrationNumber;
         this.email = email;
         this.password = password;
@@ -51,7 +48,6 @@ public class ShopMemberJoinDto {
     public Member toEntity() {
         return Member.builder()
                 .username(username)
-                .shopName(shopName)
                 .businessRegistrationNumber(businessRegistrationNumber)
                 .email(email)
                 .password(password)

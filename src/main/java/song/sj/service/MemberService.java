@@ -86,7 +86,6 @@ public class MemberService {
 
         member.changeUsername(dto.getUsername());
         member.changePassword(dto.getNewPassword());
-        member.changeShopName(dto.getShopName());
         member.changeBusinessRegistrationNumber(dto.getBusinessRegistrationNumber());
         member.changeAddress(dto.getAddress());
     }
@@ -117,7 +116,7 @@ public class MemberService {
 
 
         if (member.getRole().equals(Role.ROLE_SHOP))
-            return new ShopMemberSearchDto(member.getId(), member.getUsername(), member.getEmail(), member.getShopName(), member.getBusinessRegistrationNumber(), member.getAddress());
+            return new ShopMemberSearchDto(member.getId(), member.getUsername(), member.getEmail(), member.getBusinessRegistrationNumber(), member.getAddress());
 
         return null;
     }

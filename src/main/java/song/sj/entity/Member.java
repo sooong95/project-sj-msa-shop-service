@@ -18,7 +18,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Getter
 @AllArgsConstructor
 @Builder
-@ToString(of = {"id", "username", "shopName", "businessRegistrationNumber", "email", "password", "role", "address"})
+@ToString(of = {"id", "username", "businessRegistrationNumber", "email", "password", "role", "address"})
 public class Member extends TimeStamp {
 
     public Member() {
@@ -31,7 +31,6 @@ public class Member extends TimeStamp {
 
     private String username;
 
-    private String shopName;
     private String businessRegistrationNumber;
 
     @Column(unique = true)
@@ -76,6 +75,10 @@ public class Member extends TimeStamp {
     @OneToMany(mappedBy = "member")
     private List<Payment> paymentList = new ArrayList<>();
 
+    @Builder.Default
+    @OneToMany(mappedBy = "member")
+    private List<Bill> billList = new ArrayList<>();
+
     public void transPassword(String hashPassword) {
         this.password = hashPassword;
     }
@@ -90,10 +93,6 @@ public class Member extends TimeStamp {
 
     public void changeEmail(String email) {
         this.email = email;
-    }
-
-    public void changeShopName(String shopName) {
-        if (StringUtils.hasText(shopName)) this.shopName = shopName;
     }
 
     public void changeBusinessRegistrationNumber(String businessRegistrationNumber) {
@@ -133,6 +132,11 @@ public class Member extends TimeStamp {
         } else {
             throw new RuntimeException("잔고가 부족합니다.");
         }
+    }
+
+    public void reward(int amount) {
+        double rewardPoint = 0.03;
+        if (amount > 0) this.point = (int) Math.ceil(amount * rewardPoint);
     }
 
     @Override

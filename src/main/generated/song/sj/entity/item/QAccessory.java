@@ -36,6 +36,9 @@ public class QAccessory extends EntityPathBase<Accessory> {
     //inherited
     public final NumberPath<Long> id;
 
+    //inherited
+    public final ListPath<song.sj.entity.ItemBill, song.sj.entity.QItemBill> itemBillList;
+
     // inherited
     public final song.sj.entity.QItemCategory itemCategory;
 
@@ -88,6 +91,7 @@ public class QAccessory extends EntityPathBase<Accessory> {
         this.description = _super.description;
         this.design = _super.design;
         this.id = _super.id;
+        this.itemBillList = _super.itemBillList;
         this.itemCategory = _super.itemCategory;
         this.itemImages = _super.itemImages;
         this.itemName = _super.itemName;

@@ -46,6 +46,9 @@ public abstract class Item extends TimeStamp {
     @OneToOne(mappedBy = "item")
     private OrderItem orderItem;
 
+    @OneToMany(mappedBy = "item")
+    private List<ItemBill> itemBillList = new ArrayList<>();
+
     public void addItemCategory(ItemCategory itemCategory) {
         this.itemCategory = itemCategory;
         itemCategory.getItems().add(this);
@@ -70,26 +73,12 @@ public abstract class Item extends TimeStamp {
         member.getItems().add(this);
     }
 
-    /*public void addOrder(Order order) {
-        this.order = order;
-        order.getItemList().add(this);
-    }*/
-
     public void changeQuantity(int quantity) {
 
         this.quantity += quantity;
 
         if (this.quantity <= 0) {
             throw new IllegalArgumentException("수량은 한 개 이상이어야 합니다.");
-        }
-    }
-
-    public void reduceQuantity(int quantity) {
-
-        if (this.quantity >= quantity) {
-            this.quantity -= quantity;
-        } else {
-            throw new IllegalArgumentException("수량은 1개 이상이어야 합니다.");
         }
     }
 

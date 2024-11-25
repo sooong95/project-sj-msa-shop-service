@@ -36,6 +36,9 @@ public class Order extends TimeStamp {
     @OneToMany(mappedBy = "order")
     private List<OrderShop> orderShopList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "order")
+    private List<Bill> billList = new ArrayList<>();
+
     public static void addOrderShop(Shop shop) {
         Order order = new Order();
         OrderShop orderShop = new OrderShop();

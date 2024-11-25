@@ -50,6 +50,10 @@ public class PaymentService {
         }
 
         paymentRepository.save(new Payment(member, paymentStatus, amount));
+
+        if (paymentStatus == PaymentStatus.PAYMENT) {
+            member.reward(amount);
+        }
         memberRepository.save(member);
     }
 }
