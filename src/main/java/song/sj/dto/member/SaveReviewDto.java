@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SaveReviewDto {
 
+    private Long orderId;
     private String reviewTitle;
     private String content;
     private double grade = 0;

@@ -40,6 +40,10 @@ public class QDelivery extends EntityPathBase<Delivery> {
 
     public final QOrder order;
 
+    public final QShop shop;
+
+    public final NumberPath<Long> transportationNumber = createNumber("transportationNumber", Long.class);
+
     public QDelivery(String variable) {
         this(Delivery.class, forVariable(variable), INITS);
     }
@@ -61,6 +65,7 @@ public class QDelivery extends EntityPathBase<Delivery> {
         this.address = inits.isInitialized("address") ? new QAddress(forProperty("address")) : null;
         this.member = inits.isInitialized("member") ? new QMember(forProperty("member"), inits.get("member")) : null;
         this.order = inits.isInitialized("order") ? new QOrder(forProperty("order"), inits.get("order")) : null;
+        this.shop = inits.isInitialized("shop") ? new QShop(forProperty("shop"), inits.get("shop")) : null;
     }
 
 }

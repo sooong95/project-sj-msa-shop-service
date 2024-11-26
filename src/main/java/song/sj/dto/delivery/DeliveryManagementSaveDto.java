@@ -4,7 +4,7 @@ import lombok.Data;
 import song.sj.entity.Address;
 
 @Data
-public class shopDeliveryManagementSaveDto {
+public class DeliveryManagementSaveDto {
 
     private Long orderId;
     private String username;

@@ -21,7 +21,6 @@ public class PaymentController {
     @PostMapping("/deposit")
     public ResponseEntity<String> deposit(@RequestParam("amount") int amount) {
 
-        log.info("입금 금액={}", amount);
         paymentService.deposit(amount);
         return new ResponseEntity<>("입금이 성공적으로 처리 되었습니다.", HttpStatus.OK);
     }
@@ -29,7 +28,6 @@ public class PaymentController {
     @PostMapping("/withdrawal")
     public ResponseEntity<String> withdrawal(@RequestParam("amount") int amount) {
 
-        log.info("입금 금액={}", amount);
         paymentService.withdrawal(amount);
         return new ResponseEntity<>("출금이 성곡적으로 처리 되었습니다.", HttpStatus.OK);
     }

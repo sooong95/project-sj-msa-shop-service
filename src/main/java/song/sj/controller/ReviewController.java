@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import song.sj.dto.member.SaveReviewDto;
 import song.sj.service.ReviewService;
 
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 @Slf4j
@@ -21,7 +22,7 @@ public class ReviewController {
 
     @PostMapping("/{shopId}")
     public ResponseEntity<String> saveReview(@PathVariable("shopId") Long shopId, @ModelAttribute SaveReviewDto dto,
-                                             @RequestParam("image") List<MultipartFile> files) {
+                                             @RequestParam("image") List<MultipartFile> files) throws AccessDeniedException {
         reviewService.saveReview(shopId, dto, files);
         return new ResponseEntity<>("리뷰 저장 성공!", HttpStatus.CREATED);
     }

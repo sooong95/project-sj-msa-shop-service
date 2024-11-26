@@ -29,6 +29,10 @@ public class Delivery {
     @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
+    @JoinColumn(name = "shop_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Shop shop;
+
     private String courierName;
     private Long transportationNumber;
     private String memo;
@@ -54,8 +58,19 @@ public class Delivery {
         this.member = member;
     }
 
+    public void shopSetting(Shop shop) {
+        this.shop = shop;
+    }
+
     public void changeDeliveryStatus(DeliveryStatus deliveryStatus) {
         if (Objects.nonNull(deliveryStatus)) this.deliveryStatus = deliveryStatus;
     }
 
+    public void setStartDate(LocalDateTime localDateTime) {
+        this.deliveryStartDate = localDateTime;
+    }
+
+    public void setDeliveredDate(LocalDateTime localDateTime) {
+        this.deliveredDate = localDateTime;
+    }
 }
