@@ -8,9 +8,10 @@ import java.util.List;
 @Data
 public class ShopSearchConditionDto {
 
-    private List<String> shopCategoryName;
+    private List<String> shopItemCategoryName;
     private double grade;
     private int reviewsCount;
     private int wishlistCount;
     private Wishlist wishlist;
+    private String sortOrder;
 }

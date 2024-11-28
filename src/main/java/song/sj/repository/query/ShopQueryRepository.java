@@ -10,5 +10,5 @@ public interface ShopQueryRepository {
 
     List<Shop> listAll();
 
-    Page<Shop> shopSortCategories(ShopSearchConditionDto dto);
+    Page<List<Shop>> shopSortCategories(ShopSearchConditionDto dto);
 }

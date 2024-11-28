@@ -29,6 +29,12 @@ public class ItemCategory extends TimeStamp {
     @OneToMany(mappedBy = "itemCategory")
     private List<Item> items = new ArrayList<>();
 
+    @OneToMany(mappedBy = "parent")
+    private List<ItemCategory> subCategory = new ArrayList<>();
+
+    @OneToMany(mappedBy = "itemCategory")
+    private List<ShopItemCategoryMiddleTable> shopItemCategoryMiddleTableList = new ArrayList<>();
+
     public ItemCategory(String itemCategoryName) {
         this.itemCategoryName = itemCategoryName;
     }

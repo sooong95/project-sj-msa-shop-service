@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import song.sj.TimeStamp;
 import song.sj.enums.OrderStatus;
 
@@ -11,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Slf4j
 @Entity
 @Getter
 @Table(name = "orders")
@@ -57,7 +59,6 @@ public class Order extends TimeStamp {
 
     public void setDelivery(Delivery delivery) {
         this.delivery = delivery;
-        delivery.orderSetting(this);
     }
 
     public void changeOrderStatus(OrderStatus orderStatus) {

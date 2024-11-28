@@ -34,7 +34,7 @@ public class QShopCategory extends EntityPathBase<ShopCategory> {
 
     public final QShopCategory parent;
 
-    public final ListPath<ShopCategoryMiddleTable, QShopCategoryMiddleTable> shopCategoryMiddleTableList = this.<ShopCategoryMiddleTable, QShopCategoryMiddleTable>createList("shopCategoryMiddleTableList", ShopCategoryMiddleTable.class, QShopCategoryMiddleTable.class, PathInits.DIRECT2);
+    public final ListPath<ShopItemCategoryMiddleTable, QShopCategoryMiddleTable> shopCategoryMiddleTableList = this.<ShopItemCategoryMiddleTable, QShopCategoryMiddleTable>createList("shopCategoryMiddleTableList", ShopItemCategoryMiddleTable.class, QShopCategoryMiddleTable.class, PathInits.DIRECT2);
 
     public final StringPath shopCategoryName = createString("shopCategoryName");
 

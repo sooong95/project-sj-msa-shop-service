@@ -46,13 +46,15 @@ public class QShop extends EntityPathBase<Shop> {
 
     public final ListPath<Review, QReview> reviewList = this.<Review, QReview>createList("reviewList", Review.class, QReview.class, PathInits.DIRECT2);
 
-    public final ListPath<ShopCategoryMiddleTable, QShopCategoryMiddleTable> shopCategoryMiddleTableList = this.<ShopCategoryMiddleTable, QShopCategoryMiddleTable>createList("shopCategoryMiddleTableList", ShopCategoryMiddleTable.class, QShopCategoryMiddleTable.class, PathInits.DIRECT2);
+    public final ListPath<ShopItemCategoryMiddleTable, QShopItemCategoryMiddleTable> shopCategoryMiddleTableList = this.<ShopItemCategoryMiddleTable, QShopItemCategoryMiddleTable>createList("shopCategoryMiddleTableList", ShopItemCategoryMiddleTable.class, QShopItemCategoryMiddleTable.class, PathInits.DIRECT2);
 
     public final StringPath shopDescription = createString("shopDescription");
 
     public final ListPath<ShopImages, QShopImages> shopImages = this.<ShopImages, QShopImages>createList("shopImages", ShopImages.class, QShopImages.class, PathInits.DIRECT2);
 
     public final StringPath shopName = createString("shopName");
+
+    public final NumberPath<Double> totalGradeSum = createNumber("totalGradeSum", Double.class);
 
     public final NumberPath<Integer> totalReviewCount = createNumber("totalReviewCount", Integer.class);
 

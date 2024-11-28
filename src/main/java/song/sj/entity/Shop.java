@@ -3,9 +3,9 @@ package song.sj.entity;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 import song.sj.TimeStamp;
-import song.sj.entity.item.Item;
 import song.sj.enums.ItemValue;
 
 import java.util.ArrayList;
@@ -14,6 +14,7 @@ import java.util.Objects;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
+@Slf4j
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -33,7 +34,6 @@ public class Shop extends TimeStamp {
     private int totalWishlistCount = 0;
     private double averageGrade = 0.0;
 
-    @Transient
     private double totalGradeSum = 0.0;
 
     @Embedded
@@ -47,7 +47,7 @@ public class Shop extends TimeStamp {
     private List<OrderShop> orderShopList = new ArrayList<>();
 
     @OneToMany(mappedBy = "shop")
-    private List<ShopCategoryMiddleTable> shopCategoryMiddleTableList = new ArrayList<>();
+    private List<ShopItemCategoryMiddleTable> shopCategoryMiddleTableList = new ArrayList<>();
 
     @JoinColumn(name = "member_id")
     @ManyToOne(fetch = FetchType.LAZY)
@@ -110,6 +110,7 @@ public class Shop extends TimeStamp {
         if (Objects.nonNull(review)) {
             totalReviewCount++;
             totalGradeSum += review.getGrade();
+            log.info("총 별점 점수 합={}", totalGradeSum);
             calculateAverageGrade();
         }
     }
@@ -123,7 +124,11 @@ public class Shop extends TimeStamp {
     }
 
     public void calculateAverageGrade() {
-        if (totalReviewCount > 0) this.averageGrade = totalGradeSum / totalReviewCount;
+        if (totalReviewCount > 0) {
+            this.averageGrade = totalGradeSum / totalReviewCount;
+        } else {
+            this.averageGrade = 0.0; // 리뷰가 없을 경우 0으로 초기화
+        }
     }
 
     public void totalWishlistCount() {

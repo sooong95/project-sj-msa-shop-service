@@ -38,6 +38,10 @@ public class QItemCategory extends EntityPathBase<ItemCategory> {
 
     public final QItemCategory parent;
 
+    public final ListPath<ShopItemCategoryMiddleTable, QShopItemCategoryMiddleTable> shopItemCategoryMiddleTableList = this.<ShopItemCategoryMiddleTable, QShopItemCategoryMiddleTable>createList("shopItemCategoryMiddleTableList", ShopItemCategoryMiddleTable.class, QShopItemCategoryMiddleTable.class, PathInits.DIRECT2);
+
+    public final ListPath<ItemCategory, QItemCategory> subCategory = this.<ItemCategory, QItemCategory>createList("subCategory", ItemCategory.class, QItemCategory.class, PathInits.DIRECT2);
+
     public QItemCategory(String variable) {
         this(ItemCategory.class, forVariable(variable), INITS);
     }

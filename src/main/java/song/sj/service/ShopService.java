@@ -7,15 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import song.sj.dto.shop.ShopSaveDto;
-import song.sj.entity.Shop;
-import song.sj.entity.ShopCategory;
-import song.sj.entity.ShopCategoryMiddleTable;
-import song.sj.entity.ShopImages;
-import song.sj.enums.ItemValue;
-import song.sj.repository.ShopCategoryMiddleTableServiceRepository;
-import song.sj.repository.ShopCategoryRepository;
-import song.sj.repository.ShopImageRepository;
-import song.sj.repository.ShopRepository;
+import song.sj.entity.*;
+import song.sj.repository.*;
 import song.sj.service.image.ImageFile;
 import song.sj.service.toEntity.ToShop;
 
@@ -32,16 +25,16 @@ public class ShopService {
     private final ImageFile imageFile;
     private final ShopImageRepository shopImageRepository;
     private final MemberService memberService;
-    private final ShopCategoryMiddleTableServiceRepository shopCategoryMiddleTableServiceRepository;
-    private final ShopCategoryRepository shopCategoryRepository;
+    private final ShopItemCategoryMiddleTableServiceRepository shopItemCategoryMiddleTableServiceRepository;
+    private final ItemCategoryRepository itemCategoryRepository;
 
-    private void shopCategorySave(String shopCategoryName, Shop shop) {
+    private void shopItemCategorySave(String itemCategoryName, Shop shop) {
 
-        ShopCategory shopCategory = shopCategoryRepository.findByShopCategoryName(shopCategoryName);
-        ShopCategoryMiddleTable shopCategoryMiddleTable = shopCategoryMiddleTableServiceRepository.save(new ShopCategoryMiddleTable(shopCategory, shop));
+        ItemCategory itemCategory = itemCategoryRepository.findByItemCategoryName(itemCategoryName);
+        ShopItemCategoryMiddleTable shopItemCategoryMiddleTable = shopItemCategoryMiddleTableServiceRepository.save(new ShopItemCategoryMiddleTable(itemCategory, shop));
 
-        shopCategoryMiddleTable.addShop(shop);
-        shopCategoryMiddleTable.addShopCategory(shopCategory);
+        shopItemCategoryMiddleTable.addShop(shop);
+        shopItemCategoryMiddleTable.addShopItemCategory(itemCategory);
     }
 
     public void save(ShopSaveDto shopSaveDto) {
@@ -52,7 +45,7 @@ public class ShopService {
 
         shop.addShop(memberService.findMember(memberService.getMemberFromJwt().getEmail()));
 
-        shopSaveDto.getMainEvent().forEach(value -> shopCategorySave(value.toString(), shop));
+        shopSaveDto.getMainEvent().forEach(value -> shopItemCategorySave(value.toString(), shop));
     }
 
     public void saveShopImages(Long id, List<MultipartFile> files) {

@@ -150,9 +150,9 @@ public class InitDb {
             em.persist(new ShopCategory("BAG"));
             em.persist(new ShopCategory("ACCESSORY"));
             em.persist(new ShopCategory("GRADE"));
-            em.persist(new ShopCategory("REVIEWS"));
+            em.persist(new ShopCategory("REVIEWS"));*/
 
-            ItemCategory top = new ItemCategory("TOP");
+            /*ItemCategory top = new ItemCategory("TOP");
             ItemCategory bottom = new ItemCategory("BOTTOM");
             ItemCategory shoes = new ItemCategory("SHOES");
             ItemCategory outer = new ItemCategory("OUTER");

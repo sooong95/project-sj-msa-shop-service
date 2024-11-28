@@ -38,6 +38,7 @@ public class DeliveryService {
         shopAuthorizationVerification(shop);
 
         Delivery delivery = ToDelivery.toItemEntity(dto);
+        deliveryRepository.save(delivery);
         delivery.orderSetting(findOrder(dto.getOrderId()));
 
         checkOrderStatus(delivery);
@@ -49,6 +50,10 @@ public class DeliveryService {
     }
 
     private Member findMember(String email) {
+
+        if (memberRepository.findByEmail(email) == null) {
+            throw new EntityNotFoundException("존재하지 않는 이메일 입니다.");
+        }
         return memberRepository.findByEmail(email);
     }
 

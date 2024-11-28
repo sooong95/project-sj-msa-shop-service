@@ -52,6 +52,7 @@ public class Delivery {
 
     public void orderSetting(Order order) {
         this.order = order;
+        order.setDelivery(this);
     }
 
     public void memberSetting(Member member) {
