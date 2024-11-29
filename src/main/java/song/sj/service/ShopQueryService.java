@@ -2,12 +2,18 @@ package song.sj.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import song.sj.dto.Result;
+import song.sj.dto.shop.ShopConditionSearchListDto;
 import song.sj.dto.shop.ShopListAllDto;
+import song.sj.dto.shop.ShopSearchConditionDto;
+import song.sj.entity.Review;
 import song.sj.repository.ShopRepository;
 import song.sj.repository.query.ShopQueryRepository;
+import song.sj.service.image.ImageFile;
 
 import java.util.List;
 
@@ -18,10 +24,25 @@ import java.util.List;
 public class ShopQueryService {
 
     private final ShopRepository shopRepository;
+    private final ImageFile imageFile;
 
     /*public Result<List<ShopListAllDto>> shopListAll() {
         shopQueryRepository.listAll()
                 .stream().map(list -> new ShopListAllDto(list.getShopName(), list.getMainEvent(), list.getTotalReviewsCount(), list.getTotalWishlistCount(), list.));
 
     }*/
+
+    public Page<ShopConditionSearchListDto> ShopConditionSearchList(ShopSearchConditionDto dto, Pageable pageable) {
+
+        return shopRepository.ShopConditionSearchList(dto, pageable)
+                .map(shop -> new ShopConditionSearchListDto(shop.getShopName(),
+                        shop.getShopImages().stream().map(image -> imageFile.getFullPath(image.getImageName())).toList(),
+                        shop.getTotalReviewCount(),
+                        shop.getTotalWishlistCount(),
+                        shop.getAverageGrade(),
+                        shop.getMainEvent(),
+                        shop.getReviewList().stream().map(Review::getReviewTitle).toList()
+                        )
+                );
+    }
 }

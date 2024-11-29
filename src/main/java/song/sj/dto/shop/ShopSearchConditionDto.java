@@ -13,5 +13,7 @@ public class ShopSearchConditionDto {
     private int reviewsCount;
     private int wishlistCount;
     private Wishlist wishlist;
+
+    private String sortField;
     private String sortOrder;
 }
