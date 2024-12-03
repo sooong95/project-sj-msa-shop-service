@@ -12,7 +12,6 @@ public class ShopSearchConditionDto {
     private double grade;
     private int reviewsCount;
     private int wishlistCount;
-    private Wishlist wishlist;
 
     private String sortField;
     private String sortOrder;
