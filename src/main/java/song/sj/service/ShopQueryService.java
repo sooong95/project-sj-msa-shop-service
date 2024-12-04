@@ -26,12 +26,6 @@ public class ShopQueryService {
     private final ShopRepository shopRepository;
     private final ImageFile imageFile;
 
-    /*public Result<List<ShopListAllDto>> shopListAll() {
-        shopQueryRepository.listAll()
-                .stream().map(list -> new ShopListAllDto(list.getShopName(), list.getMainEvent(), list.getTotalReviewsCount(), list.getTotalWishlistCount(), list.));
-
-    }*/
-
     public Page<ShopConditionSearchListDto> ShopConditionSearchList(ShopSearchConditionDto dto, Pageable pageable) {
 
         return shopRepository.ShopConditionSearchList(dto, pageable)

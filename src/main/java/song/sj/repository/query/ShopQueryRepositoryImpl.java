@@ -2,6 +2,7 @@ package song.sj.repository.query;
 
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.ComparableExpressionBase;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import song.sj.entity.QShopImages;
 import song.sj.entity.Shop;
 
 import java.util.List;
+import java.util.Map;
 
 import static song.sj.entity.QItemCategory.itemCategory;
 import static song.sj.entity.QShop.shop;
@@ -82,7 +84,7 @@ public class ShopQueryRepositoryImpl implements ShopQueryRepository {
         return wishlistCount > 0 ? shop.totalWishlistCount.goe(wishlistCount) : null;
     }
 
-    private OrderSpecifier<?> getOrderSpecifier(String sortField, String sortOrder) {
+    /*private OrderSpecifier<?> getOrderSpecifier(String sortField, String sortOrder) {
         if ("grade".equalsIgnoreCase(sortField)) {
             return "asc".equalsIgnoreCase(sortOrder)
                     ? shop.averageGrade.asc()
@@ -98,5 +100,18 @@ public class ShopQueryRepositoryImpl implements ShopQueryRepository {
         }
 
         return shop.id.asc();
+    }*/
+
+    private OrderSpecifier<?> getOrderSpecifier(String sortField, String sortOrder) {
+
+        Map<String, ComparableExpressionBase<?>> fieldMapping = Map.of(
+                "grade", shop.averageGrade,
+                "reviewsCount", shop.totalReviewCount,
+                "wishlistCount", shop.totalWishlistCount
+        );
+
+        ComparableExpressionBase<?> field = fieldMapping.getOrDefault(sortField.toLowerCase(), shop.id);
+
+        return "desc".equalsIgnoreCase(sortOrder) ? field.desc() : field.asc();
     }
 }

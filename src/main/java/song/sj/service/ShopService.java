@@ -13,6 +13,7 @@ import song.sj.service.image.ImageFile;
 import song.sj.service.toEntity.ToShop;
 
 import java.io.IOException;
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 @Slf4j
@@ -48,7 +49,12 @@ public class ShopService {
         shopSaveDto.getMainEvent().forEach(value -> shopItemCategorySave(value.toString(), shop));
     }
 
-    public void saveShopImages(Long id, List<MultipartFile> files) {
+    public void saveShopImages(Long id, List<MultipartFile> files) throws AccessDeniedException {
+
+        List<Long> idList = memberService.getMemberFromJwt().getShopList().stream().map(Shop::getId).toList();
+
+        if (!idList.contains(id)) throw new AccessDeniedException("권한이 없습니다");
+
         addShopImage(files, shopRepository.findById(id).orElseThrow());
     }
 

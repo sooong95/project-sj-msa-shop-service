@@ -14,6 +14,7 @@ import song.sj.dto.shop.ShopSearchConditionDto;
 import song.sj.service.ShopQueryService;
 import song.sj.service.ShopService;
 
+import java.nio.file.AccessDeniedException;
 import java.util.List;
 
 @Slf4j
@@ -32,7 +33,7 @@ public class ShopController {
     }
 
     @PostMapping("/shop/{shopId}/images")
-    public ResponseEntity<String> saveShopImages(@PathVariable("shopId") Long id, @RequestParam("image") List<MultipartFile> files) {
+    public ResponseEntity<String> saveShopImages(@PathVariable("shopId") Long id, @RequestParam("image") List<MultipartFile> files) throws AccessDeniedException {
         shopService.saveShopImages(id, files);
         return new ResponseEntity<>("이미지가 성공적으로 등록되었습니다.", HttpStatus.OK);
     }

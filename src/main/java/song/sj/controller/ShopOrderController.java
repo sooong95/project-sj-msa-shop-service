@@ -9,6 +9,7 @@ import song.sj.dto.order.OrderHistoryDto;
 import song.sj.enums.OrderStatus;
 import song.sj.service.MemberOrderQueryService;
 import song.sj.service.MemberOrderService;
+import song.sj.service.ShopOrderQueryService;
 import song.sj.service.ShopOrderService;
 
 @Slf4j
@@ -17,13 +18,13 @@ import song.sj.service.ShopOrderService;
 @RequestMapping("/shop/order")
 public class ShopOrderController {
 
-    private final MemberOrderQueryService memberOrderQueryService;
+    private final ShopOrderQueryService shopOrderQueryService;
     private final ShopOrderService shopOrderService;
 
     @GetMapping("/{shopId}")
     public ResponseEntity<OrderHistoryDto> findOneShopOrder(@PathVariable("shopId") Long shopId) {
 
-        return new ResponseEntity<>(memberOrderQueryService.findOneShopOrder(shopId), HttpStatus.OK);
+        return new ResponseEntity<>(shopOrderQueryService.findOneOrder(shopId), HttpStatus.OK);
     }
 
     @PostMapping
