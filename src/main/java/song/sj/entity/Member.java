@@ -16,13 +16,11 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Getter
+@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @ToString(of = {"id", "username", "businessRegistrationNumber", "email", "password", "role", "address"})
 public class Member extends TimeStamp {
-
-    public Member() {
-    }
 
     @Id
     @GeneratedValue(strategy = IDENTITY)

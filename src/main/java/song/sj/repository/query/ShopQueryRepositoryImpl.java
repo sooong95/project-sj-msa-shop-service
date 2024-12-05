@@ -10,7 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
 import song.sj.dto.shop.ShopSearchConditionDto;
-import song.sj.entity.QShopImages;
 import song.sj.entity.Shop;
 
 import java.util.List;

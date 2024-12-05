@@ -131,7 +131,7 @@ public class MemberServiceTest {
         // given
 
         // when
-        memberService.deleteMember(memberEmail, password);
+        memberService.deleteMember(password);
 
         // then
         assertEquals(memberService.findMember(memberEmail), null);
@@ -146,7 +146,7 @@ public class MemberServiceTest {
         // when
 
         // then
-        Assertions.assertThatThrownBy(() -> memberService.deleteMember(memberEmail, wrongPassword))
+        Assertions.assertThatThrownBy(() -> memberService.deleteMember(wrongPassword))
                 .isInstanceOf(RuntimeException.class).hasMessage("비밀번호가 일치하지 않습니다.");
     }
 }

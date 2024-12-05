@@ -2,9 +2,10 @@ package song.sj.dto.item;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import song.sj.service.image.ImageUtils;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class ImageDto {
 

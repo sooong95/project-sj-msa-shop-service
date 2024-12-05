@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 import song.sj.TimeStamp;
 import song.sj.entity.item.Item;
 
-import java.util.List;
-
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

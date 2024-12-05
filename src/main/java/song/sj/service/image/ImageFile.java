@@ -1,8 +1,6 @@
 package song.sj.service.image;
 
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -10,7 +8,6 @@ import song.sj.entity.BaseImages;
 import song.sj.entity.ItemImages;
 import song.sj.entity.ReviewImages;
 import song.sj.entity.ShopImages;
-import song.sj.entity.item.Item;
 
 import java.io.File;
 import java.io.IOException;

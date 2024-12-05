@@ -5,7 +5,6 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 import song.sj.entity.Address;
-import song.sj.entity.Member;
 import song.sj.enums.Role;
 
 @Getter
@@ -15,6 +14,7 @@ public class MemberJoinDto {
     @NotEmpty(message = "이름은 필수입니다.")
     private String username;
 
+    @NotEmpty(message = "이메일은 필수입니다.")
     @Column(unique = true)
     private String email;
 
@@ -26,28 +26,4 @@ public class MemberJoinDto {
     @Embedded
     @Valid
     private Address address;
-
-    @Builder
-    public MemberJoinDto(String username, String email, String password, Address address, Role role) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.address = address;
-        this.role = role;
-    }
-
-    public Role setRole(Role input) {
-        this.role = input;
-        return input;
-    }
-
-    public Member toEntity() {
-        return Member.builder()
-                .username(username)
-                .email(email)
-                .password(password)
-                .address(address)
-                .role(role)
-                .build();
-    }
 }

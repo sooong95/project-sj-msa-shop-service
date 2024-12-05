@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import song.sj.dto.Result;
 import song.sj.dto.order.OrderHistoryDto;
 import song.sj.dto.order.OrderHistoryItemDto;
 import song.sj.dto.order.OrderHistoryShopDto;

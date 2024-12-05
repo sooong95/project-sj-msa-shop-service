@@ -2,11 +2,10 @@ package song.sj.dto.item;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.ToString;
-
-import java.util.List;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class FindItemDto {
 
@@ -15,6 +14,4 @@ public class FindItemDto {
     private int size;
     private String design;
     private String description;
-
-    /*private List<byte[]> image;*/
 }

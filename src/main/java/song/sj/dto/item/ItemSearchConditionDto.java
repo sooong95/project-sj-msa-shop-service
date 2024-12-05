@@ -1,9 +1,12 @@
 package song.sj.dto.item;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import song.sj.enums.ItemValue;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ItemSearchConditionDto {
 
     private String itemName;

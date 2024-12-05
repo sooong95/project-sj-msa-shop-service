@@ -23,9 +23,6 @@ public class MemberJoinController {
     @PostMapping
     public ResponseEntity<String> save(@Valid @RequestBody MemberJoinDto memberJoinDto) {
 
-        memberJoinDto.setRole(Role.ROLE_MEMBER);
-        log.info("권한 확인={}", memberJoinDto.getRole());
-
         memberService.memberSave(memberJoinDto);
 
         return new ResponseEntity<>("MEMBER 가입 성공!", CREATED);
@@ -33,9 +30,6 @@ public class MemberJoinController {
 
     @PostMapping("/shop")
     public ResponseEntity<String> saveShop(@Valid @RequestBody ShopMemberJoinDto shopJoinDto) {
-
-        shopJoinDto.setRole(Role.ROLE_SHOP);
-        log.info("권한 확인={}", shopJoinDto.getRole());
 
         memberService.shopMemberSave(shopJoinDto);
 

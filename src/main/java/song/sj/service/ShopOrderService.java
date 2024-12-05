@@ -5,14 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import song.sj.dto.order.OrderItemDto;
-import song.sj.dto.order.OrderSaveDto;
-import song.sj.dto.order.OrderShopDto;
 import song.sj.entity.Order;
-import song.sj.entity.OrderItem;
-import song.sj.entity.OrderShop;
-import song.sj.entity.Shop;
-import song.sj.entity.item.Item;
 import song.sj.enums.OrderStatus;
 import song.sj.repository.*;
 

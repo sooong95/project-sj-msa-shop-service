@@ -2,11 +2,8 @@ package song.sj.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import song.sj.TimeStamp;
 import song.sj.entity.item.Item;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity

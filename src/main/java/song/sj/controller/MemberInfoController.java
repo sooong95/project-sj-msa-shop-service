@@ -4,8 +4,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import song.sj.dto.Result;
 import song.sj.dto.UpdateMemberDto;
@@ -23,10 +21,6 @@ public class MemberInfoController {
     private final MemberService memberService;
     private final MemberQueryService memberQueryService;
 
-    private Authentication authentication() {
-        return SecurityContextHolder.getContext().getAuthentication();
-    }
-
     @PatchMapping
     public ResponseEntity<String> updateMember(@RequestBody @Valid UpdateMemberDto updateMemberDto) {
 
@@ -37,8 +31,7 @@ public class MemberInfoController {
     @DeleteMapping
     public ResponseEntity<String> deleteMember(String password) {
 
-        String email = authentication().getName();
-        memberService.deleteMember(email, password);
+        memberService.deleteMember(password);
 
         return new ResponseEntity<>("회원 탈퇴 완료", HttpStatus.OK);
     }

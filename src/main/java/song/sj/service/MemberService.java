@@ -13,8 +13,7 @@ import song.sj.dto.UpdateShopMemberDto;
 import song.sj.entity.Member;
 import song.sj.enums.Role;
 import song.sj.repository.MemberRepository;
-import song.sj.repository.ReviewRepository;
-import song.sj.service.image.ImageFile;
+import song.sj.service.toEntity.ToMember;
 
 @Service
 @Slf4j
@@ -38,10 +37,10 @@ public class MemberService {
             throw new IllegalArgumentException("중복된 email 입니다.");
         }
 
-        Member member = dto.toEntity();
+        Member member = ToMember.toMemberEntity(dto);
+        member.changeRole(Role.ROLE_MEMBER);
         member.transPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
 
-        log.info("멤버 비밀번호={}", member.getPassword());
         memberRepository.save(member);
     }
 
@@ -52,10 +51,10 @@ public class MemberService {
             throw new IllegalArgumentException("중복된 email 입니다.");
         }
 
-        Member shopMember = dto.toEntity();
+        Member shopMember = ToMember.toShopMemberEntity(dto);
+        shopMember.changeRole(Role.ROLE_SHOP);
         shopMember.transPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
 
-        log.info("멤버 비밀번호={}", shopMember.getPassword());
         memberRepository.save(shopMember);
     }
 
@@ -70,35 +69,28 @@ public class MemberService {
     @Transactional
     public void updateMember(UpdateMemberDto dto) {
 
-        Member member = memberRepository.findByEmail(loginMemberEmail());
-        log.info("유저 이메일={}", loginMemberEmail());
+        Member findMember = getMemberFromJwt();
 
-        member.changeUsername(dto.getUsername());
-        member.changePassword(dto.getNewPassword());
-        member.changeAddress(dto.getAddress());
+        findMember.changeUsername(dto.getUsername());
+        findMember.changePassword(dto.getNewPassword());
+        findMember.changeAddress(dto.getAddress());
     }
 
     @Transactional
     public void updateShopMember(UpdateShopMemberDto dto) {
 
-        Member member = memberRepository.findByEmail(loginMemberEmail());
-        log.info("유저 이메일={}", loginMemberEmail());
+        Member findMember = getMemberFromJwt();
 
-        member.changeUsername(dto.getUsername());
-        member.changePassword(dto.getNewPassword());
-        member.changeBusinessRegistrationNumber(dto.getBusinessRegistrationNumber());
-        member.changeAddress(dto.getAddress());
-    }
-
-    private static String loginMemberEmail() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authentication.getName();
+        findMember.changeUsername(dto.getUsername());
+        findMember.changePassword(dto.getNewPassword());
+        findMember.changeBusinessRegistrationNumber(dto.getBusinessRegistrationNumber());
+        findMember.changeAddress(dto.getAddress());
     }
 
     @Transactional
-    public void deleteMember(String email, String password) {
+    public void deleteMember(String password) {
 
-        Member findMember = memberRepository.findByEmail(email);
+        Member findMember = getMemberFromJwt();
 
         if (findMember.getPassword().equals(password)) {
             memberRepository.delete(findMember);
@@ -108,8 +100,7 @@ public class MemberService {
     }
 
     public MemberInfo findMember() {
-        Member member = memberRepository.findByEmail(loginMemberEmail());
-        log.info("로그인한 회원={}", member.getRole());
+        Member member = getMemberFromJwt();
 
         if (member.getRole().equals(Role.ROLE_MEMBER))
             return new MemberSearchDto(member.getId(), member.getUsername(), member.getEmail(), member.getAddress());

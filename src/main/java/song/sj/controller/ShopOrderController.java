@@ -7,8 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import song.sj.dto.order.OrderHistoryDto;
 import song.sj.enums.OrderStatus;
-import song.sj.service.MemberOrderQueryService;
-import song.sj.service.MemberOrderService;
 import song.sj.service.ShopOrderQueryService;
 import song.sj.service.ShopOrderService;
 

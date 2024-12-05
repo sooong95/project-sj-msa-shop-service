@@ -6,16 +6,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import song.sj.dto.Result;
 import song.sj.dto.shop.ShopConditionSearchListDto;
-import song.sj.dto.shop.ShopListAllDto;
 import song.sj.dto.shop.ShopSearchConditionDto;
 import song.sj.entity.Review;
 import song.sj.repository.ShopRepository;
-import song.sj.repository.query.ShopQueryRepository;
 import song.sj.service.image.ImageFile;
-
-import java.util.List;
 
 @Slf4j
 @Service
@@ -35,7 +30,7 @@ public class ShopQueryService {
                         shop.getTotalWishlistCount(),
                         shop.getAverageGrade(),
                         shop.getMainEvent(),
-                        shop.getReviewList().stream().map(Review::getReviewTitle).toList()
+                        shop.getReviewList().stream().map(Review::getReviewTitle).limit(5).toList()
                         )
                 );
     }
