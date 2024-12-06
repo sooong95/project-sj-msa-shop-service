@@ -23,7 +23,6 @@ import java.util.List;
 public class ShopOrderQueryService {
 
     private final OrderRepository orderRepository;
-    private final MemberService memberService;
     private final ItemImageRepository itemImageRepository;
     private final ImageFile imageFile;
 
@@ -69,5 +68,4 @@ public class ShopOrderQueryService {
                 orderHistoryShopDtoList
         );
     }
-
 }

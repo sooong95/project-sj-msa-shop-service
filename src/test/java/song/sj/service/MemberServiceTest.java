@@ -50,27 +50,6 @@ public class MemberServiceTest {
         validator = validatorFactory.getValidator();
     }
 
-    @BeforeEach
-    void init() {
-        memberJoinDto = MemberJoinDto.builder()
-                .username("song")
-                .email("song@nnnn.com")
-                .password(password)
-                .address(new Address("city", "street", "zipcode"))
-                .role(Role.ROLE_MEMBER)
-                .build();
-
-        memberJoinDto2 = MemberJoinDto.builder()
-                .username("song")
-                .email(memberEmail)
-                .password(password)
-                .address(new Address("city", "street", "zipcode"))
-                .role(Role.ROLE_MEMBER)
-                .build();
-
-        memberRepository.save(memberJoinDto2.toEntity());
-    }
-
     @Test
     void save() {
 
@@ -89,7 +68,7 @@ public class MemberServiceTest {
     @Test
     void checkDuplicateEmail() {
 
-        MemberJoinDto memberJoinDto3 = MemberJoinDto.builder()
+        Member testMember = Member.builder()
                 .username("song")
                 .email(memberEmail)
                 .password(password)
@@ -97,7 +76,17 @@ public class MemberServiceTest {
                 .role(Role.ROLE_MEMBER)
                 .build();
 
-        Assertions.assertThatThrownBy(() -> memberService.memberSave(memberJoinDto3)).isInstanceOf(IllegalArgumentException.class)
+        memberRepository.save(testMember);
+
+        Member member = Member.builder()
+                .username("song")
+                .email(memberEmail)
+                .password(password)
+                .address(new Address("city", "street", "zipcode"))
+                .role(Role.ROLE_MEMBER)
+                .build();
+
+        Assertions.assertThatThrownBy(() -> memberRepository.save(member)).isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("중복된 email 입니다.");
     }
 
