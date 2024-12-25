@@ -115,12 +115,24 @@ public class Shop extends TimeStamp {
         }
     }
 
+    public void updateReview(double existingGrade, double newGrade) {
+        if (newGrade > 0) {
+            totalGradeSum -= existingGrade;
+            totalGradeSum += newGrade;
+            calculateAverageGrade();
+        }
+    }
+
     public void deleteReview(Review review) {
         if (Objects.nonNull(review)) {
             totalReviewCount--;
             totalGradeSum -= review.getGrade();
             calculateAverageGrade();
         }
+    }
+
+    public void minusTotalGradeSum(double grade) {
+        totalGradeSum -= grade;
     }
 
     public void calculateAverageGrade() {
@@ -133,9 +145,5 @@ public class Shop extends TimeStamp {
 
     public void totalWishlistCount() {
         totalWishlistCount++;
-    }
-
-    public void averageGrade(double averageGrade) {
-        this.averageGrade = averageGrade;
     }
 }

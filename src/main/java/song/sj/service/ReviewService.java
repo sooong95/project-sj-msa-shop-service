@@ -78,10 +78,16 @@ public class ReviewService {
 
     public void updateReview(Long id, SaveReviewDto dto) {
 
-        Review review = reviewRepository.findById(id).orElseThrow();
+        Review review = reviewRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("리뷰를 찾을 수 없습니다."));
+
+        if (review.getGrade() != dto.getGrade()) {
+
+            review.getShop().updateReview(review.getGrade(), dto.getGrade());
+            review.changeGrade(dto.getGrade());
+        }
+
         review.changeReviewTitle(dto.getReviewTitle());
         review.changeContent(dto.getContent());
-        review.changeGrade(dto.getGrade());
     }
 
     public void addReviewImages(Long reviewId, List<MultipartFile> files) {
