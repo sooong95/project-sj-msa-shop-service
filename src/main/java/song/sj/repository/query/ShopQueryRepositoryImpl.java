@@ -83,24 +83,6 @@ public class ShopQueryRepositoryImpl implements ShopQueryRepository {
         return wishlistCount > 0 ? shop.totalWishlistCount.goe(wishlistCount) : null;
     }
 
-    /*private OrderSpecifier<?> getOrderSpecifier(String sortField, String sortOrder) {
-        if ("grade".equalsIgnoreCase(sortField)) {
-            return "asc".equalsIgnoreCase(sortOrder)
-                    ? shop.averageGrade.asc()
-                    : shop.averageGrade.desc();
-        } else if ("reviewsCount".equalsIgnoreCase(sortField)) {
-            return "asc".equalsIgnoreCase(sortOrder)
-                    ? shop.totalReviewCount.asc()
-                    : shop.totalReviewCount.desc();
-        } else if ("wishlistCount".equalsIgnoreCase(sortField)) {
-            return "asc".equalsIgnoreCase(sortOrder)
-                    ? shop.totalWishlistCount.asc()
-                    : shop.totalWishlistCount.desc();
-        }
-
-        return shop.id.asc();
-    }*/
-
     private OrderSpecifier<?> getOrderSpecifier(String sortField, String sortOrder) {
 
         Map<String, ComparableExpressionBase<?>> fieldMapping = Map.of(
