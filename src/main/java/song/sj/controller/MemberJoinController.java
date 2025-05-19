@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import song.sj.dto.member.MemberJoinDto;
 import song.sj.dto.member.ShopMemberJoinDto;
-import song.sj.enums.Role;
 import song.sj.service.MemberService;
 
 import static org.springframework.http.HttpStatus.CREATED;
