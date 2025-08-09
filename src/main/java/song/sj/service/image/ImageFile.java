@@ -5,8 +5,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import song.sj.entity.BaseImages;
-import song.sj.entity.ItemImages;
-import song.sj.entity.ReviewImages;
 import song.sj.entity.ShopImages;
 
 import java.io.File;
@@ -40,13 +38,11 @@ public class ImageFile {
             log.info("serverFile error={}", e.getMessage());
         }
 
-        if (clazz.equals(ItemImages.class)) {
-            return clazz.cast(new ItemImages(originalFilename, serverFileName, contentType));
-        } else if (clazz.equals(ShopImages.class)) {
+        if (clazz.equals(ShopImages.class)) {
             return clazz.cast(new ShopImages(originalFilename, serverFileName, contentType));
-        } else if (clazz.equals(ReviewImages.class)) {
+        }/* else if (clazz.equals(ReviewImages.class)) {
             return clazz.cast(new ReviewImages(originalFilename, serverFileName, contentType));
-        }
+        }*/
         throw new IllegalArgumentException("존재하지 않는 이미지 타입");
     }
 

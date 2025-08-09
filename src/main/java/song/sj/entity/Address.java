@@ -2,10 +2,12 @@ package song.sj.entity;
 
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.Builder;
 import lombok.Getter;
 
 @Embeddable
 @Getter
+@Builder
 public class Address {
 
     @NotEmpty(message = "city를 입력해 주세요.")

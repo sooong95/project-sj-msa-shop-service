@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import song.sj.entity.*;
-import song.sj.enums.ItemValue;
 
 import java.util.List;
 
@@ -14,7 +13,7 @@ import java.util.List;
 public class ShopListAllDto {
 
     private String shopName;
-    private List<ItemValue> mainEvent;
+    private List<String> mainEvent;
 
     private int totalReviewsCount;
     private int totalWishlistCount;
@@ -22,5 +21,5 @@ public class ShopListAllDto {
 
     private Address address;
     private ShopImages shopImages;
-    private List<Review> reviewList;
+    private List<String> reviewList;
 }

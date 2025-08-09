@@ -6,7 +6,6 @@ import lombok.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 import song.sj.TimeStamp;
-import song.sj.enums.ItemValue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +26,6 @@ public class Shop extends TimeStamp {
 
     private String shopName;
     private String shopDescription;
-    @Enumerated(EnumType.STRING)
-    private List<ItemValue> mainEvent;
 
     private int totalReviewCount = 0;
     private int totalWishlistCount = 0;
@@ -39,30 +36,32 @@ public class Shop extends TimeStamp {
     @Embedded
     @Valid
     private Address address;
+    private Long ownerMemberId;
 
     @OneToMany(mappedBy = "shop")
     private List<ShopImages> shopImages = new ArrayList<>();
 
+    // shop service 에도 item service 와 마찬가지로 item category 테이블을 보유
     @OneToMany(mappedBy = "shop")
-    private List<OrderShop> orderShopList = new ArrayList<>();
+    private List<ShopItemCategory> itemCategories = new ArrayList<>();
 
-    @OneToMany(mappedBy = "shop")
-    private List<ShopItemCategoryMiddleTable> shopCategoryMiddleTableList = new ArrayList<>();
+    /*@ElementCollection
+    @CollectionTable(name = "shop_main_events", joinColumns = @JoinColumn(name = "shop_id"))
+    @Column(name = "event_name")
+    private List<String> mainEvent;*/
 
-    @JoinColumn(name = "member_id")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Member member;
+    /*@ElementCollection
+    @CollectionTable(name = "shop_order_ids", joinColumns = @JoinColumn(name = "shop_id"))
+    @Column(name = "order_shop_id")
+    private List<Long> orderShopIdList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "shop")
-    private List<Review> reviewList = new ArrayList<>();
+    private List<Long> reviewIdList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "shop")
-    private List<Wishlist> wishlists = new ArrayList<>();
+    private List<Long> wishlists = new ArrayList<>();
 
-    @OneToMany(mappedBy = "shop")
-    private List<Bill> billList = new ArrayList<>();
+    private List<Long> billIdList = new ArrayList<>();*/
 
-    public Shop(String shopName, String shopDescription, List<ItemValue> mainEvent, Address address) {
+    public Shop(String shopName, String shopDescription, List<String> mainEvent, Address address) {
         this.shopName = shopName;
         this.shopDescription = shopDescription;
         this.mainEvent = mainEvent;
@@ -77,7 +76,7 @@ public class Shop extends TimeStamp {
         if (StringUtils.hasText(shopDescription)) this.shopDescription = shopDescription;
     }
 
-    public void changeMainEvent(List<ItemValue> mainEvent) {
+    public void changeMainEvent(List<String> mainEvent) {
         if (Objects.nonNull(mainEvent)) this.mainEvent = mainEvent;
     }
 
@@ -99,21 +98,20 @@ public class Shop extends TimeStamp {
         }
     }
 
-    public void addShop(Member member) {
-        if (Objects.nonNull(member)) {
-            member.getShopList().add(this);
-            this.member = member;
+    public void addOwnerMemberId(Long memberId) {
+        if (Objects.nonNull(memberId)) {
+            this.ownerMemberId = memberId;
         }
     }
 
-    public void addReview(Review review) {
-        if (Objects.nonNull(review)) {
+    /*public void addReview(Long reviewId) {
+        if (Objects.nonNull(reviewId)) {
             totalReviewCount++;
             totalGradeSum += review.getGrade();
             log.info("총 별점 점수 합={}", totalGradeSum);
             calculateAverageGrade();
         }
-    }
+    }*/
 
     public void updateReview(double existingGrade, double newGrade) {
         if (newGrade > 0) {
@@ -123,13 +121,13 @@ public class Shop extends TimeStamp {
         }
     }
 
-    public void deleteReview(Review review) {
-        if (Objects.nonNull(review)) {
+    /*public void deleteReview(Long reviewId) {
+        if (Objects.nonNull(reviewId)) {
             totalReviewCount--;
-            totalGradeSum -= review.getGrade();
+            totalGradeSum -= reviewId.getGrade();
             calculateAverageGrade();
         }
-    }
+    }*/
 
     public void minusTotalGradeSum(double grade) {
         totalGradeSum -= grade;

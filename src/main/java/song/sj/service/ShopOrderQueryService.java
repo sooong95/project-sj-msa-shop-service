@@ -1,3 +1,4 @@
+/*
 package song.sj.service;
 
 import lombok.RequiredArgsConstructor;
@@ -7,11 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import song.sj.dto.order.OrderHistoryDto;
 import song.sj.dto.order.OrderHistoryItemDto;
 import song.sj.dto.order.OrderHistoryShopDto;
-import song.sj.entity.Order;
-import song.sj.entity.OrderItem;
-import song.sj.entity.OrderShop;
-import song.sj.repository.ItemImageRepository;
-import song.sj.repository.OrderRepository;
 import song.sj.service.image.ImageFile;
 
 import java.util.List;
@@ -69,3 +65,4 @@ public class ShopOrderQueryService {
         );
     }
 }
+*/

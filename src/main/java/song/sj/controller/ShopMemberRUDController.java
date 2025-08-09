@@ -1,3 +1,4 @@
+/*
 package song.sj.controller;
 
 import jakarta.validation.Valid;
@@ -6,10 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import song.sj.dto.Result;
-import song.sj.dto.UpdateShopMemberDto;
 import song.sj.dto.member.ShopMemberSearchDto;
-import song.sj.service.MemberQueryService;
-import song.sj.service.MemberService;
 
 import java.util.List;
 
@@ -39,3 +37,4 @@ public class ShopMemberRUDController {
         return new ResponseEntity<>(memberQueryService.findShopMembers(), HttpStatus.OK);
     }
 }
+*/

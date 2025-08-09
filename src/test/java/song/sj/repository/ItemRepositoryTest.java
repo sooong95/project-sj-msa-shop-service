@@ -8,9 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-import song.sj.entity.ItemImages;
-import song.sj.entity.QItemImages;
-import song.sj.entity.item.QItem;
 
 import java.util.List;
 

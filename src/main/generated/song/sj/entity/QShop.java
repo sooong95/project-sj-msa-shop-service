@@ -28,25 +28,25 @@ public class QShop extends EntityPathBase<Shop> {
 
     public final NumberPath<Double> averageGrade = createNumber("averageGrade", Double.class);
 
-    public final ListPath<Bill, QBill> billList = this.<Bill, QBill>createList("billList", Bill.class, QBill.class, PathInits.DIRECT2);
+    public final ListPath<Long, NumberPath<Long>> billIdList = this.<Long, NumberPath<Long>>createList("billIdList", Long.class, NumberPath.class, PathInits.DIRECT2);
 
     //inherited
     public final DateTimePath<java.time.LocalDateTime> createdDate = _super.createdDate;
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
+    public final ListPath<ShopItemCategory, QShopItemCategory> itemCategories = this.<ShopItemCategory, QShopItemCategory>createList("itemCategories", ShopItemCategory.class, QShopItemCategory.class, PathInits.DIRECT2);
+
     //inherited
     public final DateTimePath<java.time.LocalDateTime> lastModifiedDate = _super.lastModifiedDate;
 
-    public final ListPath<song.sj.enums.ItemValue, EnumPath<song.sj.enums.ItemValue>> mainEvent = this.<song.sj.enums.ItemValue, EnumPath<song.sj.enums.ItemValue>>createList("mainEvent", song.sj.enums.ItemValue.class, EnumPath.class, PathInits.DIRECT2);
+    public final ListPath<String, StringPath> mainEvent = this.<String, StringPath>createList("mainEvent", String.class, StringPath.class, PathInits.DIRECT2);
 
-    public final QMember member;
+    public final ListPath<Long, NumberPath<Long>> orderShopIdList = this.<Long, NumberPath<Long>>createList("orderShopIdList", Long.class, NumberPath.class, PathInits.DIRECT2);
 
-    public final ListPath<OrderShop, QOrderShop> orderShopList = this.<OrderShop, QOrderShop>createList("orderShopList", OrderShop.class, QOrderShop.class, PathInits.DIRECT2);
+    public final NumberPath<Long> ownerMemberId = createNumber("ownerMemberId", Long.class);
 
-    public final ListPath<Review, QReview> reviewList = this.<Review, QReview>createList("reviewList", Review.class, QReview.class, PathInits.DIRECT2);
-
-    public final ListPath<ShopItemCategoryMiddleTable, QShopItemCategoryMiddleTable> shopCategoryMiddleTableList = this.<ShopItemCategoryMiddleTable, QShopItemCategoryMiddleTable>createList("shopCategoryMiddleTableList", ShopItemCategoryMiddleTable.class, QShopItemCategoryMiddleTable.class, PathInits.DIRECT2);
+    public final ListPath<Long, NumberPath<Long>> reviewIdList = this.<Long, NumberPath<Long>>createList("reviewIdList", Long.class, NumberPath.class, PathInits.DIRECT2);
 
     public final StringPath shopDescription = createString("shopDescription");
 
@@ -60,7 +60,7 @@ public class QShop extends EntityPathBase<Shop> {
 
     public final NumberPath<Integer> totalWishlistCount = createNumber("totalWishlistCount", Integer.class);
 
-    public final ListPath<Wishlist, QWishlist> wishlists = this.<Wishlist, QWishlist>createList("wishlists", Wishlist.class, QWishlist.class, PathInits.DIRECT2);
+    public final ListPath<Long, NumberPath<Long>> wishlists = this.<Long, NumberPath<Long>>createList("wishlists", Long.class, NumberPath.class, PathInits.DIRECT2);
 
     public QShop(String variable) {
         this(Shop.class, forVariable(variable), INITS);
@@ -81,7 +81,6 @@ public class QShop extends EntityPathBase<Shop> {
     public QShop(Class<? extends Shop> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.address = inits.isInitialized("address") ? new QAddress(forProperty("address")) : null;
-        this.member = inits.isInitialized("member") ? new QMember(forProperty("member"), inits.get("member")) : null;
     }
 
 }

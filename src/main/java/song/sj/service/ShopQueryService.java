@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import song.sj.dto.shop.ShopConditionSearchListDto;
 import song.sj.dto.shop.ShopSearchConditionDto;
-import song.sj.entity.Review;
 import song.sj.repository.ShopRepository;
 import song.sj.service.image.ImageFile;
 
@@ -29,8 +28,8 @@ public class ShopQueryService {
                         shop.getTotalReviewCount(),
                         shop.getTotalWishlistCount(),
                         shop.getAverageGrade(),
-                        shop.getMainEvent(),
-                        shop.getReviewList().stream().map(Review::getReviewTitle).limit(5).toList()
+                        shop.getMainEvent(), null
+                        /*shop.getReviewList().stream().map(Review::getReviewTitle).limit(5).toList()*/
                         )
                 );
     }

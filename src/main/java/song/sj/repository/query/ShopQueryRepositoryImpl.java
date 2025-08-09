@@ -15,10 +15,8 @@ import song.sj.entity.Shop;
 import java.util.List;
 import java.util.Map;
 
-import static song.sj.entity.QItemCategory.itemCategory;
 import static song.sj.entity.QShop.shop;
 import static song.sj.entity.QShopImages.shopImages;
-import static song.sj.entity.QShopItemCategoryMiddleTable.shopItemCategoryMiddleTable;
 
 @RequiredArgsConstructor
 public class ShopQueryRepositoryImpl implements ShopQueryRepository {
@@ -37,11 +35,11 @@ public class ShopQueryRepositoryImpl implements ShopQueryRepository {
     public Page<Shop> ShopConditionSearchList(ShopSearchConditionDto dto, Pageable pageable) {
         List<Shop> shopList = jpaQueryFactory
                 .selectFrom(shop)
-                .leftJoin(shop.shopCategoryMiddleTableList, shopItemCategoryMiddleTable)
-                .leftJoin(shopItemCategoryMiddleTable.itemCategory, itemCategory)
+                .leftJoin(shop.itemCategories)
+                /*.leftJoin(shopItemCategoryMiddleTable.itemCategory, itemCategory)*/
                 .leftJoin(shop.shopImages, shopImages)
                 .where(
-                        itemCategoryNameEq(dto.getShopItemCategoryName()),
+                        /*itemCategoryNameEq(dto.getItemCategoryName()),*/
                         gradeGte(dto.getGrade()),
                         reviewsGte(dto.getReviewsCount()),
                         wishlistCount(dto.getWishlistCount())
@@ -54,10 +52,9 @@ public class ShopQueryRepositoryImpl implements ShopQueryRepository {
         JPAQuery<Long> countQuery = jpaQueryFactory
                 .select(shop.count())
                 .from(shop)
-                .leftJoin(shop.shopCategoryMiddleTableList, shopItemCategoryMiddleTable)
-                .leftJoin(shopItemCategoryMiddleTable.itemCategory, itemCategory)
+                .leftJoin(shop.itemCategories)
                 .where(
-                        itemCategoryNameEq(dto.getShopItemCategoryName()),
+                        /*itemCategoryNameEq(dto.getItemCategoryName()),*/
                         gradeGte(dto.getGrade()),
                         reviewsGte(dto.getReviewsCount()),
                         wishlistCount(dto.getWishlistCount())
@@ -67,9 +64,9 @@ public class ShopQueryRepositoryImpl implements ShopQueryRepository {
         return PageableExecutionUtils.getPage(shopList, pageable, countQuery::fetchOne);
     }
 
-    private BooleanExpression itemCategoryNameEq(List<String> itemCategoryName) {
+    /*private BooleanExpression itemCategoryNameEq(List<String> itemCategoryName) {
         return itemCategoryName == null || itemCategoryName.isEmpty() ? null : itemCategory.itemCategoryName.in(itemCategoryName);
-    }
+    }*/
 
     private BooleanExpression gradeGte(double grade) {
         return grade > 0 ? shop.averageGrade.goe(grade) : null;

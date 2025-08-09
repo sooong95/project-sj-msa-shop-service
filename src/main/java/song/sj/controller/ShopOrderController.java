@@ -1,3 +1,4 @@
+/*
 package song.sj.controller;
 
 import lombok.RequiredArgsConstructor;
@@ -6,9 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import song.sj.dto.order.OrderHistoryDto;
-import song.sj.enums.OrderStatus;
 import song.sj.service.ShopOrderQueryService;
-import song.sj.service.ShopOrderService;
 
 @Slf4j
 @RestController
@@ -32,3 +31,4 @@ public class ShopOrderController {
         return new ResponseEntity<>("주문 상태가 변경 되었습니다.", HttpStatus.OK);
     }
 }
+*/

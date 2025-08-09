@@ -26,8 +26,8 @@ public class ShopController {
     private final ShopQueryService shopQueryService;
 
     @PostMapping("/shop")
-    public ResponseEntity<String> save(@RequestBody ShopSaveDto shopSaveDto) {
-        shopService.save(shopSaveDto);
+    public ResponseEntity<String> save(@RequestHeader("X-User-Id") Long userId, @RequestBody ShopSaveDto shopSaveDto) {
+        shopService.save(userId, shopSaveDto);
 
         return new ResponseEntity<>("Shop 등록이 완료 되었습니다.", HttpStatus.CREATED);
     }

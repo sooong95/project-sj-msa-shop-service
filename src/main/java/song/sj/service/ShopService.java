@@ -6,11 +6,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import song.sj.dto.feign_dto.ItemCategoryDto;
 import song.sj.dto.shop.ShopSaveDto;
+import song.sj.dto.shop_item_category.ShopItemCategorySaveDto;
 import song.sj.entity.*;
 import song.sj.repository.*;
+import song.sj.service.feign.ItemServiceFeign;
 import song.sj.service.image.ImageFile;
-import song.sj.service.toEntity.ToShop;
+import song.sj.service.to_entity.ToShop;
+import song.sj.service.to_entity.ToShopItemCategory;
 
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
@@ -25,37 +29,38 @@ public class ShopService {
     private final ShopRepository shopRepository;
     private final ImageFile imageFile;
     private final ShopImageRepository shopImageRepository;
-    private final MemberService memberService;
-    private final ShopItemCategoryMiddleTableServiceRepository shopItemCategoryMiddleTableServiceRepository;
-    private final ItemCategoryRepository itemCategoryRepository;
+    private final ItemServiceFeign itemServiceFeign;
+    private final ShopItemCategoryRepository shopItemCategoryRepository;
 
-    private void shopItemCategorySave(String itemCategoryName, Shop shop) {
+    private void shopItemCategorySave(List<String> itemCategoryNameList, Shop shop) {
+        // feign client 로 통신
+        List<ItemCategoryDto> itemCategoryDtoList =
+                itemServiceFeign.getItemCategoryNameList(itemCategoryNameList).getData();
 
-        ItemCategory itemCategory = itemCategoryRepository.findByItemCategoryName(itemCategoryName);
-        ShopItemCategoryMiddleTable shopItemCategoryMiddleTable = shopItemCategoryMiddleTableServiceRepository.save(new ShopItemCategoryMiddleTable(itemCategory, shop));
-
-        shopItemCategoryMiddleTable.addShop(shop);
-        shopItemCategoryMiddleTable.addShopItemCategory(itemCategory);
+        for (ItemCategoryDto itemCategoryDto : itemCategoryDtoList) {
+            shopItemCategoryRepository.save(ToShopItemCategory.toShopItemCategoryEntity(ShopItemCategorySaveDto.builder()
+                            .shopItemCategoryId(itemCategoryDto.getItemCategoryId())
+                            .shop(shop)
+                    .build()));
+        }
     }
 
-    public void save(ShopSaveDto shopSaveDto) {
+    public void save(Long userId, ShopSaveDto shopSaveDto) {
 
         Shop shop = ToShop.toShopEntity(shopSaveDto);
 
         shopRepository.save(shop);
 
-        shop.addShop(memberService.findMember(memberService.getMemberFromJwt().getEmail()));
+        shop.addOwnerMemberId(userId);
 
-        shopSaveDto.getMainEvent().forEach(value -> shopItemCategorySave(value.toString(), shop));
+        shopItemCategorySave(shopSaveDto.getMainEvent(), shop);
     }
 
-    public void saveShopImages(Long id, List<MultipartFile> files) throws AccessDeniedException {
+    public void saveShopImages(Long shopId, List<MultipartFile> files) throws AccessDeniedException {
 
-        List<Long> idList = memberService.getMemberFromJwt().getShopList().stream().map(Shop::getId).toList();
+        if (shopRepository.findById(shopId).isEmpty()) throw new AccessDeniedException("권한이 없습니다");
 
-        if (!idList.contains(id)) throw new AccessDeniedException("권한이 없습니다");
-
-        addShopImage(files, shopRepository.findById(id).orElseThrow());
+        addShopImage(files, shopRepository.findById(shopId).orElseThrow());
     }
 
     private void addShopImage(List<MultipartFile> files, Shop shop) {
