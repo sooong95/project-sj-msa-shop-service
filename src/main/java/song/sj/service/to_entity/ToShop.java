@@ -9,6 +9,6 @@ public class ToShop {
 
     public static Shop toShopEntity(ShopSaveDto dto) {
 
-        return new Shop(dto.getShopName(), dto.getShopDescription(), dto.getMainEvent(), dto.getAddress());
+        return new Shop(dto.getShopName(), dto.getShopDescription(), dto.getAddress());
     }
 }

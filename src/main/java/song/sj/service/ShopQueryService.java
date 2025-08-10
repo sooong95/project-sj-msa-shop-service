@@ -28,7 +28,7 @@ public class ShopQueryService {
                         shop.getTotalReviewCount(),
                         shop.getTotalWishlistCount(),
                         shop.getAverageGrade(),
-                        shop.getMainEvent(), null
+                        null
                         /*shop.getReviewList().stream().map(Review::getReviewTitle).limit(5).toList()*/
                         )
                 );

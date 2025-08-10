@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import song.sj.dto.feign_dto.ItemCategoryDto;
 import song.sj.dto.shop.ShopSaveDto;
 import song.sj.dto.shop_item_category.ShopItemCategorySaveDto;
 import song.sj.entity.*;
@@ -32,14 +31,14 @@ public class ShopService {
     private final ItemServiceFeign itemServiceFeign;
     private final ShopItemCategoryRepository shopItemCategoryRepository;
 
-    private void shopItemCategorySave(List<String> itemCategoryNameList, Shop shop) {
+    private void shopItemCategorySave(List<ItemCategory> itemCategoryNameList, Shop shop) {
         // feign client 로 통신
-        List<ItemCategoryDto> itemCategoryDtoList =
-                itemServiceFeign.getItemCategoryNameList(itemCategoryNameList).getData();
+        /*List<ItemCategoryDto> itemCategoryDtoList =
+                itemServiceFeign.getItemCategoryNameList(itemCategoryNameList).getData();*/
 
-        for (ItemCategoryDto itemCategoryDto : itemCategoryDtoList) {
+        for (ItemCategory itemCategory : itemCategoryNameList) {
             shopItemCategoryRepository.save(ToShopItemCategory.toShopItemCategoryEntity(ShopItemCategorySaveDto.builder()
-                            .shopItemCategoryId(itemCategoryDto.getItemCategoryId())
+                            .itemCategory(itemCategory)
                             .shop(shop)
                     .build()));
         }
@@ -53,7 +52,7 @@ public class ShopService {
 
         shop.addOwnerMemberId(userId);
 
-        shopItemCategorySave(shopSaveDto.getMainEvent(), shop);
+        shopItemCategorySave(shopSaveDto.getItemCategoryName(), shop);
     }
 
     public void saveShopImages(Long shopId, List<MultipartFile> files) throws AccessDeniedException {
@@ -89,9 +88,10 @@ public class ShopService {
 
     public void updateShop(Long id, ShopSaveDto dto) {
         Shop shop = shopRepository.findById(id).orElseThrow();
+        ShopItemCategory shopItemCategory = ShopItemCategory.builder().build();
         shop.changeShopName(dto.getShopName());
         shop.changeShopDescription(dto.getShopDescription());
-        shop.changeMainEvent(dto.getMainEvent());
+        dto.getItemCategoryName().stream().forEach(i -> shopItemCategory.addShopItemCategory(shop, i));
         shop.changeAddress(dto.getAddress());
     }
 }

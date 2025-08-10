@@ -38,3 +38,6 @@ spring :
       group-id: shop-group
       # 카프카내에 들어와 있는 메시지 중에 처음 들어와 있는 메시지부터 읽기 시작(latest: 현시점 이후로 들어오는 메시지만 read)
       auto-offset-reset: earliest
+
+file:
+  dir: /Users/song/Desktop/study/SPRING-PROJECT/image-file/

@@ -43,7 +43,7 @@ public class Shop extends TimeStamp {
 
     // shop service 에도 item service 와 마찬가지로 item category 테이블을 보유
     @OneToMany(mappedBy = "shop")
-    private List<ShopItemCategory> itemCategories = new ArrayList<>();
+    private List<ShopItemCategory> shopItemCategoryList = new ArrayList<>();
 
     /*@ElementCollection
     @CollectionTable(name = "shop_main_events", joinColumns = @JoinColumn(name = "shop_id"))
@@ -61,10 +61,9 @@ public class Shop extends TimeStamp {
 
     private List<Long> billIdList = new ArrayList<>();*/
 
-    public Shop(String shopName, String shopDescription, List<String> mainEvent, Address address) {
+    public Shop(String shopName, String shopDescription, Address address) {
         this.shopName = shopName;
         this.shopDescription = shopDescription;
-        this.mainEvent = mainEvent;
         this.address = address;
     }
 
@@ -76,9 +75,9 @@ public class Shop extends TimeStamp {
         if (StringUtils.hasText(shopDescription)) this.shopDescription = shopDescription;
     }
 
-    public void changeMainEvent(List<String> mainEvent) {
+    /*public void changeMainEvent(List<String> mainEvent) {
         if (Objects.nonNull(mainEvent)) this.mainEvent = mainEvent;
-    }
+    }*/
 
     public void changeAddress(Address address) {
         if (Objects.nonNull(address)) this.address = address;

@@ -8,7 +8,7 @@ public class ToShopItemCategory {
     public static ShopItemCategory toShopItemCategoryEntity(ShopItemCategorySaveDto shopItemCategorySaveDto) {
         return ShopItemCategory.builder()
                 .shop(shopItemCategorySaveDto.getShop())
-                .itemCategoryId(shopItemCategorySaveDto.getShopItemCategoryId())
+                .itemCategory(shopItemCategorySaveDto.getItemCategory())
                 .build();
     }
 }

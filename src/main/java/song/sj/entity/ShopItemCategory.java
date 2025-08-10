@@ -15,17 +15,17 @@ public class ShopItemCategory {
     @Column(name = "shop_item_id")
     private Long id;
 
-    @Column(nullable = false)
+    @JoinColumn(name = "shop_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Shop shop;
-    @Column(nullable = false)
-    private Long itemCategoryId;
 
-    public void addShop(Shop shop) {
+    @JoinColumn(name = "item_category_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    private ItemCategory itemCategory;
+
+    public void addShopItemCategory(Shop shop, ItemCategory itemCategory) {
         this.shop = shop;
-        shop.getItemCategories().add(this);
-    }
-
-    public void addItemCategory(Long itemCategoryId) {
-        this.itemCategoryId = itemCategoryId;
+        this.itemCategory = itemCategory;
+        shop.getShopItemCategoryList().add(this);
     }
 }

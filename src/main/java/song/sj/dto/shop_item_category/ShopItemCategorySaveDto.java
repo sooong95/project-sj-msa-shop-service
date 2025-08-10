@@ -2,6 +2,7 @@ package song.sj.dto.shop_item_category;
 
 import lombok.Builder;
 import lombok.Data;
+import song.sj.entity.ItemCategory;
 import song.sj.entity.Shop;
 
 @Data
@@ -9,5 +10,5 @@ import song.sj.entity.Shop;
 public class ShopItemCategorySaveDto {
 
     private Shop shop;
-    private Long shopItemCategoryId;
+    private ItemCategory itemCategory;
 }

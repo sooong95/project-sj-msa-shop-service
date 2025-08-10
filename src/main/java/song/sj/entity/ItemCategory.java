@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 import song.sj.TimeStamp;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -17,6 +20,9 @@ public class ItemCategory extends TimeStamp {
     private Long id;
 
     private String itemCategoryName;
+
+    @OneToMany(mappedBy = "itemCategory")
+    private List<ShopItemCategory> shopItemCategoryList = new ArrayList<>();
 
     @JoinColumn(name = "parent_id")
     @ManyToOne(fetch = FetchType.LAZY)

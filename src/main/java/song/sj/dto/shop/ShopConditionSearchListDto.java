@@ -16,6 +16,5 @@ public class ShopConditionSearchListDto {
     private int reviewsCount;
     private int wishlistCount;
     private double grade;
-    private List<String> mainEvent;
     private List<String> reviewTitleList;
 }

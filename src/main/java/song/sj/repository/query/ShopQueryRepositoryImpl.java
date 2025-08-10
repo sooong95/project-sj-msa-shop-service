@@ -35,7 +35,7 @@ public class ShopQueryRepositoryImpl implements ShopQueryRepository {
     public Page<Shop> ShopConditionSearchList(ShopSearchConditionDto dto, Pageable pageable) {
         List<Shop> shopList = jpaQueryFactory
                 .selectFrom(shop)
-                .leftJoin(shop.itemCategories)
+                .leftJoin(shop.shopItemCategoryList)
                 /*.leftJoin(shopItemCategoryMiddleTable.itemCategory, itemCategory)*/
                 .leftJoin(shop.shopImages, shopImages)
                 .where(
@@ -52,7 +52,7 @@ public class ShopQueryRepositoryImpl implements ShopQueryRepository {
         JPAQuery<Long> countQuery = jpaQueryFactory
                 .select(shop.count())
                 .from(shop)
-                .leftJoin(shop.itemCategories)
+                .leftJoin(shop.shopItemCategoryList)
                 .where(
                         /*itemCategoryNameEq(dto.getItemCategoryName()),*/
                         gradeGte(dto.getGrade()),

@@ -13,7 +13,7 @@ import java.util.List;
 public class ShopListAllDto {
 
     private String shopName;
-    private List<String> mainEvent;
+    private List<String> itemCategoryName;
 
     private int totalReviewsCount;
     private int totalWishlistCount;
