@@ -46,11 +46,6 @@ public class Shop extends TimeStamp {
     private List<ShopItemCategory> shopItemCategoryList = new ArrayList<>();
 
     /*@ElementCollection
-    @CollectionTable(name = "shop_main_events", joinColumns = @JoinColumn(name = "shop_id"))
-    @Column(name = "event_name")
-    private List<String> mainEvent;*/
-
-    /*@ElementCollection
     @CollectionTable(name = "shop_order_ids", joinColumns = @JoinColumn(name = "shop_id"))
     @Column(name = "order_shop_id")
     private List<Long> orderShopIdList = new ArrayList<>();
@@ -74,10 +69,6 @@ public class Shop extends TimeStamp {
     public void changeShopDescription(String shopDescription) {
         if (StringUtils.hasText(shopDescription)) this.shopDescription = shopDescription;
     }
-
-    /*public void changeMainEvent(List<String> mainEvent) {
-        if (Objects.nonNull(mainEvent)) this.mainEvent = mainEvent;
-    }*/
 
     public void changeAddress(Address address) {
         if (Objects.nonNull(address)) this.address = address;

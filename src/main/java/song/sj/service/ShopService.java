@@ -30,15 +30,16 @@ public class ShopService {
     private final ShopImageRepository shopImageRepository;
     private final ItemServiceFeign itemServiceFeign;
     private final ShopItemCategoryRepository shopItemCategoryRepository;
+    private final ItemCategoryRepository itemCategoryRepository;
 
     private void shopItemCategorySave(List<ItemCategory> itemCategoryNameList, Shop shop) {
-        // feign client 로 통신
-        /*List<ItemCategoryDto> itemCategoryDtoList =
-                itemServiceFeign.getItemCategoryNameList(itemCategoryNameList).getData();*/
 
         for (ItemCategory itemCategory : itemCategoryNameList) {
+
+            ItemCategory findItemCategory = itemCategoryRepository.findByItemCategoryName(itemCategory.getItemCategoryName());
+
             shopItemCategoryRepository.save(ToShopItemCategory.toShopItemCategoryEntity(ShopItemCategorySaveDto.builder()
-                            .itemCategory(itemCategory)
+                            .itemCategory(findItemCategory)
                             .shop(shop)
                     .build()));
         }

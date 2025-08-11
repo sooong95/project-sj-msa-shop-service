@@ -19,7 +19,7 @@ public class ShopItemCategory {
     @ManyToOne(fetch = FetchType.LAZY)
     private Shop shop;
 
-    @JoinColumn(name = "item_category_id", nullable = false)
+    @JoinColumn(name = "item_category_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private ItemCategory itemCategory;
 

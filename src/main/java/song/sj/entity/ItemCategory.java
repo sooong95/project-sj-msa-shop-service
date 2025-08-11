@@ -21,6 +21,7 @@ public class ItemCategory extends TimeStamp {
 
     private String itemCategoryName;
 
+    @Builder.Default
     @OneToMany(mappedBy = "itemCategory")
     private List<ShopItemCategory> shopItemCategoryList = new ArrayList<>();
 
