@@ -16,6 +16,8 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @Slf4j
 @Entity
 @Getter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Shop extends TimeStamp {
 
