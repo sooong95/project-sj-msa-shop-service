@@ -1,4 +1,4 @@
-package song.sj.dto.feign_dto;
+package song.sj.dto.feign_dto.item;
 
 import lombok.Data;
 

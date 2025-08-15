@@ -47,6 +47,9 @@ public class Shop extends TimeStamp {
     @OneToMany(mappedBy = "shop")
     private List<ShopItemCategory> shopItemCategoryList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "shop")
+    private List<ShopOrder> shopOrderList = new ArrayList<>();
+
     /*@ElementCollection
     @CollectionTable(name = "shop_order_ids", joinColumns = @JoinColumn(name = "shop_id"))
     @Column(name = "order_shop_id")
