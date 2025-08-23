@@ -34,7 +34,7 @@ public class ShopOrder {
     private OrderStatus orderStatus;
 
     @Builder.Default
-    @OneToMany(mappedBy = "ShopOrder")
+    @OneToMany(mappedBy = "shopOrder")
     private List<ShopOrderItem> shopOrderItemList = new ArrayList<>();
 
     public void assignShopOrder(Shop shop) {
