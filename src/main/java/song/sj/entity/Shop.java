@@ -99,14 +99,12 @@ public class Shop extends TimeStamp {
         }
     }
 
-    /*public void addReview(Long reviewId) {
-        if (Objects.nonNull(reviewId)) {
-            totalReviewCount++;
-            totalGradeSum += review.getGrade();
-            log.info("총 별점 점수 합={}", totalGradeSum);
-            calculateAverageGrade();
-        }
-    }*/
+    public void addReview(double grade) {
+        totalReviewCount++;
+        totalGradeSum += grade;
+        log.info("총 별점 점수 합={}", totalGradeSum);
+        calculateAverageGrade();
+    }
 
     public void updateReview(double existingGrade, double newGrade) {
         if (newGrade > 0) {
@@ -116,13 +114,11 @@ public class Shop extends TimeStamp {
         }
     }
 
-    /*public void deleteReview(Long reviewId) {
-        if (Objects.nonNull(reviewId)) {
-            totalReviewCount--;
-            totalGradeSum -= reviewId.getGrade();
-            calculateAverageGrade();
-        }
-    }*/
+    public void deleteReview(double grade) {
+        totalReviewCount--;
+        totalGradeSum -= grade;
+        calculateAverageGrade();
+    }
 
     public void minusTotalGradeSum(double grade) {
         totalGradeSum -= grade;

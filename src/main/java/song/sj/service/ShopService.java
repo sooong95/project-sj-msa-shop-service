@@ -184,5 +184,7 @@ public class ShopService {
             log.error("[Kafka] Failed to cancel order from message: {}", message, e);
         }
     }
+
+
 }
 
