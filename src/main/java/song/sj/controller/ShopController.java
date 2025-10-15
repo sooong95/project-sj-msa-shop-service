@@ -8,10 +8,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import song.sj.dto.PageResponseDto;
 import song.sj.dto.shop.ShopConditionSearchListDto;
 import song.sj.dto.shop.ShopSaveDto;
 import song.sj.dto.shop.ShopSearchConditionDto;
-import song.sj.service.ShopQueryService;
+import song.sj.service.query.ShopQueryServiceImpl;
 import song.sj.service.ShopService;
 
 import java.nio.file.AccessDeniedException;
@@ -23,7 +24,7 @@ import java.util.List;
 public class ShopController {
 
     private final ShopService shopService;
-    private final ShopQueryService shopQueryService;
+    private final ShopQueryServiceImpl shopQueryService;
 
     @PostMapping("/shop")
     public ResponseEntity<String> save(@RequestHeader("X-User-Id") Long userId, @RequestBody ShopSaveDto shopSaveDto) {
@@ -52,8 +53,8 @@ public class ShopController {
         return new ResponseEntity<>("이미지가 성공적으로 삭제 되었습니다.", HttpStatus.OK);
     }
 
-    @GetMapping("/shopSearch")
-    public ResponseEntity<Page<ShopConditionSearchListDto>> ShopConditionSearchList(
+    @PostMapping("/shopSearch")
+    public ResponseEntity<PageResponseDto<ShopConditionSearchListDto>> ShopConditionSearchList(
             @RequestBody ShopSearchConditionDto shopSearchConditionDto,
             Pageable pageable) {
         return new ResponseEntity<>(shopQueryService.ShopConditionSearchList(shopSearchConditionDto, pageable), HttpStatus.OK);
